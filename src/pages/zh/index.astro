@@ -16,7 +16,7 @@ import { zh as t } from '../../content/site.zh';
       <div class="mb-8 animate-[fadeIn_1s_ease]">
         <img src="/assets/source-lockup.jpg" alt="ZeroWall Science" class="w-48 h-48 sm:w-56 sm:h-56 mx-auto rounded-3xl shadow-pop object-contain drop-shadow-[0_0_40px_var(--accent-glow)]" />
       </div>
-      <h1 class="text-[clamp(2.5rem,6vw,4.5rem)] font-extrabold leading-[1.1] tracking-tight bg-gradient-to-br from-text to-accent bg-clip-text text-transparent mb-5 animate-[fadeUp_0.8s_ease]">
+      <h1 class="text-[clamp(2.5rem,6vw,4.5rem)] font-extrabold leading-[1.1] tracking-tight bg-clip-text text-transparent mb-5 animate-[fadeUp_0.8s_ease] bg-[linear-gradient(110deg,var(--text),var(--hero-gradient-1),var(--hero-gradient-2),var(--hero-gradient-1),var(--text))] bg-[length:250%_auto] [animation:fadeUp_0.8s_ease,flowGradient_8s_linear_infinite]">
         {t.hero.title}
       </h1>
       <p class="text-[clamp(1rem,2vw,1.25rem)] text-muted max-w-[600px] mx-auto mb-9 leading-relaxed animate-[fadeUp_1s_ease]">
@@ -253,5 +253,12 @@ import { zh as t } from '../../content/site.zh';
   @keyframes float {
     0%, 100% { transform: translateY(0px); }
     50% { transform: translateY(-20px); }
+  }
+  @keyframes flowGradient {
+    0% { background-position: 0% center; }
+    100% { background-position: 250% center; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    h1[class*="flowGradient"] { animation: fadeUp 0.8s ease !important; }
   }
 </style>
