@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZeroWall Science — Science Without Walls</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Source+Serif+4:wght@400;600&display=swap" rel="stylesheet">
+<style>
+/* === Design Tokens (from desktop app) === */
+:root {
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-serif: 'Source Serif 4', Georgia, serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  --radius-card: 14px;
+  --radius-input: 10px;
+  --shadow-card: 0 1px 2px rgba(40,39,35,0.04), 0 4px 16px rgba(40,39,35,0.05);
+  --shadow-pop: 0 8px 30px rgba(40,39,35,0.14);
+  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Light theme */
+[data-theme="light"] {
+  --bg: #ffffff;
+  --bg-gradient: linear-gradient(180deg, #f8f9fc 0%, #ffffff 40%);
+  --surface: #ffffff;
+  --surface-2: #f4f4f6;
+  --surface-glass: rgba(255,255,255,0.72);
+  --border: #e6e6ea;
+  --border-faint: #f0f0f3;
+  --text: #1f1f24;
+  --muted: #6b6b76;
+  --accent: #2563eb;
+  --accent-fg: #ffffff;
+  --accent-glow: rgba(37,99,235,0.15);
+  --link: #2a6fdb;
+  --hero-particle: rgba(37,99,235,0.6);
+  --hero-line: rgba(37,99,235,0.12);
+  --hero-gradient-1: #2563eb;
+  --hero-gradient-2: #7c3aed;
+  --card-hover-bg: #f8faff;
+  --code-bg: #f4f4f6;
+}
+
+/* Dark theme (科技黑) */
+[data-theme="dark"] {
+  --bg: #0a0a0f;
+  --bg-gradient: linear-gradient(180deg, #0d0d14 0%, #0a0a0f 40%);
+  --surface: #141419;
+  --surface-2: #1c1c24;
+  --surface-glass: rgba(20,20,25,0.82);
+  --border: #2a2a36;
+  --border-faint: #1e1e28;
+  --text: #ece9e2;
+  --muted: #8a8a93;
+  --accent: #4d9df6;
+  --accent-fg: #0a0a0f;
+  --accent-glow: rgba(77,157,246,0.2);
+  --link: #7aa5f0;
+  --hero-particle: rgba(77,157,246,0.8);
+  --hero-line: rgba(77,157,246,0.15);
+  --hero-gradient-1: #4d9df6;
+  --hero-gradient-2: #9085e9;
+  --card-hover-bg: #1a1a24;
+  --code-bg: #1c1c24;
+}
+
+/* === Reset & Base === */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-sans);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  overflow-x: hidden;
+  transition: background var(--transition), color var(--transition);
+}
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+img { max-width: 100%; height: auto; display: block; }
+
+/* === Layout === */
+.container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+section { padding: 100px 0; position: relative; }
+
+/* === Nav === */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: var(--surface-glass);
+  backdrop-filter: blur(20px) saturate(1.8);
+  -webkit-backdrop-filter: blur(20px) saturate(1.8);
+  border-bottom: 1px solid var(--border-faint);
+  transition: background var(--transition), border-color var(--transition);
+}
+.nav-inner {
+  max-width: 1200px; margin: 0 auto; padding: 0 24px;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 64px;
+}
+.nav-brand {
+  display: flex; align-items: center; gap: 10px;
+  font-weight: 700; font-size: 18px; color: var(--text);
+}
+.nav-brand svg { width: 28px; height: 28px; }
+.nav-links { display: flex; align-items: center; gap: 24px; }
+.nav-links a { color: var(--muted); font-size: 14px; font-weight: 500; transition: color var(--transition); }
+.nav-links a:hover { color: var(--text); text-decoration: none; }
+.nav-controls { display: flex; align-items: center; gap: 12px; }
+.btn-icon {
+  width: 36px; height: 36px; border-radius: 8px; border: 1px solid var(--border);
+  background: var(--surface); color: var(--muted); cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all var(--transition); font-size: 16px;
+}
+.btn-icon:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-glow); }
+.lang-toggle {
+  font-size: 12px; font-weight: 600; width: auto; padding: 0 10px;
+  font-family: var(--font-sans);
+}
+
+/* === Hero === */
+.hero {
+  position: relative; min-height: 100vh;
+  display: flex; align-items: center; justify-content: center;
+  padding-top: 64px; overflow: hidden;
+}
+.hero-canvas {
+  position: absolute; inset: 0; z-index: 0;
+}
+.hero-gradient {
+  position: absolute; top: -40%; left: 50%; transform: translateX(-50%);
+  width: 120%; height: 80%; border-radius: 50%;
+  background: radial-gradient(ellipse, var(--accent-glow) 0%, transparent 70%);
+  opacity: 0.6; filter: blur(80px); pointer-events: none;
+  animation: heroGlow 8s ease-in-out infinite alternate;
+}
+@keyframes heroGlow {
+  0% { opacity: 0.4; transform: translateX(-50%) scale(1); }
+  100% { opacity: 0.7; transform: translateX(-50%) scale(1.15); }
+}
+.hero-content {
+  position: relative; z-index: 2; text-align: center;
+  max-width: 800px; padding: 0 24px;
+}
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 6px 16px; border-radius: 20px;
+  background: var(--accent-glow); border: 1px solid var(--accent);
+  font-size: 13px; font-weight: 500; color: var(--accent);
+  margin-bottom: 24px;
+}
+.hero-badge::before { content: '🏆'; }
+.hero h1 {
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 800; line-height: 1.1;
+  letter-spacing: -0.03em;
+  background: linear-gradient(135deg, var(--text) 30%, var(--accent) 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 20px;
+}
+.hero-sub {
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  color: var(--muted); max-width: 600px; margin: 0 auto 36px;
+  line-height: 1.7;
+}
+.hero-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+.btn {
+  padding: 14px 28px; border-radius: var(--radius-input); font-weight: 600;
+  font-size: 15px; cursor: pointer; transition: all var(--transition);
+  border: none; display: inline-flex; align-items: center; gap: 8px;
+}
+.btn-primary {
+  background: var(--accent); color: var(--accent-fg);
+  box-shadow: 0 4px 16px var(--accent-glow);
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px var(--accent-glow); text-decoration: none; }
+.btn-secondary {
+  background: var(--surface-2); color: var(--text); border: 1px solid var(--border);
+}
+.btn-secondary:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
+.hero-stats {
+  display: flex; justify-content: center; gap: 48px; margin-top: 64px;
+  padding-top: 32px; border-top: 1px solid var(--border-faint);
+}
+.hero-stat { text-align: center; }
+.hero-stat-value {
+  font-size: 2rem; font-weight: 800; color: var(--accent);
+  font-family: var(--font-mono);
+}
+.hero-stat-label { font-size: 13px; color: var(--muted); margin-top: 4px; }
+
+/* === Section Headers === */
+.section-header { text-align: center; margin-bottom: 60px; }
+.section-tag {
+  display: inline-block; padding: 4px 12px; border-radius: 12px;
+  background: var(--accent-glow); color: var(--accent);
+  font-size: 12px; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 0.08em; margin-bottom: 16px;
+}
+.section-header h2 {
+  font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 700;
+  letter-spacing: -0.02em; margin-bottom: 16px;
+}
+.section-header p { color: var(--muted); font-size: 1.1rem; max-width: 600px; margin: 0 auto; }
+
+/* === Research Loop === */
+.loop-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px;
+  border-radius: var(--radius-card); overflow: hidden;
+}
+.loop-step {
+  background: var(--surface); padding: 32px 24px; text-align: center;
+  position: relative; transition: background var(--transition);
+}
+.loop-step:hover { background: var(--card-hover-bg); }
+.loop-step-number {
+  width: 40px; height: 40px; border-radius: 50%; margin: 0 auto 16px;
+  background: var(--accent-glow); color: var(--accent);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 16px;
+}
+.loop-step h3 { font-size: 1rem; font-weight: 600; margin-bottom: 8px; }
+.loop-step p { font-size: 0.85rem; color: var(--muted); line-height: 1.5; }
+.loop-arrow {
+  position: absolute; right: -12px; top: 50%; transform: translateY(-50%);
+  color: var(--accent); font-size: 18px; z-index: 1;
+}
+
+/* === Features Grid === */
+.features-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;
+}
+.feature-card {
+  background: var(--surface); border: 1px solid var(--border-faint);
+  border-radius: var(--radius-card); padding: 28px;
+  transition: all var(--transition); position: relative; overflow: hidden;
+}
+.feature-card:hover {
+  border-color: var(--accent); transform: translateY(-4px);
+  box-shadow: 0 12px 40px var(--accent-glow);
+}
+.feature-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--hero-gradient-1), var(--hero-gradient-2));
+  opacity: 0; transition: opacity var(--transition);
+}
+.feature-card:hover::before { opacity: 1; }
+.feature-icon {
+  width: 44px; height: 44px; border-radius: 10px; margin-bottom: 16px;
+  background: var(--accent-glow); display: flex; align-items: center; justify-content: center;
+  font-size: 22px;
+}
+.feature-card h3 { font-size: 1rem; font-weight: 600; margin-bottom: 8px; }
+.feature-card p { font-size: 0.875rem; color: var(--muted); line-height: 1.6; }
+
+/* === Architecture === */
+.arch-container {
+  background: var(--surface); border: 1px solid var(--border-faint);
+  border-radius: var(--radius-card); padding: 48px;
+  position: relative; overflow: hidden;
+}
+.arch-layers {
+  display: flex; flex-direction: column; gap: 12px;
+  max-width: 700px; margin: 0 auto;
+}
+.arch-layer {
+  display: flex; align-items: center; gap: 16px;
+  padding: 16px 24px; border-radius: var(--radius-input);
+  border: 1px solid var(--border); transition: all var(--transition);
+}
+.arch-layer:hover { border-color: var(--accent); background: var(--accent-glow); }
+.arch-layer-icon {
+  width: 36px; height: 36px; border-radius: 8px; flex-shrink: 0;
+  background: var(--accent-glow); display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+}
+.arch-layer-name { font-weight: 600; font-size: 0.95rem; }
+.arch-layer-desc { font-size: 0.82rem; color: var(--muted); margin-top: 2px; }
+.arch-divider {
+  text-align: center; font-size: 11px; color: var(--muted);
+  text-transform: uppercase; letter-spacing: 0.1em;
+  padding: 4px 0; position: relative;
+}
+.arch-divider::before, .arch-divider::after {
+  content: ''; position: absolute; top: 50%; height: 1px;
+  width: calc(50% - 60px); background: var(--border);
+}
+.arch-divider::before { left: 0; }
+.arch-divider::after { right: 0; }
+
+/* === Showcase === */
+.showcase-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;
+}
+.showcase-item {
+  border-radius: var(--radius-card); overflow: hidden;
+  border: 1px solid var(--border-faint);
+  transition: all var(--transition);
+}
+.showcase-item:hover { border-color: var(--accent); transform: scale(1.02); }
+.showcase-item img { width: 100%; height: auto; }
+.showcase-item figcaption {
+  padding: 12px 16px; font-size: 0.85rem; color: var(--muted);
+  background: var(--surface);
+}
+
+/* === Downloads === */
+.download-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+}
+.download-card {
+  background: var(--surface); border: 1px solid var(--border-faint);
+  border-radius: var(--radius-card); padding: 32px; text-align: center;
+  transition: all var(--transition);
+}
+.download-card:hover { border-color: var(--accent); transform: translateY(-4px); box-shadow: var(--shadow-pop); }
+.download-card-icon { font-size: 40px; margin-bottom: 16px; }
+.download-card h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 8px; }
+.download-card .version { font-family: var(--font-mono); font-size: 0.85rem; color: var(--accent); margin-bottom: 12px; }
+.download-card .dl-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 10px 20px; border-radius: var(--radius-input);
+  background: var(--accent); color: var(--accent-fg);
+  font-weight: 600; font-size: 0.85rem; transition: all var(--transition);
+}
+.download-card .dl-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px var(--accent-glow); text-decoration: none; }
+.download-card .dl-note { font-size: 0.75rem; color: var(--muted); margin-top: 12px; line-height: 1.5; }
+.download-source {
+  text-align: center; margin-top: 32px; padding: 20px;
+  border: 1px dashed var(--border); border-radius: var(--radius-input);
+}
+.download-source code {
+  font-family: var(--font-mono); font-size: 0.85rem;
+  background: var(--code-bg); padding: 2px 8px; border-radius: 4px;
+}
+
+/* === Footer === */
+.footer {
+  border-top: 1px solid var(--border-faint); padding: 48px 0;
+  text-align: center; color: var(--muted); font-size: 0.85rem;
+}
+.footer-links { display: flex; justify-content: center; gap: 24px; margin-bottom: 16px; flex-wrap: wrap; }
+.footer-links a { color: var(--muted); }
+.footer-links a:hover { color: var(--accent); }
+
+/* === Responsive === */
+@media (max-width: 900px) {
+  .loop-grid { grid-template-columns: repeat(2, 1fr); }
+  .download-grid { grid-template-columns: 1fr; }
+  .showcase-grid { grid-template-columns: 1fr; }
+  .hero-stats { gap: 24px; }
+  .nav-links { display: none; }
+}
+@media (max-width: 600px) {
+  .loop-grid { grid-template-columns: 1fr; }
+  section { padding: 60px 0; }
+  .hero h1 { font-size: 2rem; }
+  .hero-stats { flex-direction: column; gap: 16px; }
+  .arch-container { padding: 24px 16px; }
+}
+
+/* === Animations === */
+@media (prefers-reduced-motion: no-preference) {
+  .fade-up {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .fade-up { opacity: 1; transform: none; }
+}
+</style>
+</head>
+<body>
+<!-- Navigation -->
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-brand">
+      <svg viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="14" stroke="var(--accent)" stroke-width="2"/><path d="M10 16h12M16 10v12" stroke="var(--accent)" stroke-width="2" stroke-linecap="round"/><circle cx="16" cy="16" r="4" fill="var(--accent)" opacity="0.3"/></svg>
+      ZeroWall Science
+    </div>
+    <div class="nav-links">
+      <a href="#features" data-i18n="nav.features">Features</a>
+      <a href="#architecture" data-i18n="nav.arch">Architecture</a>
+      <a href="#showcase" data-i18n="nav.showcase">Showcase</a>
+      <a href="#download" data-i18n="nav.download">Download</a>
+    </div>
+    <div class="nav-controls">
+      <button class="btn-icon lang-toggle" onclick="toggleLang()" title="切换语言">EN</button>
+      <button class="btn-icon theme-toggle" onclick="toggleTheme()" title="Toggle theme">
+        <span class="theme-icon">☀️</span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero" id="hero">
+  <canvas class="hero-canvas" id="heroCanvas"></canvas>
+  <div class="hero-gradient"></div>
+  <div class="hero-content fade-up">
+    <div class="hero-badge" data-i18n="hero.badge">#1 on ResearchClawBench</div>
+    <h1 data-i18n="hero.title">Science Without Walls</h1>
+    <p class="hero-sub" data-i18n="hero.sub">Local-first, model-agnostic AI research workbench. Run the entire research loop — from exploration to publication — in one auditable desktop session.</p>
+    <div class="hero-actions">
+      <a href="#download" class="btn btn-primary" data-i18n="hero.cta">⬇ Download Free</a>
+      <a href="https://github.com/ccfwwm/zerowallscience" class="btn btn-secondary" target="_blank">GitHub →</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="hero-stat-value">7</div><div class="hero-stat-label" data-i18n="hero.stat1">Languages</div></div>
+      <div class="hero-stat"><div class="hero-stat-value">3</div><div class="hero-stat-label" data-i18n="hero.stat2">Platforms</div></div>
+      <div class="hero-stat"><div class="hero-stat-value">MIT</div><div class="hero-stat-label" data-i18n="hero.stat3">License</div></div>
+      <div class="hero-stat"><div class="hero-stat-value">v0.3.4</div><div class="hero-stat-label" data-i18n="hero.stat4">Latest</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- Research Loop -->
+<section id="loop">
+  <div class="container">
+    <div class="section-header fade-up">
+      <span class="section-tag" data-i18n="loop.tag">Research Loop</span>
+      <h2 data-i18n="loop.title">From Idea to Paper, Autonomously</h2>
+      <p data-i18n="loop.sub">One meta-skill drives four stages — each produces real, inspectable artifacts, not just chat replies.</p>
+    </div>
+    <div class="loop-grid fade-up">
+      <div class="loop-step">
+        <div class="loop-step-number">1</div>
+        <h3 data-i18n="loop.s1.title">Explore</h3>
+        <p data-i18n="loop.s1.desc">Turn a broad research direction into concrete topics, hypotheses, and a pre-survey.</p>
+        <span class="loop-arrow">→</span>
+      </div>
+      <div class="loop-step">
+        <div class="loop-step-number">2</div>
+        <h3 data-i18n="loop.s2.title">Survey</h3>
+        <p data-i18n="loop.s2.desc">Produce a 6–20 page PDF literature review with 60+ real, verified citations.</p>
+        <span class="loop-arrow">→</span>
+      </div>
+      <div class="loop-step">
+        <div class="loop-step-number">3</div>
+        <h3 data-i18n="loop.s3.title">Experiment</h3>
+        <p data-i18n="loop.s3.desc">Design docs, runnable code, results with provenance, figures, and analysis reports.</p>
+        <span class="loop-arrow">→</span>
+      </div>
+      <div class="loop-step">
+        <div class="loop-step-number">4</div>
+        <h3 data-i18n="loop.s4.title">Write</h3>
+        <p data-i18n="loop.s4.desc">8–14 page research paper, 200+ citations, 4–8 figures — publication-grade output.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Features -->
+<section id="features">
+  <div class="container">
+    <div class="section-header fade-up">
+      <span class="section-tag" data-i18n="feat.tag">Key Features</span>
+      <h2 data-i18n="feat.title">Built for Real Research</h2>
+      <p data-i18n="feat.sub">Every feature designed to accelerate scientific work while keeping you in control.</p>
+    </div>
+    <div class="features-grid fade-up">
+      <div class="feature-card">
+        <div class="feature-icon">🤖</div>
+        <h3 data-i18n="feat.f1.title">Autonomous Agents</h3>
+        <p data-i18n="feat.f1.desc">The bundled ai4s-agent chains specialist skills end to end — explore, survey, experiment, write — producing inspectable artifacts at every stage.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔗</div>
+        <h3 data-i18n="feat.f2.title">Full Provenance</h3>
+        <p data-i18n="feat.f2.desc">Every figure, table, and report links back to the exact code, inputs, environment, model output, and conversation that produced it.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🏠</div>
+        <h3 data-i18n="feat.f3.title">Local-First</h3>
+        <p data-i18n="feat.f3.desc">Sessions, data, provenance, notebooks, and run records live in local folders on your machine. Nothing leaves by default.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔌</div>
+        <h3 data-i18n="feat.f4.title">Model-Agnostic</h3>
+        <p data-i18n="feat.f4.desc">Bring your own model. The runtime talks through a clean SDK layer — providers, skills, and MCP servers stay pluggable.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔬</div>
+        <h3 data-i18n="feat.f5.title">Reproducible Runs</h3>
+        <p data-i18n="feat.f5.desc">Local, SSH/Slurm, Modal, and notebook-batch runs are captured as reproducible run records, not loose terminal scrollback.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📱</div>
+        <h3 data-i18n="feat.f6.title">Access Anywhere</h3>
+        <p data-i18n="feat.f6.desc">A token-authenticated gateway serves the real UI to your phone or LAN browser. Start a run at your desk, check it on your phone.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🌐</div>
+        <h3 data-i18n="feat.f7.title">Browser Control</h3>
+        <p data-i18n="feat.f7.desc">Drive your own Chrome — profile and logins intact — to read the live web the way you do, or an isolated private browser on demand.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🧩</div>
+        <h3 data-i18n="feat.f8.title">Extensible</h3>
+        <p data-i18n="feat.f8.desc">Agent skills, MCP servers, one-click science connectors (arXiv, PubMed, Crossref, Materials Project…), slash commands, and shell mode.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Architecture -->
+<section id="architecture">
+  <div class="container">
+    <div class="section-header fade-up">
+      <span class="section-tag" data-i18n="arch.tag">Architecture</span>
+      <h2 data-i18n="arch.title">Clean Layered Design</h2>
+      <p data-i18n="arch.sub">Decoupled layers with a strict SDK boundary — the UI never calls the agent runtime directly.</p>
+    </div>
+    <div class="arch-container fade-up">
+      <div class="arch-layers">
+        <div class="arch-layer">
+          <div class="arch-layer-icon">🖥️</div>
+          <div><div class="arch-layer-name">Desktop UI (Tauri + React)</div><div class="arch-layer-desc" data-i18n="arch.l1">Multi-session chat, file browser, notebooks, run viewer, provenance inspector</div></div>
+        </div>
+        <div class="arch-divider">SDK Contract</div>
+        <div class="arch-layer">
+          <div class="arch-layer-icon">📦</div>
+          <div><div class="arch-layer-name">OpenCodeClient SDK</div><div class="arch-layer-desc" data-i18n="arch.l2">Type-safe wrapper — the only path between UI and runtime</div></div>
+        </div>
+        <div class="arch-divider">Process Boundary</div>
+        <div class="arch-layer">
+          <div class="arch-layer-icon">⚙️</div>
+          <div><div class="arch-layer-name">OpenCode Sidecar</div><div class="arch-layer-desc" data-i18n="arch.l3">Bundled, pinned, auto-started — isolated from user's own config</div></div>
+        </div>
+        <div class="arch-divider">Security Boundary</div>
+        <div class="arch-layer">
+          <div class="arch-layer-icon">🔒</div>
+          <div><div class="arch-layer-name">Local Workspace</div><div class="arch-layer-desc" data-i18n="arch.l4">SQLite + JSONL provenance + OS keychain — keys never in logs, exports, or git</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Showcase -->
+<section id="showcase">
+  <div class="container">
+    <div class="section-header fade-up">
+      <span class="section-tag" data-i18n="show.tag">In Action</span>
+      <h2 data-i18n="show.title">See It Work</h2>
+    </div>
+    <div class="showcase-grid fade-up">
+      <figure class="showcase-item">
+        <img src="assets/showcase-provenance.webp" alt="Provenance tracking" loading="lazy">
+        <figcaption data-i18n="show.c1">One prompt → a publication-grade figure, every point traces to its generating code.</figcaption>
+      </figure>
+      <figure class="showcase-item">
+        <img src="assets/showcase-literature.webp" alt="Literature survey" loading="lazy">
+        <figcaption data-i18n="show.c2">Literature → verifiable report, with citation review confirming every DOI resolves.</figcaption>
+      </figure>
+      <figure class="showcase-item">
+        <img src="assets/showcase-browser.webp" alt="Browser control" loading="lazy">
+        <figcaption data-i18n="show.c3">Drives your own Chrome to harvest data into charts and CSVs.</figcaption>
+      </figure>
+      <figure class="showcase-item">
+        <img src="assets/showcase-remote.webp" alt="Remote runs" loading="lazy">
+        <figcaption data-i18n="show.c4">Reproducible remote runs on SSH/Slurm/Modal with full provenance.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- Download -->
+<section id="download">
+  <div class="container">
+    <div class="section-header fade-up">
+      <span class="section-tag" data-i18n="dl.tag">Download</span>
+      <h2 data-i18n="dl.title">Get ZeroWall Science</h2>
+      <p data-i18n="dl.sub">Free, open-source, MIT licensed. Available for all major platforms.</p>
+    </div>
+    <div class="download-grid fade-up">
+      <div class="download-card">
+        <div class="download-card-icon">🍎</div>
+        <h3>macOS</h3>
+        <div class="version">v0.3.4</div>
+        <a href="https://github.com/ccfwwm/zerowallscience-releases/releases/latest" class="dl-btn" target="_blank">⬇ .dmg</a>
+        <p class="dl-note" data-i18n="dl.mac">Apple Silicon & Intel, macOS 13+. Run <code>xattr -cr</code> if Gatekeeper blocks.</p>
+      </div>
+      <div class="download-card">
+        <div class="download-card-icon">🪟</div>
+        <h3>Windows</h3>
+        <div class="version">v0.3.4</div>
+        <a href="https://github.com/ccfwwm/zerowallscience-releases/releases/latest" class="dl-btn" target="_blank">⬇ .exe</a>
+        <p class="dl-note" data-i18n="dl.win">Windows 10/11 x64. SmartScreen: More info → Run anyway.</p>
+      </div>
+      <div class="download-card">
+        <div class="download-card-icon">🐧</div>
+        <h3>Linux</h3>
+        <div class="version">v0.3.4</div>
+        <a href="https://github.com/ccfwwm/zerowallscience-releases/releases/latest" class="dl-btn" target="_blank">⬇ .deb / .rpm</a>
+        <p class="dl-note" data-i18n="dl.linux">x86_64. <code>sudo apt install ./…_amd64.deb</code></p>
+      </div>
+    </div>
+    <div class="download-source fade-up">
+      <p data-i18n="dl.source">Or build from source:</p>
+      <code>git clone https://github.com/ccfwwm/zerowallscience && pnpm install && pnpm build</code>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-links">
+      <a href="https://github.com/ccfwwm/zerowallscience" target="_blank">GitHub</a>
+      <a href="https://discord.gg/fWNMDKcd5P" target="_blank">Discord</a>
+      <a href="https://linux.do" target="_blank">linux.do</a>
+      <a href="https://github.com/ccfwwm/zerowallscience/blob/main/LICENSE" target="_blank" data-i18n="footer.license">MIT License</a>
+    </div>
+    <p>© 2026 The ZeroWall Science Contributors. <span data-i18n="footer.tagline">Science Without Walls.</span></p>
+  </div>
+</footer>
+
+<script>
+// === i18n ===
+const zh = {
+  'nav.features': '功能特色',
+  'nav.arch': '技术架构',
+  'nav.showcase': '效果展示',
+  'nav.download': '下载',
+  'hero.badge': '🏆 ResearchClawBench 排行榜 #1',
+  'hero.title': '科学，无界',
+  'hero.sub': '本地优先、模型无关的 AI 科研工作台。在一个可审计的桌面会话中，完成从探索到论文发表的全研究闭环。',
+  'hero.cta': '⬇ 免费下载',
+  'hero.stat1': '界面语言',
+  'hero.stat2': '支持平台',
+  'hero.stat3': '开源协议',
+  'hero.stat4': '最新版本',
+  'loop.tag': '研究闭环',
+  'loop.title': '从灵感到论文，全自动',
+  'loop.sub': '一个元技能驱动四个阶段 — 每个阶段产出真实、可检查的研究产物，而非对话文本。',
+  'loop.s1.title': '探索',
+  'loop.s1.desc': '将宽泛的研究方向细化为具体课题、假设和前期文献调查。',
+  'loop.s2.title': '综述',
+  'loop.s2.desc': '生成 6–20 页 PDF 文献综述，含 60+ 真实、已验证的引用。',
+  'loop.s3.title': '实验',
+  'loop.s3.desc': '设计文档、可执行代码、带溯源的结果、图表和分析报告。',
+  'loop.s4.title': '写作',
+  'loop.s4.desc': '8–14 页研究论文，200+ 引用，4–8 张图表 — 出版级质量。',
+  'feat.tag': '核心特色',
+  'feat.title': '为真实科研而生',
+  'feat.sub': '每个功能都为加速科学工作而设计，同时让你保持完全掌控。',
+  'feat.f1.title': '自主研究 Agent',
+  'feat.f1.desc': '内置 ai4s-agent 串联专业技能端到端运行 — 探索、综述、实验、写作 — 每一步都产出可检查的研究产物。',
+  'feat.f2.title': '全链路溯源',
+  'feat.f2.desc': '每个图表和报告都追溯到生成它的精确代码、输入数据、运行环境、模型输出和对话记录。',
+  'feat.f3.title': '本地优先',
+  'feat.f3.desc': '会话、数据、溯源、笔记本和运行记录全部存储在本地文件夹。默认不向外发送任何数据。',
+  'feat.f4.title': '模型无关',
+  'feat.f4.desc': '使用你自己的模型。运行时通过干净的 SDK 层通信 — 供应商、技能和 MCP 服务器完全可插拔。',
+  'feat.f5.title': '可复现运行',
+  'feat.f5.desc': '本地、SSH/Slurm、Modal 和批量笔记本运行被记录为可复现的运行记录，而非松散的终端日志。',
+  'feat.f6.title': '随时随地访问',
+  'feat.f6.desc': '令牌认证网关将真实 UI 推送到手机或局域网浏览器。在电脑前启动任务，路上用手机查看结果。',
+  'feat.f7.title': '浏览器控制',
+  'feat.f7.desc': '驱动你自己的 Chrome — 保留你的登录状态 — 像你一样阅读网页；或按需启动隔离的隐私浏览器。',
+  'feat.f8.title': '高度可扩展',
+  'feat.f8.desc': 'Agent 技能、MCP 服务器、一键科学连接器（arXiv、PubMed、Crossref、Materials Project…）、斜杠命令和 Shell 模式。',
+  'arch.tag': '技术架构',
+  'arch.title': '清晰分层设计',
+  'arch.sub': '解耦层与严格 SDK 边界 — UI 永远不直接调用 Agent 运行时。',
+  'arch.l1': '多会话聊天、文件浏览器、笔记本、运行查看器、溯源检查器',
+  'arch.l2': '类型安全封装 — UI 与运行时间唯一通信路径',
+  'arch.l3': '捆绑、版本锁定、自动启动 — 与用户自有配置隔离',
+  'arch.l4': 'SQLite + JSONL 溯源 + 系统钥匙串 — 密钥永不出现在日志、导出或 git 中',
+  'show.tag': '实际效果',
+  'show.title': '看看它的实力',
+  'show.c1': '一条提示 → 出版级图表，每个数据点都追溯到生成代码。',
+  'show.c2': '文献 → 可验证报告，引用审查确认每个 DOI 可解析。',
+  'show.c3': '驱动你的 Chrome 将数据转化为图表和 CSV。',
+  'show.c4': '在 SSH/Slurm/Modal 上进行可复现的远程运行，含完整溯源。',
+  'dl.tag': '下载',
+  'dl.title': '获取 ZeroWall Science',
+  'dl.sub': '免费、开源、MIT 许可。支持所有主流平台。',
+  'dl.mac': 'Apple Silicon 和 Intel，macOS 13+。如 Gatekeeper 拦截请执行 xattr -cr。',
+  'dl.win': 'Windows 10/11 x64。SmartScreen 弹窗点击 "更多信息 → 仍要运行"。',
+  'dl.linux': 'x86_64。sudo apt install ./…_amd64.deb',
+  'dl.source': '或从源码构建：',
+  'footer.license': 'MIT 许可证',
+  'footer.tagline': '科学，无界。',
+};
+
+const en = {};
+// Store default English text
+document.querySelectorAll('[data-i18n]').forEach(el => { en[el.dataset.i18n] = el.textContent; });
+
+let currentLang = localStorage.getItem('zw-lang') || 'en';
+function setLang(lang) {
+  currentLang = lang;
+  localStorage.setItem('zw-lang', lang);
+  const dict = lang === 'zh' ? zh : en;
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    if (dict[el.dataset.i18n]) el.textContent = dict[el.dataset.i18n];
+  });
+  document.querySelector('.lang-toggle').textContent = lang === 'zh' ? '中' : 'EN';
+  document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+}
+function toggleLang() { setLang(currentLang === 'en' ? 'zh' : 'en'); }
+
+// === Theme ===
+let currentTheme = localStorage.getItem('zw-theme') ||
+  (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+function setTheme(theme) {
+  currentTheme = theme;
+  localStorage.setItem('zw-theme', theme);
+  document.documentElement.setAttribute('data-theme', theme);
+  document.querySelector('.theme-icon').textContent = theme === 'dark' ? '☀️' : '🌙';
+}
+function toggleTheme() { setTheme(currentTheme === 'dark' ? 'light' : 'dark'); }
+
+// Init
+setTheme(currentTheme);
+if (currentLang === 'zh') setLang('zh');
+
+// === Scroll animations ===
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+// === Hero Canvas — Network Particles ===
+(function() {
+  const canvas = document.getElementById('heroCanvas');
+  const ctx = canvas.getContext('2d');
+  let width, height, particles, animId;
+  const PARTICLE_COUNT = 60;
+  const CONNECTION_DIST = 150;
+  const SPEED = 0.4;
+
+  function resize() {
+    width = canvas.width = canvas.offsetWidth;
+    height = canvas.height = canvas.offsetHeight;
+  }
+
+  function createParticles() {
+    particles = [];
+    for (let i = 0; i < PARTICLE_COUNT; i++) {
+      particles.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        vx: (Math.random() - 0.5) * SPEED,
+        vy: (Math.random() - 0.5) * SPEED,
+        r: Math.random() * 2 + 1,
+      });
+    }
+  }
+
+  function animate() {
+    ctx.clearRect(0, 0, width, height);
+    const style = getComputedStyle(document.documentElement);
+    const particleColor = style.getPropertyValue('--hero-particle').trim();
+    const lineColor = style.getPropertyValue('--hero-line').trim();
+
+    for (let i = 0; i < particles.length; i++) {
+      const p = particles[i];
+      p.x += p.vx; p.y += p.vy;
+      if (p.x < 0 || p.x > width) p.vx *= -1;
+      if (p.y < 0 || p.y > height) p.vy *= -1;
+
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = particleColor;
+      ctx.fill();
+
+      for (let j = i + 1; j < particles.length; j++) {
+        const p2 = particles[j];
+        const dx = p.x - p2.x, dy = p.y - p2.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < CONNECTION_DIST) {
+          ctx.beginPath();
+          ctx.moveTo(p.x, p.y);
+          ctx.lineTo(p2.x, p2.y);
+          ctx.strokeStyle = lineColor;
+          ctx.lineWidth = 1 - dist / CONNECTION_DIST;
+          ctx.stroke();
+        }
+      }
+    }
+    animId = requestAnimationFrame(animate);
+  }
+
+  window.addEventListener('resize', () => { resize(); createParticles(); });
+  resize(); createParticles(); animate();
+
+  // Respect reduced motion
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    cancelAnimationFrame(animId);
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  repository_dispatch:
+    types: [release-published]
+  schedule:
+    - cron: '17 */6 * * *'  # every 6h, offset from :00
+
+permissions:
+  contents: read
+
+env:
+  DEPLOY_HOST: usimglinux
+  DEPLOY_PATH: /var/www/zerowallscience-web
+  NODE_VERSION: '20'
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build
+
+      - name: Deploy via rsync
+        env:
+          DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
+        run: |
+          mkdir -p ~/.ssh
+          echo "$DEPLOY_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+
+          SSH_OPTS="-o StrictHostKeyChecking=no -i ~/.ssh/deploy_key"
+          RELEASE_DIR="releases/$(git rev-parse --short HEAD)"
+
+          # rsync build output
+          rsync -az --delete \
+            -e "ssh $SSH_OPTS" \
+            dist/ root@185.132.54.223:${{ env.DEPLOY_PATH }}/$RELEASE_DIR/
+
+          # Atomic symlink swap + cleanup old releases (keep 5)
+          ssh $SSH_OPTS root@185.132.54.223 << 'EOF'
+            set -euo pipefail
+            cd /var/www/zerowallscience-web
+            ln -sfn "$RELEASE_DIR" current_new
+            mv -Tf current_new current
+            # Keep only 5 most recent releases
+            cd releases
+            ls -t | tail -n +6 | xargs -r rm -rf
+            # Reload nginx
+            nginx -t && systemctl reload nginx
+          EOF
+
+          echo "✅ Deployed $(git rev-parse --short HEAD) to production"

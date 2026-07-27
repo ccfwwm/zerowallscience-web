@@ -1,0 +1,183 @@
+---
+import Base from '../../layouts/Base.astro';
+import Nav from '../../components/Nav.astro';
+import { zh as t } from '../../content/site.zh';
+---
+<Base title={t.meta.title} description={t.meta.description} lang="zh">
+  <Nav lang="zh" nav={t.nav} />
+
+  <!-- Hero -->
+  <section class="relative min-h-screen flex items-center justify-center pt-16 overflow-hidden" id="hero">
+    <div id="hero-canvas-mount" class="absolute inset-0 z-0"></div>
+    <div class="absolute top-[-40%] left-1/2 -translate-x-1/2 w-[120%] h-[80%] rounded-full bg-[radial-gradient(ellipse,var(--accent-glow)_0%,transparent_70%)] opacity-60 blur-[80px] pointer-events-none animate-pulse"></div>
+    <div class="relative z-10 text-center max-w-[800px] px-6">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-accent-glow border border-accent text-accent text-sm font-medium mb-6">
+        {t.hero.badge}
+      </div>
+      <h1 class="text-[clamp(2.5rem,6vw,4.5rem)] font-extrabold leading-[1.1] tracking-tight bg-gradient-to-br from-text to-accent bg-clip-text text-transparent mb-5">
+        {t.hero.title}
+      </h1>
+      <p class="text-[clamp(1rem,2vw,1.25rem)] text-muted max-w-[600px] mx-auto mb-9 leading-relaxed">
+        {t.hero.sub}
+      </p>
+      <div class="flex gap-3.5 justify-center flex-wrap">
+        <a href="#download" class="px-7 py-3.5 rounded-input bg-accent text-accent-fg font-semibold text-[15px] shadow-[0_4px_16px_var(--accent-glow)] hover:-translate-y-0.5 hover:shadow-[0_8px_24px_var(--accent-glow)] transition-all">
+          {t.hero.cta}
+        </a>
+        <a href="https://github.com/ccfwwm/zerowallscience" target="_blank" class="px-7 py-3.5 rounded-input bg-surface-2 text-text border border-border font-semibold text-[15px] hover:border-accent hover:text-accent transition-all">
+          GitHub →
+        </a>
+      </div>
+      <div class="flex justify-center gap-12 mt-16 pt-8 border-t border-border-faint flex-wrap">
+        {t.hero.stats.map(s => (
+          <div class="text-center">
+            <div class="text-2xl font-extrabold text-accent font-mono">{s.value}</div>
+            <div class="text-xs text-muted mt-1">{s.label}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Research Loop -->
+  <section id="loop" class="py-24">
+    <div class="max-w-[1200px] mx-auto px-6">
+      <div class="text-center mb-16">
+        <span class="inline-block px-3 py-1 rounded-xl bg-accent-glow text-accent text-xs font-semibold uppercase tracking-wider mb-4">{t.loop.tag}</span>
+        <h2 class="text-[clamp(1.8rem,4vw,2.8rem)] font-bold tracking-tight mb-4">{t.loop.title}</h2>
+        <p class="text-muted text-lg max-w-[600px] mx-auto">{t.loop.sub}</p>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-0.5 rounded-card overflow-hidden">
+        {t.loop.steps.map((s, i) => (
+          <div class="bg-surface p-8 text-center relative hover:bg-[var(--card-hover-bg)] transition-colors">
+            <div class="w-10 h-10 rounded-full mx-auto mb-4 bg-accent-glow text-accent flex items-center justify-center font-bold">{i + 1}</div>
+            <h3 class="font-semibold mb-2">{s.title}</h3>
+            <p class="text-sm text-muted leading-relaxed">{s.desc}</p>
+            {i < 3 && <span class="absolute right-[-12px] top-1/2 -translate-y-1/2 text-accent text-lg z-10 hidden lg:block">→</span>}
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section id="features" class="py-24">
+    <div class="max-w-[1200px] mx-auto px-6">
+      <div class="text-center mb-16">
+        <span class="inline-block px-3 py-1 rounded-xl bg-accent-glow text-accent text-xs font-semibold uppercase tracking-wider mb-4">{t.features.tag}</span>
+        <h2 class="text-[clamp(1.8rem,4vw,2.8rem)] font-bold tracking-tight mb-4">{t.features.title}</h2>
+        <p class="text-muted text-lg max-w-[600px] mx-auto">{t.features.sub}</p>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        {t.features.items.map(f => (
+          <div class="bg-surface border border-border-faint rounded-card p-7 relative overflow-hidden transition-all hover:border-accent hover:-translate-y-1 hover:shadow-[0_12px_40px_var(--accent-glow)] group">
+            <div class="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-[var(--hero-gradient-1)] to-[var(--hero-gradient-2)] opacity-0 group-hover:opacity-100 transition-opacity"></div>
+            <div class="w-11 h-11 rounded-[10px] mb-4 bg-accent-glow flex items-center justify-center text-[22px]">{f.icon}</div>
+            <h3 class="font-semibold mb-2">{f.title}</h3>
+            <p class="text-sm text-muted leading-relaxed">{f.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Architecture -->
+  <section id="architecture" class="py-24">
+    <div class="max-w-[1200px] mx-auto px-6">
+      <div class="text-center mb-16">
+        <span class="inline-block px-3 py-1 rounded-xl bg-accent-glow text-accent text-xs font-semibold uppercase tracking-wider mb-4">{t.architecture.tag}</span>
+        <h2 class="text-[clamp(1.8rem,4vw,2.8rem)] font-bold tracking-tight mb-4">{t.architecture.title}</h2>
+        <p class="text-muted text-lg max-w-[600px] mx-auto">{t.architecture.sub}</p>
+      </div>
+      <div class="bg-surface border border-border-faint rounded-card p-12 max-w-[750px] mx-auto">
+        <div class="flex flex-col gap-3">
+          {t.architecture.layers.map((l, i) => (
+            <Fragment>
+              <div class="flex items-center gap-4 p-4 rounded-input border border-border hover:border-accent hover:bg-accent-glow transition-all">
+                <div class="w-9 h-9 rounded-lg bg-accent-glow flex items-center justify-center text-lg shrink-0">{l.icon}</div>
+                <div>
+                  <div class="font-semibold text-[0.95rem]">{l.name}</div>
+                  <div class="text-xs text-muted mt-0.5">{l.desc}</div>
+                </div>
+              </div>
+              {i < t.architecture.dividers.length && (
+                <div class="text-center text-[11px] text-muted uppercase tracking-widest py-1 relative">
+                  <span class="relative z-10 bg-surface px-4">{t.architecture.dividers[i]}</span>
+                  <div class="absolute top-1/2 left-0 right-0 h-px bg-border -z-0"></div>
+                </div>
+              )}
+            </Fragment>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Showcase -->
+  <section id="showcase" class="py-24">
+    <div class="max-w-[1200px] mx-auto px-6">
+      <div class="text-center mb-16">
+        <span class="inline-block px-3 py-1 rounded-xl bg-accent-glow text-accent text-xs font-semibold uppercase tracking-wider mb-4">{t.showcase.tag}</span>
+        <h2 class="text-[clamp(1.8rem,4vw,2.8rem)] font-bold tracking-tight mb-4">{t.showcase.title}</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+        {t.showcase.items.map(s => (
+          <figure class="rounded-card overflow-hidden border border-border-faint hover:border-accent hover:scale-[1.02] transition-all">
+            <img src={s.img} alt={s.caption} loading="lazy" class="w-full h-auto" />
+            <figcaption class="p-3 px-4 text-sm text-muted bg-surface">{s.caption}</figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Download -->
+  <section id="download" class="py-24">
+    <div class="max-w-[1200px] mx-auto px-6">
+      <div class="text-center mb-16">
+        <span class="inline-block px-3 py-1 rounded-xl bg-accent-glow text-accent text-xs font-semibold uppercase tracking-wider mb-4">{t.download.tag}</span>
+        <h2 class="text-[clamp(1.8rem,4vw,2.8rem)] font-bold tracking-tight mb-4">{t.download.title}</h2>
+        <p class="text-muted text-lg max-w-[600px] mx-auto">{t.download.sub}</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+        {t.download.platforms.map(p => (
+          <div class="bg-surface border border-border-faint rounded-card p-8 text-center hover:border-accent hover:-translate-y-1 hover:shadow-pop transition-all">
+            <div class="text-[40px] mb-4">{p.icon}</div>
+            <h3 class="text-lg font-semibold mb-2">{p.name}</h3>
+            <div class="font-mono text-sm text-accent mb-3">v0.3.4</div>
+            <a href="https://github.com/ccfwwm/zerowallscience-releases/releases/latest" target="_blank" class="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-input bg-accent text-accent-fg font-semibold text-sm hover:-translate-y-0.5 hover:shadow-[0_4px_12px_var(--accent-glow)] transition-all">
+              ⬇ 下载
+            </a>
+            <p class="text-xs text-muted mt-3 leading-relaxed">{p.note}</p>
+          </div>
+        ))}
+      </div>
+      <div class="text-center mt-8 p-5 border border-dashed border-border rounded-input">
+        <p class="text-muted mb-2">{t.download.source}</p>
+        <code class="font-mono text-sm bg-[var(--code-bg)] px-2 py-0.5 rounded">{t.download.sourceCmd}</code>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-border-faint py-12 text-center text-muted text-sm">
+    <div class="max-w-[1200px] mx-auto px-6">
+      <div class="flex justify-center gap-6 mb-4 flex-wrap">
+        <a href="https://github.com/ccfwwm/zerowallscience" target="_blank" class="text-muted hover:text-accent">GitHub</a>
+        <a href="https://discord.gg/fWNMDKcd5P" target="_blank" class="text-muted hover:text-accent">Discord</a>
+        <a href="https://linux.do" target="_blank" class="text-muted hover:text-accent">linux.do</a>
+        <a href="https://github.com/ccfwwm/zerowallscience/blob/main/LICENSE" target="_blank" class="text-muted hover:text-accent">{t.footer.license}</a>
+      </div>
+      <p>© 2026 The ZeroWall Science Contributors. {t.footer.tagline}</p>
+    </div>
+  </footer>
+
+  <!-- Hero Canvas (React island, client-only) -->
+  <script>
+    import { createElement } from 'react';
+    import { createRoot } from 'react-dom/client';
+    import HeroCanvas from '../../components/HeroCanvas';
+    const mount = document.getElementById('hero-canvas-mount');
+    if (mount) createRoot(mount).render(createElement(HeroCanvas));
+  </script>
+</Base>

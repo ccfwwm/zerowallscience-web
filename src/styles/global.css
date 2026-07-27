@@ -1,0 +1,65 @@
+/* === Design Tokens — synced from desktop app === */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* Light theme (科技亮) */
+  :root,
+  [data-theme="light"] {
+    --bg: #ffffff;
+    --bg-gradient: linear-gradient(180deg, #f8f9fc 0%, #ffffff 40%);
+    --surface: #ffffff;
+    --surface-2: #f4f4f6;
+    --surface-glass: rgba(255, 255, 255, 0.72);
+    --border: #e6e6ea;
+    --border-faint: #f0f0f3;
+    --text: #1f1f24;
+    --muted: #6b6b76;
+    --accent: #2563eb;
+    --accent-fg: #ffffff;
+    --accent-glow: rgba(37, 99, 235, 0.15);
+    --link: #2a6fdb;
+    --hero-particle: rgba(37, 99, 235, 0.6);
+    --hero-line: rgba(37, 99, 235, 0.12);
+    --hero-gradient-1: #2563eb;
+    --hero-gradient-2: #7c3aed;
+    --card-hover-bg: #f8faff;
+    --code-bg: #f4f4f6;
+  }
+
+  /* Dark theme (科技黑) */
+  [data-theme="dark"] {
+    --bg: #0a0a0f;
+    --bg-gradient: linear-gradient(180deg, #0d0d14 0%, #0a0a0f 40%);
+    --surface: #141419;
+    --surface-2: #1c1c24;
+    --surface-glass: rgba(20, 20, 25, 0.82);
+    --border: #2a2a36;
+    --border-faint: #1e1e28;
+    --text: #ece9e2;
+    --muted: #8a8a93;
+    --accent: #4d9df6;
+    --accent-fg: #0a0a0f;
+    --accent-glow: rgba(77, 157, 246, 0.2);
+    --link: #7aa5f0;
+    --hero-particle: rgba(77, 157, 246, 0.8);
+    --hero-line: rgba(77, 157, 246, 0.15);
+    --hero-gradient-1: #4d9df6;
+    --hero-gradient-2: #9085e9;
+    --card-hover-bg: #1a1a24;
+    --code-bg: #1c1c24;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: theme('fontFamily.sans');
+    background: var(--bg);
+    color: var(--text);
+    overflow-x: hidden;
+    transition: background 0.3s ease, color 0.3s ease;
+  }
+}
