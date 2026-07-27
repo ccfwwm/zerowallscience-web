@@ -1,24 +1,22 @@
 // 中文站点内容
 export const zh = {
   meta: {
-    title: 'ZeroWall Science — 科学，无界',
+    title: 'ZeroWall Science — 科研无界',
     description: '本地优先、模型无关的 AI 科研工作台，支持 macOS、Windows 和 Linux。',
   },
   nav: {
     features: '功能特色',
     architecture: '技术架构',
-    showcase: '效果展示',
+    capabilities: '核心能力',
     download: '下载',
   },
   hero: {
-    badge: '🏆 ResearchClawBench 排行榜 #1',
-    title: '科学，无界',
+    title: '科研无界',
     sub: '本地优先、模型无关的 AI 科研工作台。在一个可审计的桌面会话中，完成从探索到论文发表的全研究闭环。',
-    cta: '⬇ 免费下载',
+    cta: '⬇ 立即下载',
     stats: [
       { value: '7', label: '界面语言' },
       { value: '3', label: '支持平台' },
-      { value: 'MIT', label: '开源协议' },
       { value: 'v0.3.4', label: '最新版本' },
     ],
   },
@@ -42,10 +40,23 @@ export const zh = {
       { icon: '🔗', title: '全链路溯源', desc: '每个图表和报告都追溯到生成它的精确代码、输入数据、运行环境、模型输出和对话记录。' },
       { icon: '🏠', title: '本地优先', desc: '会话、数据、溯源、笔记本和运行记录全部存储在本地文件夹。默认不向外发送任何数据。' },
       { icon: '🔌', title: '模型无关', desc: '使用你自己的模型。运行时通过干净的 SDK 层通信 — 供应商、技能和 MCP 服务器完全可插拔。' },
-      { icon: '🔬', title: '可复现运行', desc: '本地、SSH/Slurm、Modal 和批量笔记本运行被记录为可复现的运行记录，而非松散的终端日志。' },
-      { icon: '📱', title: '随时随地访问', desc: '令牌认证网关将真实 UI 推送到手机或局域网浏览器。在电脑前启动任务，路上用手机查看结果。' },
+      { icon: '🔬', title: '可复现运行', desc: '本地、SSH/Slurm、Modal 和批量笔记本运行被记录为可复现的运行记录，含完整环境快照。' },
+      { icon: '📱', title: '随时随地访问', desc: '令牌认证网关将真实 UI 推送到手机或局域网浏览器。在电脑前启动任务，路上查看结果。' },
       { icon: '🌐', title: '浏览器控制', desc: '驱动你自己的 Chrome — 保留你的登录状态 — 像你一样阅读网页；或按需启动隔离的隐私浏览器。' },
       { icon: '🧩', title: '高度可扩展', desc: 'Agent 技能、MCP 服务器、一键科学连接器（arXiv、PubMed、Crossref、Materials Project…）、斜杠命令和 Shell 模式。' },
+    ],
+  },
+  capabilities: {
+    tag: '核心能力',
+    title: '强大的科研工具集',
+    sub: '覆盖完整科研工作流的全能平台。',
+    items: [
+      { title: '多会话工作区', desc: '同时运行多个研究会话，隔离工作空间、共享文件系统、完整操作历史。' },
+      { title: '集成笔记本', desc: '真正的 .ipynb 文件，Python/R 内核执行，托管 Jupyter 环境，与 Agent 无缝集成。' },
+      { title: '丰富的查看器', desc: 'PDF、图片、视频、HTML、Markdown、CSV/TSV 图表、分子结构、3D 网格、基因组轨迹等。' },
+      { title: '文献连接器', desc: '一键访问 arXiv、PubMed、Crossref、Semantic Scholar、bioRxiv/medRxiv 等研究数据库。' },
+      { title: '完整性审计', desc: '内置审计器检查图片、数字、逻辑和引用，4 级证据分级，发布前最后把关。' },
+      { title: '安全优先', desc: '命令执行、文件删除、依赖安装和远程连接全部需要显式人工审批。' },
     ],
   },
   architecture: {
@@ -54,36 +65,24 @@ export const zh = {
     sub: '解耦层与严格 SDK 边界 — UI 永远不直接调用 Agent 运行时。',
     layers: [
       { icon: '🖥️', name: '桌面 UI (Tauri + React)', desc: '多会话聊天、文件浏览器、笔记本、运行查看器、溯源检查器' },
-      { icon: '📦', name: 'OpenCodeClient SDK', desc: '类型安全封装 — UI 与运行时间唯一通信路径' },
+      { icon: '📦', name: 'OpenCodeClient SDK', desc: '类型安全封装 — UI 与运行时唯一通信路径' },
       { icon: '⚙️', name: 'OpenCode Sidecar', desc: '捆绑、版本锁定、自动启动 — 与用户自有配置隔离' },
       { icon: '🔒', name: '本地工作区', desc: 'SQLite + JSONL 溯源 + 系统钥匙串 — 密钥永不出现在日志、导出或 git 中' },
     ],
     dividers: ['SDK 契约', '进程边界', '安全边界'],
   },
-  showcase: {
-    tag: '实际效果',
-    title: '看看它的实力',
-    items: [
-      { img: '/assets/showcase-provenance.webp', caption: '一条提示 → 出版级图表，每个数据点都追溯到生成代码。' },
-      { img: '/assets/showcase-literature.webp', caption: '文献 → 可验证报告，引用审查确认每个 DOI 可解析。' },
-      { img: '/assets/showcase-browser.webp', caption: '驱动你的 Chrome 将数据转化为图表和 CSV。' },
-      { img: '/assets/showcase-remote.webp', caption: '在 SSH/Slurm/Modal 上进行可复现的远程运行，含完整溯源。' },
-    ],
-  },
   download: {
     tag: '下载',
     title: '获取 ZeroWall Science',
-    sub: '免费、开源、MIT 许可。支持所有主流平台。',
+    sub: '免费、开源，支持所有主流平台。',
     platforms: [
-      { icon: '🍎', name: 'macOS', note: 'Apple Silicon 和 Intel，macOS 13+。如 Gatekeeper 拦截请执行 xattr -cr。' },
-      { icon: '🪟', name: 'Windows', note: 'Windows 10/11 x64。SmartScreen 弹窗点击"更多信息 → 仍要运行"。' },
-      { icon: '🐧', name: 'Linux', note: 'x86_64。sudo apt install ./…_amd64.deb' },
+      { icon: '🍎', name: 'macOS', note: 'Apple Silicon 和 Intel，macOS 13+', status: 'coming', statusLabel: '待发布' },
+      { icon: '🪟', name: 'Windows', note: 'Windows 10/11 x64', status: 'available', statusLabel: '下载 .exe' },
+      { icon: '🐧', name: 'Linux', note: 'x86_64 .deb / .rpm', status: 'coming', statusLabel: '待发布' },
     ],
-    source: '或从源码构建：',
-    sourceCmd: 'git clone https://github.com/ccfwwm/zerowallscience && pnpm install && pnpm build',
   },
   footer: {
-    license: 'MIT 许可证',
-    tagline: '科学，无界。',
+    tagline: '科研无界。',
+    copyright: '© 2026 ZeroWall Science',
   },
 } as const;

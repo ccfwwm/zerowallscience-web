@@ -1,7 +1,7 @@
 ---
 interface Props {
   lang: 'en' | 'zh';
-  nav: { features: string; architecture: string; showcase: string; download: string };
+  nav: { features: string; architecture: string; capabilities: string; download: string };
 }
 const { lang, nav } = Astro.props;
 const otherLang = lang === 'en' ? '/zh' : '/';
@@ -10,17 +10,13 @@ const langLabel = lang === 'en' ? 'EN' : '中';
 <nav class="fixed top-0 left-0 right-0 z-50 bg-[var(--surface-glass)] backdrop-blur-xl border-b border-border-faint transition-colors">
   <div class="max-w-[1200px] mx-auto px-6 flex items-center justify-between h-16">
     <a href={lang === 'en' ? '/' : '/zh'} class="flex items-center gap-2.5 font-bold text-lg text-text no-underline">
-      <svg viewBox="0 0 32 32" fill="none" class="w-7 h-7">
-        <circle cx="16" cy="16" r="14" stroke="var(--accent)" stroke-width="2"/>
-        <path d="M10 16h12M16 10v12" stroke="var(--accent)" stroke-width="2" stroke-linecap="round"/>
-        <circle cx="16" cy="16" r="4" fill="var(--accent)" opacity="0.3"/>
-      </svg>
+      <img src="/assets/app-icon.png" alt="ZeroWall Science" class="w-7 h-7 rounded-md" />
       ZeroWall Science
     </a>
     <div class="hidden md:flex items-center gap-6">
       <a href="#features" class="text-muted text-sm font-medium hover:text-text transition-colors">{nav.features}</a>
       <a href="#architecture" class="text-muted text-sm font-medium hover:text-text transition-colors">{nav.architecture}</a>
-      <a href="#showcase" class="text-muted text-sm font-medium hover:text-text transition-colors">{nav.showcase}</a>
+      <a href="#capabilities" class="text-muted text-sm font-medium hover:text-text transition-colors">{nav.capabilities}</a>
       <a href="#download" class="text-muted text-sm font-medium hover:text-text transition-colors">{nav.download}</a>
     </div>
     <div class="flex items-center gap-3">
