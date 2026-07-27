@@ -83,11 +83,11 @@ export const en = {
         { t: 'macOS · Linux via conda', s: 'partial' },
         { t: 'Win · macOS; Linux source-only', s: 'partial' },
       ]},
-      { label: 'Mobile / remote access', cells: [
-        { t: 'Phone + LAN gateway', s: 'yes' },
-        { t: 'None (cloud-hosted option)', s: 'no' },
-        { t: 'Hosted web demo only', s: 'partial' },
-        { t: 'None', s: 'no' },
+      { label: 'Login & setup', cells: [
+        { t: 'One-click account login · one-click model keys · zero config', s: 'yes' },
+        { t: 'Paid Claude subscription login', s: 'no' },
+        { t: 'pip install + 11 GB download + manual keys', s: 'no' },
+        { t: 'Manual API-key configuration', s: 'partial' },
       ]},
       { label: 'Research domain', cells: [
         { t: 'General science, many fields', s: 'yes' },
@@ -101,17 +101,35 @@ export const en = {
         { t: 'Model-agnostic', s: 'yes' },
         { t: 'Model-agnostic (no Gemini)', s: 'yes' },
       ]},
+      { label: 'Bundled agent skills', cells: [
+        { t: '70+ skills: explore · survey · experiment · write + life-science', s: 'yes' },
+        { t: 'Built-in Agent Skills (biomedical)', s: 'yes' },
+        { t: '~150 tools (biomedical only)', s: 'yes' },
+        { t: 'Small built-in set (MVP)', s: 'partial' },
+      ]},
+      { label: 'Science connectors (MCP)', cells: [
+        { t: '23 one-click: arXiv · PubMed · ChEMBL · trials…', s: 'yes' },
+        { t: 'Built-in literature / data retrieval', s: 'partial' },
+        { t: '~59 databases (biomedical)', s: 'yes' },
+        { t: 'Few, manual wiring', s: 'partial' },
+      ]},
+      { label: 'Integrated notebooks', cells: [
+        { t: 'Real .ipynb · Python + R kernels', s: 'yes' },
+        { t: 'Files + code execution', s: 'partial' },
+        { t: 'Code execution · Gradio (no notebook UI)', s: 'partial' },
+        { t: 'Persistent Python + R REPL', s: 'yes' },
+      ]},
+      { label: 'Provenance tracking', cells: [
+        { t: 'Full chain: code · data · env · model', s: 'yes' },
+        { t: 'File versioning + review', s: 'partial' },
+        { t: 'No systematic provenance', s: 'no' },
+        { t: 'Basic run records', s: 'partial' },
+      ]},
       { label: 'License', cells: [
         { t: 'Open source · MIT', s: 'yes' },
         { t: 'Proprietary, closed', s: 'no' },
         { t: 'Apache-2.0 (frozen 2025-04)', s: 'partial' },
         { t: 'Open source · Apache-2.0', s: 'yes' },
-      ]},
-      { label: 'Account required', cells: [
-        { t: 'None — bring your own key', s: 'yes' },
-        { t: 'Paid Claude subscription', s: 'no' },
-        { t: 'None — bring your own key', s: 'yes' },
-        { t: 'None — bring your own key', s: 'yes' },
       ]},
       { label: 'Local-first & private', cells: [
         { t: 'Yes — nothing leaves by default', s: 'yes' },
@@ -124,12 +142,6 @@ export const en = {
         { t: 'Folder / host / job approvals', s: 'yes' },
         { t: 'Runs code with full privileges', s: 'no' },
         { t: 'Probe-gated remote compute', s: 'partial' },
-      ]},
-      { label: 'Delivery', cells: [
-        { t: 'Desktop app + notebooks + viewers', s: 'yes' },
-        { t: 'Desktop app (beta)', s: 'partial' },
-        { t: 'Python library + Gradio web', s: 'partial' },
-        { t: 'Desktop app + CLI (MVP)', s: 'partial' },
       ]},
       { label: 'Price', cells: [
         { t: 'Free', s: 'yes' },

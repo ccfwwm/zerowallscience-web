@@ -83,11 +83,11 @@ export const zh = {
         { t: 'macOS · Linux（conda）', s: 'partial' },
         { t: 'Win · macOS；Linux 仅源码', s: 'partial' },
       ]},
-      { label: '移动端 / 远程访问', cells: [
-        { t: '手机 + 局域网网关', s: 'yes' },
-        { t: '无（可云端托管）', s: 'no' },
-        { t: '仅托管网页 Demo', s: 'partial' },
-        { t: '无', s: 'no' },
+      { label: '登录与上手', cells: [
+        { t: '账号密码一键登录 · 一键获取模型 · 免配置', s: 'yes' },
+        { t: '需付费 Claude 订阅登录', s: 'no' },
+        { t: 'pip 安装 + 下载 11GB + 手配密钥', s: 'no' },
+        { t: '需手动配置 API 密钥', s: 'partial' },
       ]},
       { label: '研究领域', cells: [
         { t: '通用科研，多学科', s: 'yes' },
@@ -101,17 +101,35 @@ export const zh = {
         { t: '模型无关', s: 'yes' },
         { t: '模型无关（无 Gemini）', s: 'yes' },
       ]},
+      { label: '内置技能', cells: [
+        { t: '70+ 技能：探索/综述/实验/写作 + 生命科学', s: 'yes' },
+        { t: '内置 Agent Skills（生物医学）', s: 'yes' },
+        { t: '~150 工具（仅生物医学）', s: 'yes' },
+        { t: '少量内置（MVP）', s: 'partial' },
+      ]},
+      { label: '科学连接器（MCP）', cells: [
+        { t: '23 个一键连接器：arXiv/PubMed/ChEMBL/临床试验…', s: 'yes' },
+        { t: '内置文献 / 数据检索', s: 'partial' },
+        { t: '~59 数据库（生物医学）', s: 'yes' },
+        { t: '少量，需手动接入', s: 'partial' },
+      ]},
+      { label: '集成笔记本', cells: [
+        { t: '真 .ipynb · Python + R 内核', s: 'yes' },
+        { t: '文件 + 代码执行', s: 'partial' },
+        { t: '代码执行 · Gradio（无笔记本 UI）', s: 'partial' },
+        { t: 'Python + R 持久 REPL', s: 'yes' },
+      ]},
+      { label: '全链路溯源', cells: [
+        { t: '全链路：代码 · 数据 · 环境 · 模型', s: 'yes' },
+        { t: '文件版本 + 审阅', s: 'partial' },
+        { t: '无系统化溯源', s: 'no' },
+        { t: '基础运行记录', s: 'partial' },
+      ]},
       { label: '开源许可', cells: [
         { t: '开源 · MIT', s: 'yes' },
         { t: '闭源商业', s: 'no' },
         { t: 'Apache-2.0（2025-04 冻结）', s: 'partial' },
         { t: '开源 · Apache-2.0', s: 'yes' },
-      ]},
-      { label: '账号要求', cells: [
-        { t: '无需账号，自带密钥', s: 'yes' },
-        { t: '需付费 Claude 订阅', s: 'no' },
-        { t: '无需账号，自带密钥', s: 'yes' },
-        { t: '无需账号，自带密钥', s: 'yes' },
       ]},
       { label: '本地优先 · 隐私', cells: [
         { t: '是 — 默认不外传', s: 'yes' },
@@ -124,12 +142,6 @@ export const zh = {
         { t: '文件夹/主机/任务 审批', s: 'yes' },
         { t: '以完整权限执行代码', s: 'no' },
         { t: '远程计算探针门控', s: 'partial' },
-      ]},
-      { label: '交付形态', cells: [
-        { t: '桌面 App + 笔记本 + 查看器', s: 'yes' },
-        { t: '桌面 App（Beta）', s: 'partial' },
-        { t: 'Python 库 + Gradio 网页', s: 'partial' },
-        { t: '桌面 App + CLI（MVP）', s: 'partial' },
       ]},
       { label: '价格', cells: [
         { t: '免费', s: 'yes' },
