@@ -102,6 +102,63 @@ import { en as t } from '../content/site.en';
     </div>
   </section>
 
+  <!-- Why ZeroWall + Comparison -->
+  <section id="compare" class="py-24 relative overflow-hidden">
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[60%] rounded-full bg-[radial-gradient(ellipse,var(--accent-glow)_0%,transparent_70%)] opacity-30 blur-[120px] pointer-events-none"></div>
+    <div class="max-w-[1200px] mx-auto px-6 relative">
+      <div class="text-center mb-14">
+        <span class="inline-block px-3 py-1 rounded-xl bg-accent-glow text-accent text-xs font-semibold uppercase tracking-wider mb-4">{t.whyus.tag}</span>
+        <h2 class="text-[clamp(1.8rem,4vw,2.8rem)] font-bold tracking-tight mb-4">{t.whyus.title}</h2>
+        <p class="text-muted text-lg max-w-[640px] mx-auto">{t.whyus.sub}</p>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-20">
+        {t.whyus.items.map(w => (
+          <div class="bg-surface border border-border-faint rounded-card p-7 relative overflow-hidden transition-all hover:border-accent hover:-translate-y-1 hover:shadow-[0_12px_40px_var(--accent-glow)] group">
+            <div class="w-12 h-12 rounded-xl mb-4 bg-accent-glow flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">{w.icon}</div>
+            <h3 class="font-semibold mb-2">{w.title}</h3>
+            <p class="text-sm text-muted leading-relaxed">{w.desc}</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="text-center mb-10">
+        <h3 class="text-[clamp(1.5rem,3vw,2rem)] font-bold tracking-tight mb-3">{t.comparison.title}</h3>
+        <p class="text-muted max-w-[600px] mx-auto">{t.comparison.sub}</p>
+      </div>
+      <div class="overflow-x-auto rounded-card border border-border-faint bg-surface shadow-pop">
+        <table class="w-full min-w-[760px] border-collapse text-sm">
+          <thead>
+            <tr class="border-b border-border">
+              <th class="text-left font-semibold text-muted p-4 w-[180px] sticky left-0 bg-surface z-10"></th>
+              {t.comparison.columns.map((c, i) => (
+                <th class={`p-4 text-center font-bold whitespace-nowrap ${i === 0 ? 'text-accent bg-accent-glow rounded-t-lg' : 'text-text'}`}>
+                  {i === 0 && <span class="block text-[10px] uppercase tracking-wider text-accent/70 font-semibold mb-0.5">★ This project</span>}
+                  {c}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {t.comparison.rows.map((row, ri) => (
+              <tr class={ri % 2 === 1 ? 'bg-[var(--surface-2)]/40' : ''}>
+                <td class="p-4 font-semibold text-text align-top sticky left-0 bg-inherit z-10 border-r border-border-faint">{row.label}</td>
+                {row.cells.map((cell, ci) => (
+                  <td class={`p-4 align-top text-center ${ci === 0 ? 'bg-accent-glow' : ''}`}>
+                    <span class={`inline-flex items-center justify-center w-5 h-5 rounded-full text-[11px] font-bold mb-1 ${cell.s === 'yes' ? 'bg-[#16a34a]/15 text-[#16a34a]' : cell.s === 'no' ? 'bg-[#dc2626]/15 text-[#dc2626]' : 'bg-[#d97706]/15 text-[#d97706]'}`}>
+                      {cell.s === 'yes' ? '✓' : cell.s === 'no' ? '✕' : '◐'}
+                    </span>
+                    <span class={`block text-xs leading-snug ${ci === 0 ? 'text-text font-medium' : 'text-muted'}`}>{cell.t}</span>
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="text-xs text-muted/70 mt-4 text-center max-w-[720px] mx-auto">{t.comparison.note}</p>
+    </div>
+  </section>
+
   <!-- Architecture -->
   <section id="architecture" class="py-24">
     <div class="max-w-[1200px] mx-auto px-6">

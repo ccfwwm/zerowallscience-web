@@ -7,7 +7,7 @@ export const zh = {
   nav: {
     features: '功能特色',
     architecture: '技术架构',
-    capabilities: '核心能力',
+    compare: '对比',
     download: '下载',
   },
   hero: {
@@ -17,7 +17,7 @@ export const zh = {
     stats: [
       { value: '7', label: '界面语言' },
       { value: '3', label: '支持平台' },
-      { value: 'v0.3.4', label: '最新版本' },
+      { value: 'v0.3.9', label: '最新版本' },
     ],
   },
   loop: {
@@ -57,6 +57,86 @@ export const zh = {
       { title: '文献连接器', desc: '一键访问 arXiv、PubMed、Crossref、Semantic Scholar、bioRxiv/medRxiv 等研究数据库。' },
       { title: '完整性审计', desc: '内置审计器检查图片、数字、逻辑和引用，4 级证据分级，发布前最后把关。' },
       { title: '安全优先', desc: '命令执行、文件删除、依赖安装和远程连接全部需要显式人工审批。' },
+    ],
+  },
+  whyus: {
+    tag: '为什么选择',
+    title: '功能最完整的开源科研桌面',
+    sub: '别的 AI 科研工具往往在平台、模型或开放性上做取舍，ZeroWall 全都保留。',
+    items: [
+      { icon: '🖥️', title: '真正的全平台', desc: 'macOS、Windows、Linux 三平台预编译安装包 — 同类中唯一不缺任何系统、无需从源码构建。' },
+      { icon: '📱', title: '手机也能用', desc: '令牌认证网关把真实桌面 UI 推送到手机或局域网浏览器。对照的其他项目均无移动端访问。' },
+      { icon: '🌍', title: '不只生物，覆盖各领域', desc: '通用科研，横跨生物医学、材料、气候、经济、天文 — 不锁定单一学科。' },
+      { icon: '🔓', title: '开源 · 模型无关 · 免费', desc: 'MIT 许可、自带任意模型、无需账号或订阅。整条工作流完全属于你。' },
+    ],
+  },
+  comparison: {
+    tag: '横向对比',
+    title: 'ZeroWall 对比同类工具',
+    sub: '把 ZeroWall Science 与其他 AI 科研工具诚实地摆在一起对比。',
+    columns: ['ZeroWall Science', 'Claude Science', 'Biomni', 'wisp-science'],
+    note: '依据公开文档与源码整理，2026 年 7 月。对照产品均为独立项目，此为中立的功能对比，非褒贬。',
+    rows: [
+      { label: '平台支持', cells: [
+        { t: 'macOS · Windows · Linux', s: 'yes' },
+        { t: '仅 macOS · Linux（Beta）', s: 'no' },
+        { t: 'macOS · Linux（conda）', s: 'partial' },
+        { t: 'Win · macOS；Linux 仅源码', s: 'partial' },
+      ]},
+      { label: '移动端 / 远程访问', cells: [
+        { t: '手机 + 局域网网关', s: 'yes' },
+        { t: '无（可云端托管）', s: 'no' },
+        { t: '仅托管网页 Demo', s: 'partial' },
+        { t: '无', s: 'no' },
+      ]},
+      { label: '研究领域', cells: [
+        { t: '通用科研，多学科', s: 'yes' },
+        { t: '生物医学为主', s: 'partial' },
+        { t: '仅生物医学', s: 'no' },
+        { t: '生物信息学为主', s: 'partial' },
+      ]},
+      { label: '模型选择', cells: [
+        { t: '模型无关，任意供应商', s: 'yes' },
+        { t: '仅限 Claude 模型', s: 'no' },
+        { t: '模型无关', s: 'yes' },
+        { t: '模型无关（无 Gemini）', s: 'yes' },
+      ]},
+      { label: '开源许可', cells: [
+        { t: '开源 · MIT', s: 'yes' },
+        { t: '闭源商业', s: 'no' },
+        { t: 'Apache-2.0（2025-04 冻结）', s: 'partial' },
+        { t: '开源 · Apache-2.0', s: 'yes' },
+      ]},
+      { label: '账号要求', cells: [
+        { t: '无需账号，自带密钥', s: 'yes' },
+        { t: '需付费 Claude 订阅', s: 'no' },
+        { t: '无需账号，自带密钥', s: 'yes' },
+        { t: '无需账号，自带密钥', s: 'yes' },
+      ]},
+      { label: '本地优先 · 隐私', cells: [
+        { t: '是 — 默认不外传', s: 'yes' },
+        { t: '文件本地，推理走云端', s: 'partial' },
+        { t: '本地运行，需下载 11GB 数据', s: 'partial' },
+        { t: '是 — SQLite + 系统钥匙串', s: 'yes' },
+      ]},
+      { label: '安全审批', cells: [
+        { t: '命令/删除/安装/远程', s: 'yes' },
+        { t: '文件夹/主机/任务 审批', s: 'yes' },
+        { t: '以完整权限执行代码', s: 'no' },
+        { t: '远程计算探针门控', s: 'partial' },
+      ]},
+      { label: '交付形态', cells: [
+        { t: '桌面 App + 笔记本 + 查看器', s: 'yes' },
+        { t: '桌面 App（Beta）', s: 'partial' },
+        { t: 'Python 库 + Gradio 网页', s: 'partial' },
+        { t: '桌面 App + CLI（MVP）', s: 'partial' },
+      ]},
+      { label: '价格', cells: [
+        { t: '免费', s: 'yes' },
+        { t: '需付费订阅', s: 'no' },
+        { t: '免费（库）', s: 'yes' },
+        { t: '免费', s: 'yes' },
+      ]},
     ],
   },
   architecture: {

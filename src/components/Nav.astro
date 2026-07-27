@@ -1,7 +1,7 @@
 ---
 interface Props {
   lang: 'en' | 'zh';
-  nav: { features: string; architecture: string; capabilities: string; download: string };
+  nav: { features: string; architecture: string; compare: string; download: string };
 }
 const { lang, nav } = Astro.props;
 const otherLang = lang === 'en' ? '/zh' : '/';
@@ -16,7 +16,7 @@ const langLabel = lang === 'en' ? 'EN' : '中';
     <div class="hidden md:flex items-center gap-6">
       <a href="#features" class="text-muted text-sm font-medium hover:text-text transition-colors">{nav.features}</a>
       <a href="#architecture" class="text-muted text-sm font-medium hover:text-text transition-colors">{nav.architecture}</a>
-      <a href="#capabilities" class="text-muted text-sm font-medium hover:text-text transition-colors">{nav.capabilities}</a>
+      <a href="#compare" class="text-muted text-sm font-medium hover:text-text transition-colors">{nav.compare}</a>
       <a href="#download" class="text-muted text-sm font-medium hover:text-text transition-colors">{nav.download}</a>
     </div>
     <div class="flex items-center gap-3">

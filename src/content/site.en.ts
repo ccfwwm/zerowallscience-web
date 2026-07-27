@@ -7,7 +7,7 @@ export const en = {
   nav: {
     features: 'Features',
     architecture: 'Architecture',
-    capabilities: 'Capabilities',
+    compare: 'Compare',
     download: 'Download',
   },
   hero: {
@@ -17,7 +17,7 @@ export const en = {
     stats: [
       { value: '7', label: 'Languages' },
       { value: '3', label: 'Platforms' },
-      { value: 'v0.3.4', label: 'Latest' },
+      { value: 'v0.3.9', label: 'Latest' },
     ],
   },
   loop: {
@@ -57,6 +57,86 @@ export const en = {
       { title: 'Literature Connectors', desc: 'One-click access to arXiv, PubMed, Crossref, Semantic Scholar, bioRxiv/medRxiv, and more research databases.' },
       { title: 'Integrity Auditing', desc: 'Built-in auditor checks images, numbers, logic, and citations with 4-level evidence grading before publication.' },
       { title: 'Safety by Default', desc: 'Command execution, file deletion, dependency install, and remote connections all require explicit human approval.' },
+    ],
+  },
+  whyus: {
+    tag: 'Why ZeroWall',
+    title: 'The Most Complete Open Research Desktop',
+    sub: 'Where other AI-for-science tools trade away platforms, models, or openness, ZeroWall keeps all of it.',
+    items: [
+      { icon: '🖥️', title: 'True Cross-Platform', desc: 'Prebuilt installers for macOS, Windows, and Linux — the only tool in its class with no missing OS and no mandatory source build.' },
+      { icon: '📱', title: 'Reach It From Your Phone', desc: 'A token-authenticated gateway serves the real desktop UI to your phone or LAN browser. No other project here offers mobile access.' },
+      { icon: '🌍', title: 'Every Field, Not Just Biology', desc: 'General-purpose across biomedical, materials, climate, economics, and astronomy — not locked to a single domain.' },
+      { icon: '🔓', title: 'Open, Model-Agnostic, Free', desc: 'MIT-licensed, bring any model you like, no account or subscription. You own the whole workflow end to end.' },
+    ],
+  },
+  comparison: {
+    tag: 'Comparison',
+    title: 'How ZeroWall Compares',
+    sub: 'An honest, side-by-side look at ZeroWall Science and other AI-for-science tools.',
+    columns: ['ZeroWall Science', 'Claude Science', 'Biomni', 'wisp-science'],
+    note: 'Compiled from public docs and source, July 2026. Competitors are independent projects; this is a neutral feature comparison, not an endorsement.',
+    rows: [
+      { label: 'Platforms', cells: [
+        { t: 'macOS · Windows · Linux', s: 'yes' },
+        { t: 'macOS · Linux only (beta)', s: 'no' },
+        { t: 'macOS · Linux via conda', s: 'partial' },
+        { t: 'Win · macOS; Linux source-only', s: 'partial' },
+      ]},
+      { label: 'Mobile / remote access', cells: [
+        { t: 'Phone + LAN gateway', s: 'yes' },
+        { t: 'None (cloud-hosted option)', s: 'no' },
+        { t: 'Hosted web demo only', s: 'partial' },
+        { t: 'None', s: 'no' },
+      ]},
+      { label: 'Research domain', cells: [
+        { t: 'General science, many fields', s: 'yes' },
+        { t: 'Biomedical focus', s: 'partial' },
+        { t: 'Biomedical only', s: 'no' },
+        { t: 'Bioinformatics focus', s: 'partial' },
+      ]},
+      { label: 'Model choice', cells: [
+        { t: 'Model-agnostic, any provider', s: 'yes' },
+        { t: 'Claude models only', s: 'no' },
+        { t: 'Model-agnostic', s: 'yes' },
+        { t: 'Model-agnostic (no Gemini)', s: 'yes' },
+      ]},
+      { label: 'License', cells: [
+        { t: 'Open source · MIT', s: 'yes' },
+        { t: 'Proprietary, closed', s: 'no' },
+        { t: 'Apache-2.0 (frozen 2025-04)', s: 'partial' },
+        { t: 'Open source · Apache-2.0', s: 'yes' },
+      ]},
+      { label: 'Account required', cells: [
+        { t: 'None — bring your own key', s: 'yes' },
+        { t: 'Paid Claude subscription', s: 'no' },
+        { t: 'None — bring your own key', s: 'yes' },
+        { t: 'None — bring your own key', s: 'yes' },
+      ]},
+      { label: 'Local-first & private', cells: [
+        { t: 'Yes — nothing leaves by default', s: 'yes' },
+        { t: 'Local files, cloud inference', s: 'partial' },
+        { t: 'Local run, 11 GB data download', s: 'partial' },
+        { t: 'Yes — SQLite + OS keychain', s: 'yes' },
+      ]},
+      { label: 'Safety approvals', cells: [
+        { t: 'Exec / delete / install / remote', s: 'yes' },
+        { t: 'Folder / host / job approvals', s: 'yes' },
+        { t: 'Runs code with full privileges', s: 'no' },
+        { t: 'Probe-gated remote compute', s: 'partial' },
+      ]},
+      { label: 'Delivery', cells: [
+        { t: 'Desktop app + notebooks + viewers', s: 'yes' },
+        { t: 'Desktop app (beta)', s: 'partial' },
+        { t: 'Python library + Gradio web', s: 'partial' },
+        { t: 'Desktop app + CLI (MVP)', s: 'partial' },
+      ]},
+      { label: 'Price', cells: [
+        { t: 'Free', s: 'yes' },
+        { t: 'Paid plan required', s: 'no' },
+        { t: 'Free (library)', s: 'yes' },
+        { t: 'Free', s: 'yes' },
+      ]},
     ],
   },
   architecture: {
