@@ -42,34 +42,24 @@ export default function HeroCanvas() {
     function build() {
       const mobile = width < 640;
 
-      // ---- DNA helices on a jittered grid (even coverage) ----
-      const target = Math.max(3, Math.min(8, Math.round((width * height) / 280000)));
-      const aspect = width / height;
-      const cols = Math.max(1, Math.round(Math.sqrt(target * aspect)));
-      const rows = Math.max(1, Math.ceil(target / cols));
+      // ---- DNA helices: 8 genes, free random placement + free drift ----
+      const target = 8;
       helices = [];
-      let i = 0;
-      for (let r = 0; r < rows; r++) {
-        for (let c = 0; c < cols; c++) {
-          if (i >= target) break;
-          const cellW = width / cols;
-          const cellH = height / rows;
-          const cx = (c + 0.5) * cellW + rand(-0.28, 0.28) * cellW;
-          const cy = (r + 0.5) * cellH + rand(-0.28, 0.28) * cellH;
-          const angle = rand(-0.55, 0.55) + (i % 2 ? 0.35 : -0.3);
-          const speed = rand(0.12, 0.26);
-          helices.push({
-            x: cx, y: cy, angle,
-            len: mobile ? rand(150, 220) : rand(230, 360),
-            amp: mobile ? rand(11, 17) : rand(15, 26),
-            turns: rand(2.4, 3.8),
-            phase: rand(0, Math.PI * 2),
-            spin: rand(0.018, 0.032) * (Math.random() < 0.5 ? 1 : -1),
-            vx: Math.cos(angle) * speed,
-            vy: Math.sin(angle) * speed,
-          });
-          i++;
-        }
+      for (let i = 0; i < target; i++) {
+        const angle = rand(0, Math.PI * 2);
+        const speed = rand(0.16, 0.34);
+        helices.push({
+          x: rand(0, width),
+          y: rand(0, height),
+          angle,
+          len: mobile ? rand(140, 210) : rand(220, 340),
+          amp: mobile ? rand(11, 17) : rand(15, 26),
+          turns: rand(2.4, 3.8),
+          phase: rand(0, Math.PI * 2),
+          spin: rand(0.018, 0.032) * (Math.random() < 0.5 ? 1 : -1),
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed,
+        });
       }
 
       // ---- molecular atoms on a jittered grid ----
