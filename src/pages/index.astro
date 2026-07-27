@@ -8,7 +8,6 @@ import { en as t } from '../content/site.en';
 
   <!-- Hero -->
   <section class="relative min-h-screen flex items-center justify-center pt-16 overflow-hidden" id="hero">
-    <div id="hero-canvas-mount" class="absolute inset-0 z-0"></div>
     <div class="absolute top-[-30%] left-1/2 -translate-x-1/2 w-[140%] h-[80%] rounded-full bg-[radial-gradient(ellipse,var(--accent-glow)_0%,transparent_70%)] opacity-50 blur-[100px] pointer-events-none animate-pulse"></div>
     <!-- Floating orbs for depth -->
     <div class="absolute top-[20%] left-[10%] w-64 h-64 rounded-full bg-[var(--hero-gradient-2)] opacity-[0.08] blur-[80px] animate-[float_12s_ease-in-out_infinite]"></div>
@@ -232,14 +231,6 @@ import { en as t } from '../content/site.en';
     </div>
   </footer>
 
-  <!-- Hero Canvas (React island, client-only) -->
-  <script>
-    import { createElement } from 'react';
-    import { createRoot } from 'react-dom/client';
-    import HeroCanvas from '../components/HeroCanvas';
-    const mount = document.getElementById('hero-canvas-mount');
-    if (mount) createRoot(mount).render(createElement(HeroCanvas));
-  </script>
 </Base>
 
 <style is:global>
