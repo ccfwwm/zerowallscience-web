@@ -220,6 +220,23 @@ import { en as t } from '../content/site.en';
     </div>
   </section>
 
+  <!-- Community -->
+  <section id="community" class="py-24 relative overflow-hidden">
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[60%] rounded-full bg-[radial-gradient(ellipse,var(--accent-glow)_0%,transparent_70%)] opacity-30 blur-[120px] pointer-events-none"></div>
+    <div class="max-w-[1200px] mx-auto px-6 relative">
+      <div class="text-center mb-12">
+        <span class="inline-block px-3 py-1 rounded-xl bg-accent-glow text-accent text-xs font-semibold uppercase tracking-wider mb-4">{t.community.tag}</span>
+        <h2 class="text-[clamp(1.8rem,4vw,2.8rem)] font-bold tracking-tight mb-4">{t.community.title}</h2>
+        <p class="text-muted text-lg max-w-[600px] mx-auto">{t.community.sub}</p>
+      </div>
+      <div class="bg-surface border border-border-faint rounded-card p-8 max-w-[360px] mx-auto text-center shadow-pop hover:border-accent hover:-translate-y-1 transition-all">
+        <img src="/assets/wechat-group.jpg" alt={t.community.qrAlt} width="280" height="280" class="w-full max-w-[280px] mx-auto rounded-input bg-white" />
+        <p class="font-semibold text-text mt-5">{t.community.caption}</p>
+        <p class="text-xs text-muted/70 mt-2 leading-relaxed">{t.community.hint}</p>
+      </div>
+    </div>
+  </section>
+
   <!-- Footer -->
   <footer class="border-t border-border-faint py-10 text-center text-muted text-sm">
     <div class="max-w-[1200px] mx-auto px-6">

@@ -9,6 +9,7 @@ export const zh = {
     architecture: '技术架构',
     compare: '对比',
     download: '下载',
+    community: '交流',
   },
   hero: {
     title: '科研无界',
@@ -172,6 +173,14 @@ export const zh = {
       { icon: '🪟', name: 'Windows', note: 'Windows 10/11 x64', status: 'available', statusLabel: '下载 .exe' },
       { icon: '🐧', name: 'Linux', note: 'x86_64 .deb / .rpm', status: 'coming', statusLabel: '待发布' },
     ],
+  },
+  community: {
+    tag: '交流反馈',
+    title: '加入交流群',
+    sub: '用微信扫码加入 ZeroWallScience 交流群 — 反馈建议、报告问题、交流科研工作流。',
+    qrAlt: 'ZeroWallScience 微信交流群二维码',
+    caption: '微信群 · ZeroWallScience 交流群',
+    hint: '群二维码会定期失效 — 如已过期，欢迎联系我们更新。',
   },
   footer: {
     tagline: '科研无界。',

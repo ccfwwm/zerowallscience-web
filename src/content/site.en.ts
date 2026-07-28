@@ -9,6 +9,7 @@ export const en = {
     architecture: 'Architecture',
     compare: 'Compare',
     download: 'Download',
+    community: 'Community',
   },
   hero: {
     title: 'Science Without Walls',
@@ -172,6 +173,14 @@ export const en = {
       { icon: '🪟', name: 'Windows', note: 'Windows 10/11 x64. SmartScreen: More info → Run anyway.', status: 'available', statusLabel: 'Download .exe' },
       { icon: '🐧', name: 'Linux', note: 'x86_64 .deb / .rpm', status: 'coming', statusLabel: 'Coming Soon' },
     ],
+  },
+  community: {
+    tag: 'Community',
+    title: 'Join the Conversation',
+    sub: 'Scan the QR code with WeChat to join the ZeroWallScience group — share feedback, report issues, and swap research workflows.',
+    qrAlt: 'ZeroWallScience WeChat group QR code',
+    caption: 'WeChat group · ZeroWallScience',
+    hint: 'Group QR codes expire periodically — if it no longer works, let us know and we\'ll refresh it.',
   },
   footer: {
     tagline: 'Science Without Walls.',
