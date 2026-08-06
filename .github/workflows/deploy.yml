@@ -51,7 +51,7 @@ jobs:
             dist/ root@185.132.54.223:${{ env.DEPLOY_PATH }}/$RELEASE_DIR/
 
           # Atomic symlink swap + cleanup old releases (keep 5)
-          ssh $SSH_OPTS root@185.132.54.223 << 'EOF'
+          ssh $SSH_OPTS root@185.132.54.223 "RELEASE_DIR='$RELEASE_DIR' bash -s" << 'EOF'
             set -euo pipefail
             cd /var/www/zerowallscience-web
             ln -sfn "$RELEASE_DIR" current_new
