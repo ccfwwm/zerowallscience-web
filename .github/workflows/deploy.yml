@@ -12,7 +12,7 @@ permissions:
   contents: read
 
 env:
-  DEPLOY_HOST: usimglinux
+  DEPLOY_HOST: 66.154.100.202
   DEPLOY_PATH: /var/www/zerowallscience-web
   NODE_VERSION: '20'
 
@@ -48,10 +48,10 @@ jobs:
           # rsync build output
           rsync -az --delete \
             -e "ssh $SSH_OPTS" \
-            dist/ root@185.132.54.223:${{ env.DEPLOY_PATH }}/$RELEASE_DIR/
+            dist/ root@${{ env.DEPLOY_HOST }}:${{ env.DEPLOY_PATH }}/$RELEASE_DIR/
 
           # Atomic symlink swap + cleanup old releases (keep 5)
-          ssh $SSH_OPTS root@185.132.54.223 "RELEASE_DIR='$RELEASE_DIR' bash -s" << 'EOF'
+          ssh $SSH_OPTS root@${{ env.DEPLOY_HOST }} "RELEASE_DIR='$RELEASE_DIR' bash -s" << 'EOF'
             set -euo pipefail
             cd /var/www/zerowallscience-web
             ln -sfn "$RELEASE_DIR" current_new

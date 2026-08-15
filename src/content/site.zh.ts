@@ -180,6 +180,7 @@ export const zh = {
     sub: '用微信扫码加入 ZeroWallScience 交流群 — 反馈建议、报告问题、交流科研工作流。',
     qrAlt: 'ZeroWallScience 微信交流群二维码',
     caption: '微信群 · ZeroWallScience 交流群',
+    contact: '联系微信：chengxunkeji999',
     hint: '群二维码会定期失效 — 如已过期，欢迎联系我们更新。',
   },
   footer: {

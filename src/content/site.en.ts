@@ -180,6 +180,7 @@ export const en = {
     sub: 'Scan the QR code with WeChat to join the ZeroWallScience group — share feedback, report issues, and swap research workflows.',
     qrAlt: 'ZeroWallScience WeChat group QR code',
     caption: 'WeChat group · ZeroWallScience',
+    contact: 'WeChat: chengxunkeji999',
     hint: 'Group QR codes expire periodically — if it no longer works, let us know and we\'ll refresh it.',
   },
   footer: {

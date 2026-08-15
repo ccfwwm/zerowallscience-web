@@ -206,7 +206,7 @@ import { en as t } from '../content/site.en';
             <h3 class="text-lg font-semibold mb-2">{p.name}</h3>
             <p class="text-xs text-muted mb-4">{p.note}</p>
             {p.status === 'available' ? (
-              <a href="https://github.com/ccfwwm/zerowallscience-releases/releases/latest" target="_blank" class="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-input bg-accent text-accent-fg font-semibold text-sm hover:-translate-y-0.5 hover:shadow-[0_4px_12px_var(--accent-glow)] transition-all">
+              <a href="https://zerowall.chengxunkeji.cn/releases-zerowallsciencedev/latest/ZeroWall-Science-Setup.exe" class="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-input bg-accent text-accent-fg font-semibold text-sm hover:-translate-y-0.5 hover:shadow-[0_4px_12px_var(--accent-glow)] transition-all">
                 ⬇ {p.statusLabel}
               </a>
             ) : (
@@ -230,8 +230,9 @@ import { en as t } from '../content/site.en';
         <p class="text-muted text-lg max-w-[600px] mx-auto">{t.community.sub}</p>
       </div>
       <div class="bg-surface border border-border-faint rounded-card p-8 max-w-[360px] mx-auto text-center shadow-pop hover:border-accent hover:-translate-y-1 transition-all">
-        <img src="/assets/wechat-group.jpg?v=20260806" alt={t.community.qrAlt} width="550" height="652" class="w-full h-auto max-w-[280px] mx-auto rounded-input bg-white" />
+        <img src="/assets/wechat-group.jpg?v=20260815" alt={t.community.qrAlt} width="1117" height="1241" class="w-full h-auto max-w-[280px] mx-auto rounded-input bg-white" />
         <p class="font-semibold text-text mt-5">{t.community.caption}</p>
+        <p class="text-sm font-medium text-accent mt-3">{t.community.contact}</p>
         <p class="text-xs text-muted/70 mt-2 leading-relaxed">{t.community.hint}</p>
       </div>
     </div>
