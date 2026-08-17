@@ -18,7 +18,7 @@ export const zh = {
     stats: [
       { value: '7', label: '界面语言' },
       { value: '3', label: '支持平台' },
-      { value: 'v0.3.9', label: '最新版本' },
+      { value: 'Stable', label: '最新版本' },
     ],
   },
   loop: {
@@ -154,15 +154,15 @@ export const zh = {
   },
   architecture: {
     tag: '技术架构',
-    title: '清晰分层设计',
-    sub: '解耦层与严格 SDK 边界 — UI 永远不直接调用 Agent 运行时。',
+    title: '专为科研打造的运行架构',
+    sub: 'Electron、ZeroWall Agent Host 与 ZeroWall 科研服务通过严格的进程和安全边界隔离。',
     layers: [
-      { icon: '🖥️', name: '桌面 UI (Tauri + React)', desc: '多会话聊天、文件浏览器、笔记本、运行查看器、溯源检查器' },
-      { icon: '📦', name: 'OpenCodeClient SDK', desc: '类型安全封装 — UI 与运行时唯一通信路径' },
-      { icon: '⚙️', name: 'OpenCode Sidecar', desc: '捆绑、版本锁定、自动启动 — 与用户自有配置隔离' },
-      { icon: '🔒', name: '本地工作区', desc: 'SQLite + JSONL 溯源 + 系统钥匙串 — 密钥永不出现在日志、导出或 git 中' },
+      { icon: '🖥️', name: 'ZeroWall 桌面端 (Electron + React)', desc: '沙箱化科研界面，统一承载项目、会话、工具、Skills、MCP、运行任务和科研产物' },
+      { icon: '🔗', name: 'ZeroWall 类型化远程接口', desc: '对账号、项目、执行、科研、出版和演示文稿请求进行严格校验' },
+      { icon: '⚙️', name: 'ZeroWall Agent Host', desc: '固定版本的 Agent、会话、工具审批、Skills、MCP、插件与模型运行时，仅监听本机回环地址' },
+      { icon: '🔒', name: '科研数据库与系统密钥库', desc: '科研 SQLite 与加密凭据分离 — 密钥不进入渲染进程、日志或导出包' },
     ],
-    dividers: ['SDK 契约', '进程边界', '安全边界'],
+    dividers: ['校验 RPC 边界', '进程边界', '安全边界'],
   },
   download: {
     tag: '下载',

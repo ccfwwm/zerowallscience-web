@@ -45,5 +45,40 @@ const { title, description, lang } = Astro.props;
     const mount = document.getElementById('zw-bg-canvas');
     if (mount) createRoot(mount).render(createElement(HeroCanvas));
   </script>
+  <script>
+    const links = document.querySelectorAll<HTMLAnchorElement>('[data-latest-windows-download]');
+
+    async function updateLatestWindowsDownload(link: HTMLAnchorElement): Promise<string> {
+      const metadataUrl = link.dataset.releaseMetadataUrl;
+      if (!metadataUrl) return link.href;
+      try {
+        const response = await fetch(metadataUrl, { cache: 'no-store', credentials: 'omit' });
+        if (!response.ok) throw new Error(`Release metadata returned HTTP ${response.status}.`);
+        const metadata = await response.json() as { assetUrl?: unknown; url?: unknown; version?: unknown };
+        const candidate = typeof metadata.assetUrl === 'string' ? metadata.assetUrl : metadata.url;
+        if (typeof candidate !== 'string') throw new Error('Release metadata does not contain an asset URL.');
+        const asset = new URL(candidate);
+        const authority = new URL(metadataUrl);
+        if (asset.protocol !== 'https:' || asset.origin !== authority.origin || !asset.pathname.toLowerCase().endsWith('.exe')) {
+          throw new Error('Release metadata contains an untrusted asset URL.');
+        }
+        link.href = asset.href;
+        link.dataset.latestResolved = 'true';
+        if (typeof metadata.version === 'string') link.dataset.releaseVersion = metadata.version;
+      } catch (error) {
+        console.warn('Using the build-time ZeroWall Science download URL.', error);
+      }
+      return link.href;
+    }
+
+    for (const link of links) {
+      void updateLatestWindowsDownload(link);
+      link.addEventListener('click', async (event) => {
+        if (link.dataset.latestResolved === 'true') return;
+        event.preventDefault();
+        window.location.assign(await updateLatestWindowsDownload(link));
+      });
+    }
+  </script>
 </body>
 </html>

@@ -18,7 +18,7 @@ export const en = {
     stats: [
       { value: '7', label: 'Languages' },
       { value: '3', label: 'Platforms' },
-      { value: 'v0.3.9', label: 'Latest' },
+      { value: 'Stable', label: 'Latest' },
     ],
   },
   loop: {
@@ -154,15 +154,15 @@ export const en = {
   },
   architecture: {
     tag: 'Architecture',
-    title: 'Clean Layered Design',
-    sub: 'Decoupled layers with a strict SDK boundary — the UI never calls the agent runtime directly.',
+    title: 'A Dedicated Research Runtime',
+    sub: 'Electron, the ZeroWall agent host, and ZeroWall research services are separated by strict process and security boundaries.',
     layers: [
-      { icon: '🖥️', name: 'Desktop UI (Tauri + React)', desc: 'Multi-session chat, file browser, notebooks, run viewer, provenance inspector' },
-      { icon: '📦', name: 'OpenCodeClient SDK', desc: 'Type-safe wrapper — the only path between UI and runtime' },
-      { icon: '⚙️', name: 'OpenCode Sidecar', desc: 'Bundled, pinned, auto-started — isolated from user\'s own config' },
-      { icon: '🔒', name: 'Local Workspace', desc: 'SQLite + JSONL provenance + OS keychain — keys never in logs, exports, or git' },
+      { icon: '🖥️', name: 'ZeroWall Desktop (Electron + React)', desc: 'Sandboxed research UI with projects, sessions, tools, skills, MCP, runs, and scientific artifacts' },
+      { icon: '🔗', name: 'ZeroWall Typed Remote', desc: 'Validated account, project, execution, research, publication, and presentation contracts' },
+      { icon: '⚙️', name: 'ZeroWall Agent Host', desc: 'Pinned agent, session, tool, approval, skill, MCP, plugin, and model runtime on loopback only' },
+      { icon: '🔒', name: 'Research Store & OS Vault', desc: 'Separate SQLite research data and encrypted credentials — secrets never enter the renderer or exports' },
     ],
-    dividers: ['SDK Contract', 'Process Boundary', 'Security Boundary'],
+    dividers: ['Validated RPC Boundary', 'Process Boundary', 'Security Boundary'],
   },
   download: {
     tag: 'Download',

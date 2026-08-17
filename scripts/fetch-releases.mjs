@@ -1,59 +1,26 @@
-/**
- * Fetch the latest release info from GitHub and write src/data/releases.json.
- * Runs at build time — the site ships a static snapshot.
- */
-import { writeFileSync, mkdirSync } from 'node:fs';
-import { resolve, dirname } from 'node:path';
-
-const REPO = 'ccfwwm/zerowallscience-releases';
-const API = `https://api.github.com/repos/${REPO}/releases?per_page=5`;
+/** Fetch the authoritative Stable release metadata for the static fallback. */
+import { mkdirSync, writeFileSync } from 'node:fs';
+import { dirname, resolve } from 'node:path';
+import { parseReleaseMetadata, RELEASE_METADATA_URL, releaseSnapshot } from './release-metadata.mjs';
 
 async function main() {
-  const res = await fetch(API, {
-    headers: { Accept: 'application/vnd.github+json', 'User-Agent': 'zerowallscience-web' },
+  const metadataUrl = process.env.ZEROWALL_RELEASE_METADATA_URL ?? RELEASE_METADATA_URL;
+  const response = await fetch(metadataUrl, {
+    headers: { Accept: 'application/json', 'User-Agent': 'zerowallscience-web' },
   });
-  if (!res.ok) {
-    console.warn(`⚠️  GitHub API returned ${res.status} — using fallback data`);
-    writeFallback();
-    return;
+  if (!response.ok) {
+    throw new Error(`Release metadata returned HTTP ${response.status}.`);
   }
-  const releases = await res.json();
-  const data = releases
-    .filter((r) => !r.draft)
-    .map((r) => ({
-      tag: r.tag_name,
-      name: r.name || r.tag_name,
-      published: r.published_at,
-      url: r.html_url,
-      assets: r.assets.map((a) => ({
-        name: a.name,
-        size: a.size,
-        url: a.browser_download_url,
-      })),
-    }));
-  writeData(data);
-}
 
-function writeFallback() {
-  writeData([
-    {
-      tag: 'v0.3.4',
-      name: 'v0.3.4',
-      published: '2026-07-27T11:32:32Z',
-      url: `https://github.com/${REPO}/releases/tag/v0.3.4`,
-      assets: [{ name: 'ZeroWall.Science_0.3.4_x64-setup.exe', size: 0, url: `https://github.com/${REPO}/releases/download/v0.3.4/ZeroWall.Science_0.3.4_x64-setup.exe` }],
-    },
-  ]);
-}
-
-function writeData(data) {
+  const metadata = parseReleaseMetadata(await response.json(), metadataUrl);
+  const data = releaseSnapshot(metadata);
   const outPath = resolve(import.meta.dirname, '../src/data/releases.json');
   mkdirSync(dirname(outPath), { recursive: true });
-  writeFileSync(outPath, JSON.stringify(data, null, 2));
-  console.log(`✅ releases.json written — ${data.length} release(s), latest: ${data[0]?.tag}`);
+  writeFileSync(outPath, `${JSON.stringify(data, null, 2)}\n`);
+  console.log(`releases.json written: ${metadata.version} -> ${metadata.assetUrl}`);
 }
 
-main().catch((err) => {
-  console.error(err);
-  writeFallback();
+main().catch((error) => {
+  console.error(error instanceof Error ? error.message : String(error));
+  process.exitCode = 1;
 });

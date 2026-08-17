@@ -1,45 +1,15 @@
 [
   {
-    "tag": "v0.3.5",
-    "name": "ZeroWall Science v0.3.5",
-    "published": "2026-07-27T12:07:18Z",
-    "url": "https://github.com/ccfwwm/zerowallscience-releases/releases/tag/v0.3.5",
+    "tag": "v3.0.0",
+    "name": "ZeroWall Science 3.0.0",
+    "published": "2026-08-17T11:16:58Z",
+    "url": "https://zerowall.chengxunkeji.cn/releases/3.0.0/zerowall-science-3.0.0-win-x64.exe",
     "assets": [
       {
-        "name": "ZeroWall.Science_0.3.5_x64-setup.exe",
-        "size": 70561344,
-        "url": "https://github.com/ccfwwm/zerowallscience-releases/releases/download/v0.3.5/ZeroWall.Science_0.3.5_x64-setup.exe"
-      }
-    ]
-  },
-  {
-    "tag": "v0.3.4",
-    "name": "ZeroWall Science v0.3.4",
-    "published": "2026-07-27T11:32:32Z",
-    "url": "https://github.com/ccfwwm/zerowallscience-releases/releases/tag/v0.3.4",
-    "assets": [
-      {
-        "name": "ZeroWall.Science_0.3.4_x64-setup.exe",
-        "size": 70553606,
-        "url": "https://github.com/ccfwwm/zerowallscience-releases/releases/download/v0.3.4/ZeroWall.Science_0.3.4_x64-setup.exe"
-      }
-    ]
-  },
-  {
-    "tag": "v0.3.0",
-    "name": "ZeroWall Science v0.3.0",
-    "published": "2026-07-27T03:52:44Z",
-    "url": "https://github.com/ccfwwm/zerowallscience-releases/releases/tag/v0.3.0",
-    "assets": [
-      {
-        "name": "ZeroWall.Science_0.3.0_x64-setup.exe",
-        "size": 70382224,
-        "url": "https://github.com/ccfwwm/zerowallscience-releases/releases/download/v0.3.0/ZeroWall.Science_0.3.0_x64-setup.exe"
-      },
-      {
-        "name": "ZeroWall.Science_0.3.0_x64_en-US.msi",
-        "size": 99252939,
-        "url": "https://github.com/ccfwwm/zerowallscience-releases/releases/download/v0.3.0/ZeroWall.Science_0.3.0_x64_en-US.msi"
+        "name": "zerowall-science-3.0.0-win-x64.exe",
+        "size": 197848893,
+        "url": "https://zerowall.chengxunkeji.cn/releases/3.0.0/zerowall-science-3.0.0-win-x64.exe",
+        "sha256": "b0aa416e124cc2954948e01aa6f7b5cf2bd9b4199bb31238cd06611701ae1689"
       }
     ]
   }

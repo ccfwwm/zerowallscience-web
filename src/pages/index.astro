@@ -2,6 +2,13 @@
 import Base from '../layouts/Base.astro';
 import Nav from '../components/Nav.astro';
 import { en as t } from '../content/site.en';
+import releases from '../data/releases.json';
+
+const latestWindowsUrl = releases[0]?.assets.find(asset => asset.name.toLowerCase().endsWith('.exe'))?.url;
+if (!latestWindowsUrl) throw new Error('The Stable Windows release is missing from releases.json.');
+const latestVersion = releases[0]?.tag;
+if (!latestVersion) throw new Error('The Stable release version is missing from releases.json.');
+const heroStats = t.hero.stats.map(stat => stat.label === 'Latest' ? { ...stat, value: latestVersion } : stat);
 ---
 <Base title={t.meta.title} description={t.meta.description} lang="en">
   <Nav lang="en" nav={t.nav} />
@@ -29,7 +36,7 @@ import { en as t } from '../content/site.en';
         </a>
       </div>
       <div class="flex justify-center gap-12 mt-16 pt-8 border-t border-border-faint flex-wrap animate-[fadeUp_1.4s_ease]">
-        {t.hero.stats.map(s => (
+        {heroStats.map(s => (
           <div class="text-center">
             <div class="text-2xl font-extrabold text-accent font-mono">{s.value}</div>
             <div class="text-xs text-muted mt-1">{s.label}</div>
@@ -206,7 +213,7 @@ import { en as t } from '../content/site.en';
             <h3 class="text-lg font-semibold mb-2">{p.name}</h3>
             <p class="text-xs text-muted mb-4">{p.note}</p>
             {p.status === 'available' ? (
-              <a href="https://zerowall.chengxunkeji.cn/releases-zerowallsciencedev/latest/ZeroWall-Science-Setup.exe" class="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-input bg-accent text-accent-fg font-semibold text-sm hover:-translate-y-0.5 hover:shadow-[0_4px_12px_var(--accent-glow)] transition-all">
+              <a href={latestWindowsUrl} data-latest-windows-download data-release-metadata-url="https://zerowall.chengxunkeji.cn/releases/latest.json" class="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-input bg-accent text-accent-fg font-semibold text-sm hover:-translate-y-0.5 hover:shadow-[0_4px_12px_var(--accent-glow)] transition-all">
                 ⬇ {p.statusLabel}
               </a>
             ) : (
