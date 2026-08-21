@@ -1,21 +1,22 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { parseReleaseMetadata, releaseSnapshot } from '../release-metadata.mjs';
+import { parseReleaseMetadata, RELEASE_METADATA_URL, releaseSnapshot } from '../release-metadata.mjs';
 
 const valid = {
-  version: '3.0.0',
-  name: 'ZeroWall Science 3.0.0',
-  publishedAt: '2026-08-17T11:16:58Z',
-  assetUrl: 'https://zerowall.chengxunkeji.cn/releases/3.0.0/zerowall-science-3.0.0-win-x64.exe',
-  assetName: 'zerowall-science-3.0.0-win-x64.exe',
-  assetSha256: 'b0aa416e124cc2954948e01aa6f7b5cf2bd9b4199bb31238cd06611701ae1689',
-  sizeBytes: 197848893,
+  version: '4.0.11',
+  name: 'ZeroWall Science 4.0.11',
+  publishedAt: '2026-08-21T09:33:40Z',
+  assetUrl: 'https://zerowall.chengxunkeji.cn/stable/releases/4.0.11/zerowall-science-4.0.11-win-x64.exe',
+  assetName: 'zerowall-science-4.0.11-win-x64.exe',
+  assetSha256: 'd0b0babb8d7d88bd6cafa22fddb82939dee6ea3fd52b45d7cc51dc89c4a7b725',
+  sizeBytes: 139297753,
 };
 
 test('accepts the authoritative ZeroWall Stable metadata', () => {
   const metadata = parseReleaseMetadata(valid);
   const [release] = releaseSnapshot(metadata);
-  assert.equal(release.tag, 'v3.0.0');
+  assert.equal(RELEASE_METADATA_URL, 'https://zerowall.chengxunkeji.cn/stable/releases/latest.json');
+  assert.equal(release.tag, 'v4.0.11');
   assert.equal(release.assets[0].url, valid.assetUrl);
   assert.equal(release.assets[0].sha256, valid.assetSha256);
 });

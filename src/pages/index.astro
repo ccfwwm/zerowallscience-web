@@ -213,7 +213,7 @@ const heroStats = t.hero.stats.map(stat => stat.label === 'Latest' ? { ...stat, 
             <h3 class="text-lg font-semibold mb-2">{p.name}</h3>
             <p class="text-xs text-muted mb-4">{p.note}</p>
             {p.status === 'available' ? (
-              <a href={latestWindowsUrl} data-latest-windows-download data-release-metadata-url="https://zerowall.chengxunkeji.cn/releases/latest.json" class="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-input bg-accent text-accent-fg font-semibold text-sm hover:-translate-y-0.5 hover:shadow-[0_4px_12px_var(--accent-glow)] transition-all">
+              <a href={latestWindowsUrl} data-latest-windows-download data-release-metadata-url="https://zerowall.chengxunkeji.cn/stable/releases/latest.json" class="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-input bg-accent text-accent-fg font-semibold text-sm hover:-translate-y-0.5 hover:shadow-[0_4px_12px_var(--accent-glow)] transition-all">
                 ⬇ {p.statusLabel}
               </a>
             ) : (

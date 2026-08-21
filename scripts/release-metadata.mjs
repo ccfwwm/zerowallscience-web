@@ -1,4 +1,4 @@
-export const RELEASE_METADATA_URL = 'https://zerowall.chengxunkeji.cn/releases/latest.json';
+export const RELEASE_METADATA_URL = 'https://zerowall.chengxunkeji.cn/stable/releases/latest.json';
 
 export function parseReleaseMetadata(value, metadataUrl = RELEASE_METADATA_URL) {
   if (typeof value !== 'object' || value === null || Array.isArray(value)) {
