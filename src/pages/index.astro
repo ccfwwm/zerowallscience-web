@@ -224,6 +224,11 @@ const heroStats = t.hero.stats.map(stat => stat.label === 'Latest' ? { ...stat, 
           </div>
         ))}
       </div>
+      <div class="text-center mt-8">
+        <a href="https://github.com/ccfwwm/zerowallscience" target="_blank" rel="noreferrer" class="inline-flex items-center px-5 py-2.5 rounded-input border border-border text-text font-semibold text-sm hover:border-accent hover:text-accent transition-colors">
+          {t.download.source}
+        </a>
+      </div>
     </div>
   </section>
 
@@ -251,6 +256,10 @@ const heroStats = t.hero.stats.map(stat => stat.label === 'Latest' ? { ...stat, 
       <div class="flex items-center justify-center gap-2 mb-3">
         <img src="/assets/app-icon.png" alt="" class="w-5 h-5 rounded" />
         <span class="font-semibold text-text">ZeroWall Science</span>
+      </div>
+      <div class="flex items-center justify-center gap-5 mb-3">
+        <a href="https://github.com/ccfwwm/zerowallscience" target="_blank" rel="noreferrer" class="hover:text-accent transition-colors">{t.footer.github}</a>
+        <a href="https://github.com/ccfwwm/zerowallscience/blob/main/LICENSE" target="_blank" rel="noreferrer" class="hover:text-accent transition-colors">{t.footer.license}</a>
       </div>
       <p>{t.footer.copyright} · {t.footer.tagline}</p>
     </div>

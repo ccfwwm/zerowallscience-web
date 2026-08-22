@@ -10,6 +10,7 @@ export const zh = {
     compare: '对比',
     download: '下载',
     community: '交流',
+    github: 'GitHub',
   },
   hero: {
     title: '科研无界',
@@ -68,7 +69,7 @@ export const zh = {
       { icon: '🖥️', title: '真正的全平台', desc: 'macOS、Windows、Linux 三平台预编译安装包 — 同类中唯一不缺任何系统、无需从源码构建。' },
       { icon: '📱', title: '手机也能用', desc: '令牌认证网关把真实桌面 UI 推送到手机或局域网浏览器。对照的其他项目均无移动端访问。' },
       { icon: '🌍', title: '不只生物，覆盖各领域', desc: '通用科研，横跨生物医学、材料、气候、经济、天文 — 不锁定单一学科。' },
-      { icon: '🔓', title: '开源 · 模型无关 · 免费', desc: 'MIT 许可、自带任意模型、无需账号或订阅。整条工作流完全属于你。' },
+      { icon: '🔓', title: '开源 · 模型无关 · 免费', desc: '采用 AGPL-3.0-only 许可证、自带任意模型、无需账号或订阅。整条工作流完全属于你。' },
     ],
   },
   comparison: {
@@ -127,7 +128,7 @@ export const zh = {
         { t: '基础运行记录', s: 'partial' },
       ]},
       { label: '开源许可', cells: [
-        { t: '开源 · MIT', s: 'yes' },
+        { t: '开源 · AGPL-3.0-only', s: 'yes' },
         { t: '闭源商业', s: 'no' },
         { t: 'Apache-2.0（2025-04 冻结）', s: 'partial' },
         { t: '开源 · Apache-2.0', s: 'yes' },
@@ -168,6 +169,7 @@ export const zh = {
     tag: '下载',
     title: '获取 ZeroWall Science',
     sub: '免费、开源，支持所有主流平台。',
+    source: '在 GitHub 查看源码',
     platforms: [
       { icon: '🍎', name: 'macOS', note: 'Apple Silicon 和 Intel，macOS 13+', status: 'coming', statusLabel: '待发布' },
       { icon: '🪟', name: 'Windows', note: 'Windows 10/11 x64', status: 'available', statusLabel: '下载 .exe' },
@@ -185,6 +187,8 @@ export const zh = {
   },
   footer: {
     tagline: '科研无界。',
-    copyright: '© 2026 ZeroWall Science',
+    copyright: '© 2026 ZeroWall Science contributors',
+    github: 'GitHub',
+    license: 'AGPL-3.0-only',
   },
 } as const;

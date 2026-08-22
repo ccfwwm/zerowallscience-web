@@ -10,6 +10,7 @@ export const en = {
     compare: 'Compare',
     download: 'Download',
     community: 'Community',
+    github: 'GitHub',
   },
   hero: {
     title: 'Science Without Walls',
@@ -68,7 +69,7 @@ export const en = {
       { icon: '🖥️', title: 'True Cross-Platform', desc: 'Prebuilt installers for macOS, Windows, and Linux — the only tool in its class with no missing OS and no mandatory source build.' },
       { icon: '📱', title: 'Reach It From Your Phone', desc: 'A token-authenticated gateway serves the real desktop UI to your phone or LAN browser. No other project here offers mobile access.' },
       { icon: '🌍', title: 'Every Field, Not Just Biology', desc: 'General-purpose across biomedical, materials, climate, economics, and astronomy — not locked to a single domain.' },
-      { icon: '🔓', title: 'Open, Model-Agnostic, Free', desc: 'MIT-licensed, bring any model you like, no account or subscription. You own the whole workflow end to end.' },
+      { icon: '🔓', title: 'Open, Model-Agnostic, Free', desc: 'AGPL-3.0-only licensed, bring any model you like, no account or subscription. You own the whole workflow end to end.' },
     ],
   },
   comparison: {
@@ -127,7 +128,7 @@ export const en = {
         { t: 'Basic run records', s: 'partial' },
       ]},
       { label: 'License', cells: [
-        { t: 'Open source · MIT', s: 'yes' },
+        { t: 'Open source · AGPL-3.0-only', s: 'yes' },
         { t: 'Proprietary, closed', s: 'no' },
         { t: 'Apache-2.0 (frozen 2025-04)', s: 'partial' },
         { t: 'Open source · Apache-2.0', s: 'yes' },
@@ -168,6 +169,7 @@ export const en = {
     tag: 'Download',
     title: 'Get ZeroWall Science',
     sub: 'Free, open-source, available for all major platforms.',
+    source: 'View source on GitHub',
     platforms: [
       { icon: '🍎', name: 'macOS', note: 'Apple Silicon & Intel, macOS 13+', status: 'coming', statusLabel: 'Coming Soon' },
       { icon: '🪟', name: 'Windows', note: 'Windows 10/11 x64. SmartScreen: More info → Run anyway.', status: 'available', statusLabel: 'Download .exe' },
@@ -185,6 +187,8 @@ export const en = {
   },
   footer: {
     tagline: 'Science Without Walls.',
-    copyright: '© 2026 ZeroWall Science',
+    copyright: '© 2026 ZeroWall Science contributors',
+    github: 'GitHub',
+    license: 'AGPL-3.0-only',
   },
 } as const;
