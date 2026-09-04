@@ -1,46 +1,9 @@
 ---
-interface Props {
-  lang: 'en' | 'zh';
-  nav: { features: string; architecture: string; compare: string; download: string; community: string; github: string };
-}
+interface Props { lang: 'en' | 'zh'; nav: { workflow: string; features: string; architecture: string; capabilities: string; download: string; github: string }; }
 const { lang, nav } = Astro.props;
-const otherLang = lang === 'en' ? '/zh' : '/';
-const langLabel = lang === 'en' ? 'EN' : '中';
 ---
-<nav class="fixed top-0 left-0 right-0 z-50 bg-[var(--surface-glass)] backdrop-blur-xl border-b border-border-faint transition-colors">
-  <div class="max-w-[1200px] mx-auto px-6 flex items-center justify-between h-16">
-    <a href={lang === 'en' ? '/' : '/zh'} class="flex items-center gap-2.5 font-bold text-lg text-text no-underline">
-      <img src="/assets/app-icon.png" alt="ZeroWall Science" class="w-7 h-7 rounded-md" />
-      ZeroWall Science
-    </a>
-    <div class="hidden md:flex items-center gap-6">
-      <a href="#features" class="text-muted text-sm font-medium hover:text-text transition-colors">{nav.features}</a>
-      <a href="#architecture" class="text-muted text-sm font-medium hover:text-text transition-colors">{nav.architecture}</a>
-      <a href="#compare" class="text-muted text-sm font-medium hover:text-text transition-colors">{nav.compare}</a>
-      <a href="#download" class="text-muted text-sm font-medium hover:text-text transition-colors">{nav.download}</a>
-      <a href="#community" class="text-muted text-sm font-medium hover:text-text transition-colors">{nav.community}</a>
-      <a href="https://github.com/ccfwwm/zerowallscience" target="_blank" rel="noreferrer" class="text-muted text-sm font-medium hover:text-text transition-colors">{nav.github}</a>
-    </div>
-    <div class="flex items-center gap-3">
-      <a href={otherLang} class="w-9 h-9 rounded-lg border border-border bg-surface text-muted flex items-center justify-center text-xs font-semibold hover:border-accent hover:text-accent hover:bg-accent-glow transition-all no-underline">
-        {langLabel}
-      </a>
-      <button id="theme-toggle" class="w-9 h-9 rounded-lg border border-border bg-surface text-muted flex items-center justify-center hover:border-accent hover:text-accent hover:bg-accent-glow transition-all cursor-pointer" aria-label="Toggle theme">
-        <span id="theme-icon">☀️</span>
-      </button>
-    </div>
-  </div>
-</nav>
-
+<nav class="site-nav"><div class="page-shell nav-inner"><a href={lang === 'en' ? '/' : '/zh'} class="nav-brand"><img src="/assets/app-icon.png" alt="" width="30" height="30" />ZeroWall Science</a><div class="nav-links"><a href="#workflow">{nav.workflow}</a><a href="#features">{nav.features}</a><a href="#architecture">{nav.architecture}</a><a href="#capabilities">{nav.capabilities}</a></div><div class="nav-actions"><a class="nav-github" href="https://github.com/ccfwwm/zerowallscience" target="_blank" rel="noreferrer">{nav.github}</a><a class="icon-button" title="Switch language" href={lang === 'en' ? '/zh' : '/'}>{lang === 'en' ? '中' : 'EN'}</a><button class="icon-button" id="theme-toggle" title="Toggle theme" aria-label="Toggle theme">◐</button><a class="nav-download" href="#download">{nav.download}</a></div></div></nav>
 <script is:inline>
-  document.getElementById('theme-toggle').addEventListener('click', () => {
-    const current = document.documentElement.getAttribute('data-theme');
-    const next = current === 'dark' ? 'light' : 'dark';
-    document.documentElement.setAttribute('data-theme', next);
-    localStorage.setItem('zw-theme', next);
-    document.getElementById('theme-icon').textContent = next === 'dark' ? '☀️' : '🌙';
-  });
-  // Sync icon on load
-  document.getElementById('theme-icon').textContent =
-    document.documentElement.getAttribute('data-theme') === 'dark' ? '☀️' : '🌙';
+  const toggle = document.getElementById('theme-toggle');
+  toggle?.addEventListener('click', () => { const root = document.documentElement; const next = root.dataset.theme === 'dark' ? 'light' : 'dark'; root.dataset.theme = next; localStorage.setItem('zw-theme', next); });
 </script>
