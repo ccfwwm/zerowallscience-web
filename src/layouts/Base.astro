@@ -16,6 +16,7 @@ const { title, description, lang } = Astro.props;
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{title}</title>
   <meta name="description" content={description} />
+  <link rel="icon" type="image/png" href="/assets/app-icon.png" />
   <link rel="canonical" href={lang === 'zh' ? 'https://zerowallscience.org/zh' : 'https://zerowallscience.org'} />
   <link rel="alternate" hreflang="en" href="https://zerowallscience.org" />
   <link rel="alternate" hreflang="zh" href="https://zerowallscience.org/zh" />
