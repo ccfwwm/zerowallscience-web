@@ -5,7 +5,7 @@ const { cards } = Astro.props;
 ---
 <div class="architecture-gallery" data-architecture-gallery data-cards={JSON.stringify(cards)}>
   <div class="architecture-grid">
-    {cards.map((card, index) => <button class="architecture-card" type="button" data-architecture-card={index}><span class="architecture-number">0{index + 1}</span><img src={card.image} alt={card.alt} loading="lazy" width="1536" height="1024" /><span class="architecture-card-copy"><strong>{card.title}</strong><span>{card.desc}</span></span></button>)}
+    {cards.map((card, index) => <button class="architecture-card" type="button" data-architecture-card={index}><span class="architecture-number">0{index + 1}</span><img src={card.image} alt={card.alt} loading="lazy" width="1536" height="864" /><span class="architecture-card-copy"><strong>{card.title}</strong><span>{card.desc}</span></span></button>)}
   </div>
   <dialog class="architecture-dialog" data-architecture-dialog><button class="dialog-close" data-architecture-close type="button" aria-label="Close architecture preview">×</button><div class="architecture-dialog-content"><img data-architecture-image alt="" /><div><span class="eyebrow" data-architecture-eyebrow></span><h3 data-architecture-title></h3><p data-architecture-desc></p><div class="node-list" data-architecture-nodes></div></div></div></dialog>
 </div>

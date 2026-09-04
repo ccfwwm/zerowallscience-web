@@ -79,24 +79,26 @@ button { font:inherit; }
 .showcase-detail dt { color:var(--accent); font:10px "JetBrains Mono",monospace; text-transform:uppercase; }
 .showcase-detail dd { margin:7px 0 0; font-size:13px; line-height:1.5; }
 .image-dialog,.architecture-dialog { width:min(1180px,92vw); max-height:90vh; padding:0; border:1px solid #355064; background:#07121a; color:#edf7fb; box-shadow:0 35px 120px #000; }
+.architecture-dialog { width:min(1600px,96vw); height:min(94vh,1000px); max-height:94vh; overflow:hidden; }
 dialog::backdrop { background:rgba(1,7,11,.82); backdrop-filter:blur(8px); }
 .dialog-close { right:14px; top:14px; }
 .image-dialog img { display:block; width:100%; height:auto; max-height:86vh; object-fit:contain; }
 .architecture-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
 .architecture-card { position:relative; display:flex; min-width:0; min-height:390px; flex-direction:column; padding:0; text-align:left; color:#edf7fb; border:1px solid #223c4d; background:#07131c; cursor:pointer; overflow:hidden; transition:.25s; }
 .architecture-card:hover { transform:translateY(-5px); border-color:#38d4f2; }
-.architecture-card img { width:100%; aspect-ratio:3/2; object-fit:cover; opacity:.68; transition:.3s; }
-.architecture-card:hover img { opacity:.88; transform:scale(1.02); }
+.architecture-card img { display:block; width:100%; height:auto; aspect-ratio:16/9; object-fit:contain; background:#eef2f5; opacity:.82; transition:opacity .3s; }
+.architecture-card:hover img { opacity:1; }
 .architecture-number { position:absolute; top:15px; left:15px; z-index:2; padding:6px 8px; background:rgba(5,14,20,.8); }
 .architecture-card-copy { display:flex; flex-direction:column; gap:9px; padding:24px; }
 .architecture-card-copy strong { font-size:20px; }
 .architecture-card-copy span { color:#91a8b6; line-height:1.55; font-size:13px; }
-.architecture-dialog-content { display:grid; grid-template-columns:1.25fr .75fr; }
-.architecture-dialog-content>img { width:100%; height:100%; min-height:520px; object-fit:cover; }
-.architecture-dialog-content>div { padding:58px 38px; }
-.architecture-dialog h3 { font-size:32px; margin:0 0 18px; }
-.architecture-dialog p { color:#9fb4c0; line-height:1.7; }
-.node-list { display:flex; flex-wrap:wrap; gap:8px; margin-top:26px; }
+.architecture-dialog-content { display:grid; grid-template-rows:minmax(0,1fr) auto; height:100%; min-height:0; }
+.architecture-dialog-content>img { display:block; width:100%; height:100%; min-height:0; object-fit:contain; background:#eef2f5; }
+.architecture-dialog-content>div { padding:18px 72px 20px 24px; border-top:1px solid #29414f; }
+.architecture-dialog .eyebrow { margin-bottom:7px; }
+.architecture-dialog h3 { font-size:24px; margin:0 0 7px; }
+.architecture-dialog p { color:#9fb4c0; line-height:1.55; margin:0; }
+.node-list { display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; }
 .node-list span { padding:8px 10px; border:1px solid #2c5366; color:#bdeef6; font:11px "JetBrains Mono",monospace; }
 .architecture-detail { display:grid; grid-template-columns:.7fr 1.3fr; gap:70px; margin-top:72px; padding:42px; border:1px solid var(--border); background:var(--surface); }
 .architecture-detail h3 { margin:0 0 18px; font-size:30px; }
@@ -133,5 +135,5 @@ dialog::backdrop { background:rgba(1,7,11,.82); backdrop-filter:blur(8px); }
 @keyframes pulse { 50% { opacity:.35; } }
 @keyframes reveal { from { opacity:0; transform:translateY(8px); } }
 @media (max-width:1000px) { .nav-links,.nav-github { display:none; } .hero-grid { grid-template-columns:1fr; } .hero-section { min-height:auto; } .hero-copy { max-width:780px; } .hero-product { transform:none; } .architecture-grid { grid-template-columns:repeat(2,1fr); } .trust-strip { grid-template-columns:repeat(2,1fr); } .trust-item { border-bottom:1px solid var(--border); } .showcase-panel { grid-template-columns:1fr; } .showcase-image-wrap { min-height:420px; } .intro-grid,.section-heading { grid-template-columns:1fr; gap:22px; } }
-@media (max-width:640px) { .page-shell { width:min(100% - 28px,1240px); } .site-nav .nav-download { display:none; } .nav-brand { font-size:14px; } .hero-section { padding-top:110px; } .hero-copy h1 { font-size:42px; } .hero-sub { font-size:15px; } .hero-proof { grid-template-columns:1fr; } .section { padding:78px 0; } .section h2 { font-size:34px; } .workflow-line { display:none; } .workflow-step-button { grid-template-columns:42px 1fr; min-height:150px; padding-right:12px; } .workflow-step.is-active .workflow-step-button { padding-left:12px; } .showcase-tabs { margin-inline:-14px; } .showcase-panel { min-height:auto; } .showcase-image-wrap { min-height:250px; } .showcase-detail { padding:30px 22px; } .architecture-grid,.capability-grid,.trust-strip { grid-template-columns:1fr; } .architecture-card { min-height:0; } .architecture-dialog-content { grid-template-columns:1fr; } .architecture-dialog-content>img { min-height:260px; } .architecture-dialog-content>div { padding:34px 24px; } .download-panel { grid-template-columns:1fr; } .platform-row { grid-template-columns:1fr; gap:18px; } .footer-inner { padding:28px 0; flex-direction:column; align-items:flex-start; } }
+@media (max-width:640px) { .page-shell { width:min(100% - 28px,1240px); } .site-nav .nav-download { display:none; } .nav-brand { font-size:14px; } .hero-section { padding-top:110px; } .hero-copy h1 { font-size:42px; } .hero-sub { font-size:15px; } .hero-proof { grid-template-columns:1fr; } .section { padding:78px 0; } .section h2 { font-size:34px; } .workflow-line { display:none; } .workflow-step-button { grid-template-columns:42px 1fr; min-height:150px; padding-right:12px; } .workflow-step.is-active .workflow-step-button { padding-left:12px; } .showcase-tabs { margin-inline:-14px; } .showcase-panel { min-height:auto; } .showcase-image-wrap { min-height:250px; } .showcase-detail { padding:30px 22px; } .architecture-grid,.capability-grid,.trust-strip { grid-template-columns:1fr; } .architecture-card { min-height:0; } .architecture-dialog { width:96vw; height:92vh; } .architecture-dialog-content>div { max-height:38vh; padding:18px 50px 18px 18px; overflow-y:auto; } .architecture-dialog h3 { font-size:20px; } .node-list { margin-top:10px; } .download-panel { grid-template-columns:1fr; } .platform-row { grid-template-columns:1fr; gap:18px; } .footer-inner { padding:28px 0; flex-direction:column; align-items:flex-start; } }
 @media (prefers-reduced-motion:reduce) { *,*::before,*::after { scroll-behavior:auto!important; animation:none!important; transition:none!important; } }
