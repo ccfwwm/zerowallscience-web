@@ -22,6 +22,7 @@ pnpm preview --host 127.0.0.1 --port 4323
 
 - `src/content/site.ts`：中英文内容与五项能力定义。
 - `src/components/ResearchPage.astro`：页面结构。
+- `src/components/PromoVideo.astro`：用户宣传片、原视频封面与移动端内联播放。
 - `src/components/FeatureVisual.astro`：双语流程示意与交互展示。
 - `src/scripts/site.ts`：滚动章节、键盘页签、菜单及图片预览。
 - `src/scripts/brand-scene.ts`：延迟加载的品牌三维动画。
@@ -33,7 +34,7 @@ pnpm preview --host 127.0.0.1 --port 4323
 - `public/fonts/`：本地 Montserrat 可变字体及开放字体授权文件。
 - `public/samples/zerowall-editable-research.pptx`：由软件实际导出引擎生成的三页可编辑示例。
 
-五项能力在至少 1200 × 780px 的桌面使用固定舞台，功能区左右交错。正文至少 16px、标题字重 700；较窄或较矮屏幕、低性能设备及减少动态效果时使用正常文档布局。WebGL 不可用时显示静态海报。页面内容和 EXE 下载链接直接存在于 HTML。
+首屏采用标题与品牌图形并排布局，宣传片在其后页内播放。五项能力在所有尺寸下自然连续展开，桌面左右交错，手机纵向排列；正文至少 16px、标题字重 700。原生锚点和历史导航不接管滚轮。视频点击后才请求 MP4，滚出视野或切换后台时暂停；无脚本保留原生视频控件。首屏品牌动画上限 30 fps，离屏暂停；WebGL 不可用时显示静态海报。页面内容和 EXE 下载链接直接存在于 HTML。
 
 ## 验证
 
@@ -44,6 +45,7 @@ pnpm build
 node scripts/verify-static.mjs
 # 先运行上面的生产预览，再执行：
 pnpm test:browser
+node scripts/verify-promo.mjs
 node scripts/verify-download.mjs
 ```
 

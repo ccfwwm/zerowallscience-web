@@ -519,6 +519,20 @@
           "page": "/en/"
         }
       ]
+    },
+    {
+      "path": "/assets/v2/promo-poster.webp",
+      "purpose": "Promotional video poster captured from the user supplied video",
+      "language": "zh",
+      "source": "https://zerowall.chengxunkeji.cn/webfiles/zerowallsciencevideo.mp4",
+      "sourceFrameSeconds": 1.7,
+      "width": 1600,
+      "height": 900,
+      "bytes": 77622,
+      "sha256": "13a833bcfc973af9e1d4ab0fa0f8a96bad77f2fbfebe5677b3c296f48dc69999",
+      "alt": "ZeroWall Science promotional film, research materials connected in one workspace",
+      "transformation": "Frame capture at 1.7 seconds; resize to 1600 by 900; WebP quality 88",
+      "usages": []
     }
   ],
   "inlineVisuals": [

@@ -25,6 +25,7 @@ chmod -R a+rX "$target"
 test -s "$target/index.html"
 test -s "$target/en/index.html"
 test -s "$target/assets/v2/wechat-group-2.png"
+test -s "$target/assets/v2/promo-poster.webp"
 (cd "$target" && sha256sum --check --status SHA256SUMS)
 # Keep content-addressed assets usable for visitors with an already open old page.
 if test -d "$web/$old_release/_astro"; then
@@ -46,6 +47,8 @@ switched=1
 for page in / /en/; do
   body="$(curl -fsS --max-time 20 --resolve zerowallscience.org:443:127.0.0.1 "https://zerowallscience.org$page")"
   [[ "$body" == *'id="community"'* && "$body" == *'/assets/v2/wechat-group-2-code.png'* ]]
+  [[ "$body" == *'id="film"'* && "$body" == *'https://zerowall.chengxunkeji.cn/webfiles/zerowallsciencevideo.mp4'* ]]
+  [[ "$body" != *'film-caption'* && "$body" != *'ppt-sample-link'* ]]
 done
 curl -fsS --max-time 20 http://127.0.0.1:13001/api/health >/dev/null
 curl -fsS --max-time 20 --resolve zerowallscience.org:443:127.0.0.1 https://zerowallscience.org/docs/ >/dev/null

@@ -18,7 +18,7 @@ export async function startBrandScene(container: HTMLElement) {
   }
   texture.colorSpace = THREE.SRGBColorSpace;
   texture.anisotropy = Math.min(renderer.capabilities.getMaxAnisotropy(), 4);
-  renderer.setPixelRatio(Math.min(devicePixelRatio, 1.6));
+  renderer.setPixelRatio(Math.min(devicePixelRatio, 1.25));
   renderer.setClearColor(0x090d14, 0);
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   const scene = new THREE.Scene();
@@ -71,7 +71,10 @@ export async function startBrandScene(container: HTMLElement) {
   const particleMaterial = new THREE.PointsMaterial({ color: 0x88aff5, size: .011, transparent: true, opacity: .55 });
   const particles = new THREE.Points(particleGeometry, particleMaterial); group.add(particles);
   let visible = true, pointerX = 0, pointerY = 0, disposed = false;
+  let lastFrame = -Infinity;
   const render = (time: number) => {
+    if (time - lastFrame < 1000 / 30) return;
+    lastFrame = time;
     const t = time * .001;
     logo.position.y = Math.sin(t * .65) * .035;
     logo.rotation.y = -.1 + Math.sin(t * .3) * .07; logo.rotation.z = Math.sin(t * .25) * .018;

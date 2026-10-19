@@ -32,7 +32,6 @@
 .artifact-row > span { display: flex; align-items: center; gap: 7px; font-family: var(--font-mono); font-size: 12px; background: #00d4ff06; border: 1px solid #00d4ff20; border-radius: 6px; color: #b1c4d7; padding: 7px 10px; }
 .capture-link { display: flex; align-items: center; justify-content: flex-end; gap: 8px; padding: 17px 24px; color: #9cbdcf; font-size: 12px; }
 .capture-link:hover { color: var(--cyan); }
-.story-panel[data-phase='3'] .artifact-row > span { border-color: #78efc254; color: #b9e7dc; }
 
 .knockout-body { position: relative; padding: 24px 24px 0; overflow: hidden; }
 .knockout-art { position: absolute; right: -25px; top: -35px; width: 265px; height: 200px; object-fit: cover; opacity: .32; mask-image: linear-gradient(90deg, transparent, black), linear-gradient(0deg, transparent 1%, black 60%); mask-composite: intersect; pointer-events: none; }
@@ -56,7 +55,6 @@
 .knockout-steps { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 20px; border-top: 1px solid var(--line); padding-top: 17px; gap: 12px; }
 .knockout-steps > span { font-size: 13px; color: #b4c2d1; text-align: center; }
 .knockout-steps small { font-family: var(--font-brand); display: inline; font-size: 11px; color: #7a95b1; margin-right: 7px; }
-.story-panel[data-phase='3'] .network-pane:last-child { border-color: #78efc255; }
 
 .visual-tabs { display: flex; gap: 4px; padding: 5px; border: 1px solid var(--line); background: #090e1755; border-radius: 10px; }
 .visual-tabs button { flex: 1; min-height: 40px; padding: 8px 10px; color: #a4b3c6; border-radius: 7px; font-size: 14px; line-height: 1.5; }
@@ -152,7 +150,6 @@
 .ppt-object-legend span { display: flex; align-items: center; gap: 7px; font-size: 12px; color: #b3c5d8; }
 .ppt-object-legend i { width: 6px; height: 6px; background: var(--object-color); border-radius: 1px; }
 .ppt-body .visual-note { padding: 15px 0 0; }
-.ppt-sample-link { display: flex; justify-content: center; align-items: center; gap: 8px; color: var(--cyan); font-size: 14px; padding: 17px 0 2px; }
 .show-objects .editable-object { outline: 1px dashed #00a5c0; outline-offset: 4px; cursor: pointer; }
 .show-objects .editable-object[data-object=shape] { outline-color: #44977f; }
 .show-objects .editable-object[data-object=table], .show-objects .editable-object[data-object=chart] { outline-color: #9162cf; }
@@ -161,33 +158,6 @@
 .show-objects .editable-object::after { content: ''; position: absolute; right: -6px; top: -6px; width: 5px; height: 5px; background: #eaf6f5; border: 1px solid #00a5c0; }
 .show-objects .slide-art { mask-image: none; right: 10px; bottom: 30px; width: 38%; height: 50%; z-index: 0; }
 
-@media (min-width: 1200px) and (max-height: 850px) {
-  .story-enhanced .agent-art { height: 105px; }
-  .story-enhanced .agent-art-title { top: 20px; }
-  .story-enhanced .agent-art-title strong { font-size: 25px; }
-  .story-enhanced .agent-art-title span { margin-bottom: 8px; }
-  .story-enhanced .agent-question { margin-block: 16px; }
-  .story-enhanced .agent-plan li { padding-block: 8px; }
-  .story-enhanced .artifact-row { margin-top: 16px; padding-top: 14px; }
-  .story-enhanced .capture-link { padding-block: 13px; }
-  .story-enhanced .network-pane svg { height: 170px; }
-  .story-enhanced .medical-art-wrap { height: 225px; }
-  .story-enhanced .medical-title { top: 24px; }
-  .story-enhanced .medical-title h3 { font-size: 25px; margin-block: 11px; }
-  .story-enhanced .medical-study-sheet { padding-top: 16px; }
-  .story-enhanced .medical-path { margin-top: 15px; padding-top: 12px; }
-  .story-enhanced .slide-preview { height: 280px; padding: 24px 20px; }
-  .story-enhanced .slide-title h3 { font-size: 23px; }
-  .story-enhanced .slide-methods { margin-top: 23px; }
-  .story-enhanced .reproduction-body { padding: 22px; }
-  .story-enhanced .paper-header { margin-bottom: 18px; }
-  .story-enhanced .reproduction-number { margin-bottom: 8px; }
-  .story-enhanced .paper-glyph, .story-enhanced .code-glyph, .story-enhanced .result-glyph { height: 72px; margin-block: 16px; }
-  .story-enhanced .code-glyph { line-height: 1.65; }
-  .story-enhanced .reproduction-column ul { gap: 8px; }
-  .story-enhanced .reproduction-status { margin-top: 18px; padding-block: 12px; }
-  .story-enhanced .reproduction-path { margin-top: 18px; }
-}
 @media (max-width: 1199px) {
   .feature-visual { max-width: 820px; }
   .agent-art { height: 190px; }
@@ -286,6 +256,5 @@
   .slide-line { bottom: 40px; left: 18px; }
   .ppt-object-legend { gap: 12px; justify-content: flex-start; }
   .ppt-object-legend span { font-size: 12px; }
-  .ppt-sample-link { font-size: 14px; padding-block: 20px 7px; }
   html[lang=en] .slide-methods span { font-size: 12px; }
 }

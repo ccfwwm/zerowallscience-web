@@ -67,6 +67,10 @@ for (const cropped of [false, true]) manifest.push({
   transformation: cropped ? 'Lossless crop x=70, y=300, width=400, height=400; no QR regeneration or pixel edits' : 'None: original bytes preserved',
   validBefore: '2026-10-26', language: 'zh',
 });
+const promoPoster = await readFile(join(root, 'design/video/promo-poster.webp'));
+await writeFile(join(output, 'promo-poster.webp'), promoPoster);
+const promoSource = JSON.parse(await readFile(join(root, 'design/video/source.json'), 'utf8'));
+manifest.push({ path: '/assets/v2/promo-poster.webp', purpose: 'Promotional video poster captured from the user supplied video', language: 'zh', source: promoSource.url, sourceFrameSeconds: promoSource.posterFrameSeconds, transformation: 'User video frame at 1.7 seconds; resize to 1600 by 900; WebP quality 88' });
 for (const item of manifest) {
   const file = join(root, 'public', item.path), bytes = await readFile(file);
   const meta = await sharp(bytes).metadata();

@@ -9,61 +9,23 @@ export function initSite() {
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && toggle?.getAttribute('aria-expanded') === 'true') { closeMenu(); toggle.focus(); } });
   matchMedia('(max-width:1199px)').addEventListener('change', closeMenu);
 
-  const story = document.querySelector<HTMLElement>('[data-story]');
   const panels = [...document.querySelectorAll<HTMLElement>('[data-story-panel]')];
   const storyLinks = [...document.querySelectorAll<HTMLAnchorElement>('[data-story-link]')];
-  const desktop = matchMedia('(min-width:1200px) and (min-height:780px)');
   const navigatorHints = navigator as Navigator & { deviceMemory?: number; connection?: { saveData?: boolean } };
   const constrained = !!navigatorHints.connection?.saveData || (navigatorHints.deviceMemory !== undefined && navigatorHints.deviceMemory < 4) || (navigator.hardwareConcurrency !== undefined && navigator.hardwareConcurrency < 4);
-  let enhanced = false, active = -1, queued = false;
-  const selectChapter = (index: number) => {
-    if (index === active) return; active = index;
-    panels.forEach((panel, i) => { panel.classList.toggle('is-current', i === index); panel.classList.toggle('is-past', i < index); panel.inert = i !== index; panel.setAttribute('aria-hidden', String(i !== index)); });
-    storyLinks.forEach(link => { if (Number(link.dataset.storyLink) === index) link.setAttribute('aria-current', 'step'); else link.removeAttribute('aria-current'); });
-  };
-  const update = () => {
-    queued = false; if (!enhanced || !story) return;
-    const rect = story.getBoundingClientRect();
-    const progress = Math.max(0, Math.min(.9999, -rect.top / (story.offsetHeight - innerHeight)));
-    selectChapter(Math.floor(progress * panels.length));
-    panels[active].dataset.phase = String(Math.floor((progress * panels.length % 1) * 4));
-  };
-  const configure = () => {
-    if (!story) return;
-    enhanced = desktop.matches && !reduced.matches && !constrained;
-    story.classList.toggle('story-enhanced', enhanced); active = -1;
-    if (enhanced) update(); else { panels.forEach(panel => { panel.inert = false; panel.removeAttribute('aria-hidden'); panel.classList.remove('is-current', 'is-past'); }); storyLinks.forEach(link => link.removeAttribute('aria-current')); }
-  };
-  const goToChapter = (index: number, behavior: ScrollBehavior = 'smooth') => {
-    if (!story || !panels[index]) return;
-    if (enhanced) {
-      const top = story.getBoundingClientRect().top + scrollY;
-      const span = story.offsetHeight - innerHeight;
-      scrollTo({ top: top + span * (index + .18) / panels.length, behavior: reduced.matches ? 'instant' : behavior });
-    } else panels[index].scrollIntoView({ behavior: reduced.matches ? 'instant' : behavior, block: 'start' });
-  };
-  storyLinks.forEach(link => link.addEventListener('click', event => {
-    if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
-    event.preventDefault(); const index = Number(link.dataset.storyLink);
-    if (location.hash !== link.hash) history.pushState(null, '', link.hash);
-    closeMenu(); goToChapter(index);
-  }));
-  // A visitor can use the demo as soon as it appears during a smooth chapter jump.
-  // Stop that jump on interaction so the stage cannot move away under their pointer.
-  story?.addEventListener('pointerdown', event => {
-    if (enhanced && (event.target as Element).closest('.feature-visual button, .feature-visual a, [data-object], summary')) {
-      scrollTo({ top: scrollY, behavior: 'instant' });
-    }
-  });
-  const followHash = () => { const index = panels.findIndex(panel => `#${panel.id}` === location.hash); if (index >= 0) goToChapter(index, 'instant'); };
-  addEventListener('scroll', () => { if (enhanced && !queued) { queued = true; requestAnimationFrame(update); } }, { passive: true });
-  addEventListener('resize', () => { configure(); closeMenu(); }, { passive: true });
-  addEventListener('popstate', followHash); addEventListener('hashchange', followHash);
-  desktop.addEventListener('change', configure); reduced.addEventListener('change', configure); configure();
-  if (location.hash) {
-    requestAnimationFrame(followHash);
-    // Browser-native initial hash scrolling can run after deferred scripts.
-    if (document.readyState !== 'complete') addEventListener('load', () => requestAnimationFrame(followHash), { once: true });
+  // Native document flow and anchors preserve wheel, touch, history and keyboard
+  // behaviour. Observers only update navigation; they never move the viewport.
+  if ('IntersectionObserver' in window) {
+    const visible = new Set<HTMLElement>();
+    const chapters = new IntersectionObserver(entries => {
+      entries.forEach(entry => entry.isIntersecting ? visible.add(entry.target as HTMLElement) : visible.delete(entry.target as HTMLElement));
+      const current = panels.find(panel => visible.has(panel));
+      storyLinks.forEach(link => {
+        if (current && link.hash === `#${current.id}`) link.setAttribute('aria-current', 'location');
+        else link.removeAttribute('aria-current');
+      });
+    }, { rootMargin: '-15% 0px -50% 0px' });
+    panels.forEach(panel => chapters.observe(panel));
   }
 
   function tabs(container: Element, buttonSelector: string, panelSelector: string) {
@@ -100,13 +62,62 @@ export function initSite() {
   dialog?.addEventListener('click', event => { if (event.target === dialog) { const rect = dialog.getBoundingClientRect(); if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) dialog.close(); } });
   dialog?.addEventListener('close', () => previousFocus?.focus({ preventScroll: true }));
 
+  document.querySelectorAll<HTMLElement>('[data-promo-player]').forEach(player => {
+    const video = player.querySelector<HTMLVideoElement>('[data-promo-video]');
+    const launch = player.querySelector<HTMLButtonElement>('[data-video-play]');
+    const label = player.querySelector<HTMLElement>('[data-video-play-label]');
+    const error = player.parentElement?.querySelector<HTMLElement>('[data-video-error]');
+    if (!video || !launch) return;
+    video.controls = false;
+    launch.hidden = false;
+    let keyboardLaunch = false;
+    let attempt = 0, loadingTimer: number | undefined;
+    const clearLoadingTimer = () => { clearTimeout(loadingTimer); loadingTimer = undefined; };
+    const resetLaunch = () => { launch.disabled = false; launch.removeAttribute('aria-busy'); if (label) label.textContent = player.dataset.playLabel ?? ''; };
+    const showFailure = () => {
+      clearLoadingTimer(); keyboardLaunch = false; video.pause(); video.controls = false;
+      launch.hidden = false; resetLaunch(); if (error) error.hidden = false;
+    };
+    launch.addEventListener('click', event => {
+      const currentAttempt = ++attempt;
+      keyboardLaunch = event.detail === 0;
+      launch.disabled = true; launch.setAttribute('aria-busy', 'true');
+      if (label) label.textContent = player.dataset.loadingLabel ?? '';
+      if (error) error.hidden = true;
+      if (video.error || video.networkState === HTMLMediaElement.NETWORK_NO_SOURCE) video.load();
+      video.controls = true;
+      clearLoadingTimer(); loadingTimer = window.setTimeout(() => { if (currentAttempt === attempt) showFailure(); }, 20000);
+      // Call play during the gesture, preserving mobile playback with sound.
+      void video.play().catch(() => { if (currentAttempt === attempt) showFailure(); });
+    });
+    video.addEventListener('playing', () => {
+      clearLoadingTimer();
+      const restoreFocus = keyboardLaunch;
+      keyboardLaunch = false;
+      launch.hidden = true; resetLaunch(); if (error) error.hidden = true;
+      if (restoreFocus) video.focus({ preventScroll: true });
+    });
+    video.addEventListener('error', showFailure);
+    video.querySelector('source')?.addEventListener('error', showFailure);
+    const pause = () => { if (!video.paused) video.pause(); };
+    if ('IntersectionObserver' in window) {
+      const visibility = new IntersectionObserver(entries => { if (!entries[0].isIntersecting) pause(); }, { threshold: 0 });
+      visibility.observe(video);
+    }
+    document.addEventListener('visibilitychange', () => { if (document.hidden) pause(); });
+    addEventListener('pagehide', pause);
+  });
+
   if (!reduced.matches && 'IntersectionObserver' in window) {
     const reveal = new IntersectionObserver(entries => { entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('is-revealed'); reveal.unobserve(entry.target); } }); }, { threshold: .08 });
     document.querySelectorAll('[data-reveal]').forEach(node => reveal.observe(node)); document.documentElement.classList.add('has-reveals');
   }
   const hero = document.querySelector<HTMLElement>('[data-hero-device]');
   if (hero && !reduced.matches && !constrained && matchMedia('(min-width:1024px)').matches) {
-    const start = () => import('./brand-scene').then(module => module.startBrandScene(hero)).catch(() => { /* The static brand poster is the complete fallback. */ });
+    const start = () => {
+      if (hero.getBoundingClientRect().bottom < 0 || reduced.matches || document.hidden) return;
+      void import('./brand-scene').then(module => module.startBrandScene(hero)).catch(() => { /* The static brand poster is the complete fallback. */ });
+    };
     if ('requestIdleCallback' in window) window.requestIdleCallback(start, { timeout: 1800 }); else setTimeout(start, 600);
   }
 }

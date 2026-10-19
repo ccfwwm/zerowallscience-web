@@ -7,12 +7,13 @@ const staticReport = await read('artifacts/verification/static-report.json');
 const download = await read('artifacts/download-verification/receipt.json');
 const ppt = await read('design/pptx-verification.json');
 const manifest = await read('design/manifest.json');
+const promo = await read('artifacts/video-scroll/report.json');
 const community = await read('artifacts/verification/community-report.json').catch(() => null);
-if (!browser.passed || !staticReport.passed || !download.verified || !ppt.verified) throw new Error('Verification must pass before publishing the review');
+if (!browser.passed || !staticReport.passed || !download.verified || !ppt.verified || !promo.passed) throw new Error('Verification must pass before publishing the review');
 const labels = { hero:'首屏与品牌装置', agent:'科研 Agent', knockout:'虚拟基因敲除', medical:'医疗科研', reproduce:'文献复现', presentation:'可编辑 PPTX' };
 const cards = Object.entries(labels).flatMap(([id,label]) => [1440,390].map(width => `<article data-size="${width}"><a href="../artifacts/verification/zh-${width}-${id}.png"><img loading="lazy" src="../artifacts/verification/zh-${width}-${id}.png" alt="${label}，${width}px 浏览器截图"/></a><p>${label}<span>${width}px</span></p></article>`));
 const extra = [['medical-clinical-tab.png','临床与公共健康场景'],['medical-imaging-tab.png','科研影像场景'],['editable-object-selection.png','PPTX 对象选中状态'],['mobile-editable-objects.png','手机端 PPTX 对象'],['zh-1440-creative.png','图片、视频与音乐'],['zh-1440-full-static.png','桌面完整静态布局'],['zh-390-full-static.png','手机完整页面']].map(([file,label]) => `<article data-size="extra"><a href="../artifacts/verification/${file}"><img loading="lazy" src="../artifacts/verification/${file}" alt="${label}"/></a><p>${label}</p></article>`);
-const html = `<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ZeroWall Science · 本地改版验收</title><style>*{box-sizing:border-box}body{margin:0;background:#090d14;color:#e7f0f6;font:15px/1.7 'Segoe UI','Microsoft YaHei',sans-serif}main{max-width:1440px;margin:auto;padding:60px 28px}header{margin-bottom:40px}header img{width:40px;height:40px}h1{font-size:34px;font-weight:550}header p{color:#8ca2b2;max-width:800px}a{color:#00d4ff;text-decoration:none}nav{display:flex;flex-wrap:wrap;gap:12px;margin:25px 0}button{font:inherit;color:#bcd3df;border:1px solid #294554;border-radius:6px;background:#101b28;padding:8px 18px;cursor:pointer}button[aria-pressed=true]{color:#00171f;background:#00d4ff}section{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}article{margin:0;background:#101722;border:1px solid #25323e;border-radius:8px;overflow:hidden}article img{width:100%;max-height:500px;object-fit:contain;object-position:top;display:block;background:#060a10}article p{margin:0;padding:16px 20px}article span{float:right;color:#6e8c9d;font-size:12px}[hidden]{display:none!important}:focus-visible{outline:2px solid #00d4ff;outline-offset:4px}footer{margin-top:40px;color:#8ca2b2}@media(max-width:700px){section{grid-template-columns:1fr}h1{font-size:27px}}</style><main><header><img src="../public/assets/v2/zerowall-icon.png" alt="ZeroWall 标志"><h1>ZeroWall Science 官网改版</h1><p>五项科研能力、全新素材与双语响应式页面。以下为生产构建的真实浏览器截图；点击图片可查看原尺寸。</p><p><a href="${browser.base}/">打开中文预览</a>　<a href="${browser.base}/en/">English preview</a>　<a href="IMPLEMENTATION-REPORT.md">验收记录</a>　<a href="manifest.json">素材清单</a>　<a href="../public/samples/zerowall-editable-research.pptx">可编辑 PPTX 示例</a></p><p>通过：8 组尺寸与语言检查 · 3 个 EXE 直接下载入口 · 安装包完整哈希校验 · 3 页 PPTX 原生对象检查</p></header><nav aria-label="筛选截图"><button data-filter="all" aria-pressed="true">全部</button><button data-filter="1440" aria-pressed="false">桌面</button><button data-filter="390" aria-pressed="false">手机</button><button data-filter="extra" aria-pressed="false">细节与全页</button></nav><section>${cards.join('')}${extra.join('')}</section><footer>本地交付 · 检查时间 ${browser.checkedAt} · 图片和网络图中的演示内容已标识用途。</footer></main><script>document.querySelectorAll('[data-filter]').forEach(button=>button.addEventListener('click',()=>{document.querySelectorAll('[data-filter]').forEach(n=>n.setAttribute('aria-pressed',String(n===button)));document.querySelectorAll('[data-size]').forEach(n=>n.hidden=button.dataset.filter!=='all'&&n.dataset.size!==button.dataset.filter)}));</script></html>`;
+const html = `<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ZeroWall Science · 本地改版验收</title><style>*{box-sizing:border-box}body{margin:0;background:#090d14;color:#e7f0f6;font:15px/1.7 'Segoe UI','Microsoft YaHei',sans-serif}main{max-width:1440px;margin:auto;padding:60px 28px}header{margin-bottom:40px}header img{width:40px;height:40px}h1{font-size:34px;font-weight:550}header p{color:#8ca2b2;max-width:800px}a{color:#00d4ff;text-decoration:none}nav{display:flex;flex-wrap:wrap;gap:12px;margin:25px 0}button{font:inherit;color:#bcd3df;border:1px solid #294554;border-radius:6px;background:#101b28;padding:8px 18px;cursor:pointer}button[aria-pressed=true]{color:#00171f;background:#00d4ff}section{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}article{margin:0;background:#101722;border:1px solid #25323e;border-radius:8px;overflow:hidden}article img{width:100%;max-height:500px;object-fit:contain;object-position:top;display:block;background:#060a10}article p{margin:0;padding:16px 20px}article span{float:right;color:#6e8c9d;font-size:12px}[hidden]{display:none!important}:focus-visible{outline:2px solid #00d4ff;outline-offset:4px}footer{margin-top:40px;color:#8ca2b2}@media(max-width:700px){section{grid-template-columns:1fr}h1{font-size:27px}}</style><main><header><img src="../public/assets/v2/zerowall-icon.png" alt="ZeroWall 标志"><h1>ZeroWall Science 官网改版</h1><p>五项科研能力、全新素材与双语响应式页面。以下为生产构建的真实浏览器截图；点击图片可查看原尺寸。</p><p><a href="${browser.base}/">打开中文预览</a>　<a href="${browser.base}/en/">English preview</a>　<a href="IMPLEMENTATION-REPORT.md">验收记录</a>　<a href="manifest.json">素材清单</a>　<a href="../public/samples/zerowall-editable-research.pptx">可编辑 PPTX 示例</a></p><p>通过：8 组尺寸与语言检查 · 3 个 EXE 直接下载入口 · 安装包完整哈希校验 · 3 页 PPTX 原生对象检查</p></header><nav aria-label="筛选截图"><button data-filter="all" aria-pressed="true">全部</button><button data-filter="1440" aria-pressed="false">桌面</button><button data-filter="390" aria-pressed="false">手机</button><button data-filter="extra" aria-pressed="false">细节与全页</button></nav><section>${cards.join('')}${[1440,390].map(width=>`<article data-size="${width}"><a href="../artifacts/video-scroll/zh-${width}-film.png"><img loading="lazy" src="../artifacts/video-scroll/zh-${width}-film.png" alt="宣传片，${width}px"/></a><p>页内宣传片<span>${width}px</span></p></article>`).join('')}${extra.join('')}</section><footer>本地交付 · 检查时间 ${browser.checkedAt} · 图片和网络图中的演示内容已标识用途。</footer></main><script>document.querySelectorAll('[data-filter]').forEach(button=>button.addEventListener('click',()=>{document.querySelectorAll('[data-filter]').forEach(n=>n.setAttribute('aria-pressed',String(n===button)));document.querySelectorAll('[data-size]').forEach(n=>n.hidden=button.dataset.filter!=='all'&&n.dataset.size!==button.dataset.filter)}));</script></html>`;
 await writeFile(join(root, 'design/review.html'), html);
 for (const match of html.matchAll(/(?:src|href)="(\.\.\/[^\"]+)"/g)) await access(resolve(root, 'design', match[1]));
 const report = `# ZeroWall Science 官网改版验收
@@ -21,7 +22,7 @@ const report = `# ZeroWall Science 官网改版验收
 
 ## 实现内容
 
-首页依次展示科研 Agent、虚拟基因敲除、医疗科研、文献复现、可编辑 PPTX，之后展示科研工作流和图片、视频、音乐创作。至少 1200 × 780px 的桌面使用七屏固定舞台，较窄、较矮屏幕和减少动画模式使用纵向布局。功能章节左右交错，标题使用字重 700，主文案 16–19px；面板步骤至少 14px。中文沿用参考站的黑体字体栈，品牌和数字使用本地 Montserrat 可变字体。测量和字号对照见 TYPOGRAPHY-REVIEW.md，字体来源、授权与哈希见 font-manifest.json。首屏三维装置延迟加载，离屏和后台暂停；WebGL 不可用时保留静态海报。
+首页依次展示科研 Agent、虚拟基因敲除、医疗科研、文献复现、可编辑 PPTX，之后展示科研工作流和图片、视频、音乐创作。所有尺寸使用自然连续章节，桌面左右交错、手机纵向布局，原生锚点和历史导航不接管滚轮。首屏之后提供用户宣传片，点击后才加载 MP4，离屏或后台暂停；播放器保留原生全屏、声音和进度控件。功能章节左右交错，标题使用字重 700，主文案 16–19px；面板步骤至少 14px。中文沿用参考站的黑体字体栈，品牌和数字使用本地 Montserrat 可变字体。测量和字号对照见 TYPOGRAPHY-REVIEW.md，字体来源、授权与哈希见 font-manifest.json。首屏三维装置延迟加载，上限 30 fps，离屏和后台暂停；WebGL 不可用时保留静态海报。
 
 中英文共用组件和内容类型，中文为根路径、英文为 /en/，旧 /zh/ 保留跳转。导航、页尾、下载区标志和完整尺寸 favicon 使用用户提供的原始 ZeroWall 图标，文件字节完全一致；小尺寸 favicon 仅作缩放。首屏以原图标中的渐变 0、白色 Z 和紫色碎片为主体，加入悬浮、轨道与光晕，桌面动画和手机静态海报沿用同一图标。四类插画、真实产品截图和分享封面使用新素材。已移除首页旧架构与展示组件。
 
@@ -35,7 +36,7 @@ const report = `# ZeroWall Science 官网改版验收
 | 页面与图片 | 中英文元数据、核心内容顺序及旧 /zh/ 跳转通过；${manifest.assets.length} 个素材哈希通过；旧展示素材引用 0 |
 | 浏览器布局 | ${browser.layouts.length} 组：中英文 × 1440、1280、768、390px；无横向溢出 |
 | 正常页面错误 | 新增控制台及页面错误 ${browser.errors.length} |
-| 字体可读性 | ${browser.typography?.length || 0} 组字号、字重、本地字体加载检查；固定舞台检查标题和窗口不覆盖导航及章节控件 |
+| 字体可读性 | ${browser.typography?.length || 0} 组字号、字重、本地字体加载检查；连续章节检查无重叠且原生锚点可达 |
 | 原生下载 | 导航、首屏、页尾 ${browser.downloads.length} 个入口触发 EXE 下载，官网地址保持 |
 | 回退与交互 | 无脚本、减少动画、WebGL 不可用、低性能、元数据不可用；菜单、键盘页签、历史返回、锚点、对象选择及弹窗焦点通过 |
 | PPTX | 3 页实际导出，原生形状 5 / 13 / 4，独立图片 1，原生表格 1，原生图表 1；软件回读与逐页渲染检查通过 |
@@ -64,9 +65,9 @@ const report = `# ZeroWall Science 官网改版验收
 - design/pptx-export-receipt.json、pptx-verification.json、pptx-readback.json：导出与回读证据。
 - artifacts/pptx-render/：三页 PDF 和逐页 PNG。
 
-构建对延迟加载的三维代码块给出大小提示：约 538 kB，gzip 约 135 kB；手机与静态回退页面不会启动该三维场景。核心页面脚本约 9 kB，gzip 约 3.6 kB。
+构建对延迟加载的三维代码块给出大小提示：约 538 kB，gzip 约 135 kB；手机与静态回退页面不会启动该三维场景。核心页面脚本约 9 kB，gzip 约 3.5 kB。
 
-本次为本地交付。生产环境和原有部署流程未执行，预览服务保持在 127.0.0.1:4323。
+预览服务位于 127.0.0.1:4323。生产发布记录独立保存在 artifacts/production/ 和 artifacts/production-video/；不覆盖之前的发布证据。
 `;
 const communitySummary = community?.passed ? `
 ## 用户交流群（2026-10-19）
@@ -77,5 +78,11 @@ const communitySummary = community?.passed ? `
 
 设计说明与维护方式见 [COMMUNITY-REVIEW.md](COMMUNITY-REVIEW.md)，证据见 artifacts/verification/community-report.json。本次不重复执行安装包与 PPTX 校验，前文对应检查属于此前改版记录。
 ` : '';
-await writeFile(join(root, 'design/IMPLEMENTATION-REPORT.md'), report + communitySummary);
+await writeFile(join(root, 'design/IMPLEMENTATION-REPORT.md'), report + communitySummary + `
+## 宣传片与连续滚动（2026-10-19）
+
+首屏之后嵌入用户原视频，16:9 构图，点击后才加载并播放。保留声音、进度和全屏控件，离屏和后台暂停；错误时可重试或打开原视频。移除视频下方的小字及公开页面的 PPTX 示例下载入口，保留对象演示。
+
+中英文 × 四种宽度共 ${promo.layouts.length} 组检查通过；桌面和手机实际播放、定位到 8 秒、键盘焦点转移、离屏暂停、返回不自动播放通过；无脚本控件和视频源失败后重试恢复通过。正常页面新增错误 ${promo.errors.length}。证据见 artifacts/video-scroll/report.json，设计说明见 VIDEO-SCROLL-REVIEW.md。
+`);
 console.log('Review gallery and implementation report written.');

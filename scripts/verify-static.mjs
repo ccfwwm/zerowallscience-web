@@ -22,6 +22,8 @@ for (const [language, file, canonical] of [['zh-CN','index.html','https://zerowa
   assert(html.includes('/assets/v2/share-') && html.includes('property="og:image"'));
   assert(html.includes('rel="icon" type="image/png" sizes="512x512" href="/assets/v2/zerowall-icon.png"'));
   assert(!html.includes('brand.svg'), 'The substitute brand must not be referenced');
+  assert(html.includes('id="film"') && html.includes('https://zerowall.chengxunkeji.cn/webfiles/zerowallsciencevideo.mp4'), 'User film is embedded');
+  assert(!html.includes('film-caption') && !html.includes('ppt-sample-link') && !html.includes('href="/samples/zerowall-editable-research.pptx"'), 'Removed visible captions and PPTX sample download');
   let previous = -1;
   for (const id of ['agent','knockout','medical','reproduce','presentation','workflow','creative','download']) { const index = html.indexOf(`id="${id}"`); assert(index > previous, `${file}: ${id} order`); previous = index; }
   const imageTags = [...html.matchAll(/<img\b[^>]*>/g)].map(match => match[0]);

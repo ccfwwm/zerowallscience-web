@@ -5,7 +5,7 @@ import assert from 'node:assert/strict';
 const require = createRequire(import.meta.url);
 const { chromium } = require('C:/Users/ccf/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
 const base = process.env.SITE_PREVIEW_URL || 'http://127.0.0.1:4323';
-const out = resolve(import.meta.dirname, '../artifacts/verification'); await mkdir(out, { recursive: true });
+const out = resolve(process.env.BROWSER_OUTPUT_DIR || resolve(import.meta.dirname, '../artifacts/verification')); await mkdir(out, { recursive: true });
 const browser = await chromium.launch({ channel: 'chrome', headless: true });
 const report = { checkedAt: new Date().toISOString(), base, layouts: [], typography: [], downloads: [], interactions: [], errors: [] };
 const ids = ['agent', 'knockout', 'medical', 'reproduce', 'presentation'];
@@ -37,7 +37,7 @@ try {
     assert.equal(requests, 1, 'one shared metadata request per page');
     const heroFile = `${lang}-${width}-hero.png`; await page.screenshot({ path: join(out, heroFile) });
     const enhanced = await page.locator('[data-story]').evaluate(n => n.classList.contains('story-enhanced'));
-    assert.equal(enhanced, width >= 1200 && height >= 780);
+    assert.equal(enhanced, false, 'All widths use native document flow');
     for (const id of ids) {
       if (width <= 1199) await page.locator('.menu-toggle').click();
       await page.locator(`.nav-links a[href="#${id}"]`).click();
@@ -46,13 +46,13 @@ try {
       assert.equal(new URL(page.url()).hash, `#${id}`);
       const panel = page.locator(`#${id}`); assert.equal(await panel.getAttribute('aria-hidden'), enhanced ? 'false' : null);
       assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false, `${lang}/${width}/${id} overflow`);
-      if (enhanced) {
+      if (width >= 1200) {
         const geometry = await panel.evaluate(node => {
           const visual = node.querySelector('.feature-visual').getBoundingClientRect(), copy = node.querySelector('.feature-copy').getBoundingClientRect();
-          const nav = document.querySelector('.site-header').getBoundingClientRect(), progress = document.querySelector('.story-progress').getBoundingClientRect();
-          return { top: Math.min(visual.top, copy.top), bottom: Math.max(visual.bottom, copy.bottom), navBottom: nav.bottom, progressTop: progress.top, reversed: visual.x < copy.x };
+          const nav = document.querySelector('.site-header').getBoundingClientRect();
+          return { top: Math.min(visual.top, copy.top), navBottom: nav.bottom, reversed: visual.x < copy.x, position: getComputedStyle(node).position, inert: node.inert };
         });
-        assert(geometry.top > geometry.navBottom && geometry.bottom <= geometry.progressTop + 2, `${lang}/${width}/${id}: larger text and windows must fit between navigation and chapter controls: ${JSON.stringify(geometry)}`);
+        assert(geometry.top > geometry.navBottom && geometry.position !== 'absolute' && !geometry.inert, `${lang}/${width}/${id}: natural chapter must remain visible and interactive: ${JSON.stringify(geometry)}`);
         assert.equal(geometry.reversed, ['knockout','reproduce'].includes(id), 'Alternating feature layout');
       }
       if (width === 1440 || width === 390) {
@@ -68,7 +68,7 @@ try {
   }
   const page = await browser.newPage({ viewport: { width: 1440, height: 960 } });
   await page.goto(`${base}/#medical`);
-  await page.waitForFunction(() => document.querySelector('#medical').classList.contains('is-current'));
+  await page.locator('#medical').waitFor();
   await page.waitForTimeout(800);
   await page.locator('[data-medical-tab="1"]').click();
   assert.equal(await page.locator('[data-medical-panel="1"]').isVisible(), true);
@@ -78,7 +78,7 @@ try {
   assert.equal(await page.locator('[data-medical-tab="2"]').getAttribute('aria-selected'), 'true');
   await page.screenshot({ path: join(out, 'medical-imaging-tab.png') });
   await page.locator('.nav-links a[href="#presentation"]').click();
-  await page.waitForFunction(() => document.querySelector('#presentation').classList.contains('is-current'));
+  await page.locator('#presentation').waitFor();
   await page.waitForTimeout(900);
   await page.locator('[data-ppt-mode="objects"]').click();
   await page.locator('[data-ppt-page="2"]').click();
@@ -86,7 +86,7 @@ try {
   assert.equal(await page.locator('.slide-chart').evaluate(n => n.classList.contains('is-selected')), true);
   await page.screenshot({ path: join(out, 'editable-object-selection.png') });
   await page.locator('.nav-links a[href="#agent"]').click();
-  await page.waitForFunction(() => document.querySelector('#agent').classList.contains('is-current'));
+  await page.locator('#agent').waitFor();
   await page.waitForTimeout(900);
   await page.locator('.capture-link').click();
   assert.equal(await page.locator('dialog').evaluate(n => n.open), true);
@@ -94,12 +94,17 @@ try {
   assert.equal(await page.locator('.capture-link').evaluate(n => n === document.activeElement), true);
   report.interactions.push('direct hash, history back, medical keyboard tabs, PPTX object selection, dialog Escape and focus return');
   // All three real native CTAs must start downloads without changing the website URL.
+  // Use separate contexts so Chromium's repeated-download guard is not triggered
+  // by cancelling the preceding verification download.
   for (let index = 0; index < 3; index++) {
-    const before = page.url(); const anchor = page.locator('[data-latest-windows-download]').nth(index);
-    const [download] = await Promise.all([page.waitForEvent('download'), anchor.click()]);
+    const downloadPage = await browser.newPage({ viewport: { width: 1440, height: 960 } });
+    await downloadPage.goto(`${base}/?download-entry=${index}`);
+    const before = downloadPage.url(); const anchor = downloadPage.locator('[data-latest-windows-download]').nth(index);
+    const [download] = await Promise.all([downloadPage.waitForEvent('download', { timeout: 60000 }), anchor.click({ noWaitAfter: true })]);
     assert(download.suggestedFilename().endsWith('.exe'));
-    assert.equal(page.url(), before); await download.cancel();
+    assert.equal(downloadPage.url(), before); await download.cancel();
     report.downloads.push({ index, filename: download.suggestedFilename(), pageUnchanged: true });
+    await downloadPage.close();
   }
   await page.close();
   for (const mode of ['no-js','reduced-motion','no-webgl','low-performance','offline-metadata']) {
@@ -112,7 +117,7 @@ try {
     assert((await page.locator('[data-latest-windows-download]').first().getAttribute('href')).endsWith('.exe'));
     if (['no-js','reduced-motion','low-performance'].includes(mode)) assert.equal(await page.locator('[data-story]').evaluate(n => n.classList.contains('story-enhanced')), false);
     if (['no-webgl','reduced-motion','low-performance'].includes(mode)) assert.equal(await page.locator('.hero-device').evaluate(n => n.classList.contains('is-live')), false);
-    if (mode === 'no-js') { const before = page.url(); const [download] = await Promise.all([page.waitForEvent('download'), page.locator('[data-latest-windows-download]').first().click()]); assert.equal(page.url(), before); await download.cancel(); }
+    if (mode === 'no-js') { const before = page.url(); const [download] = await Promise.all([page.waitForEvent('download', { timeout: 60000 }), page.locator('[data-latest-windows-download]').first().click({ noWaitAfter: true })]); assert.equal(page.url(), before); await download.cancel(); }
     report.interactions.push(mode); await context.close();
   }
   const mobile = await browser.newPage({ viewport: { width: 390, height: 844 } });
