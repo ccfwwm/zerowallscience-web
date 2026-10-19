@@ -7,7 +7,7 @@ export function initSite() {
   nav?.addEventListener('click', e => { if ((e.target as Element).closest('a')) closeMenu(); });
   document.addEventListener('click', e => { if (!(e.target as Element).closest('.site-header')) closeMenu(); });
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && toggle?.getAttribute('aria-expanded') === 'true') { closeMenu(); toggle.focus(); } });
-  matchMedia('(max-width:1199px)').addEventListener('change', closeMenu);
+  matchMedia(document.documentElement.lang === 'en' ? '(max-width:1399px)' : '(max-width:1199px)').addEventListener('change', closeMenu);
 
   const panels = [...document.querySelectorAll<HTMLElement>('[data-story-panel]')];
   const storyLinks = [...document.querySelectorAll<HTMLAnchorElement>('[data-story-link]')];

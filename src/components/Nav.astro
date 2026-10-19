@@ -8,6 +8,6 @@ const ids = ['agent', 'knockout', 'medical', 'reproduce', 'presentation'];
 ---
 <header class="site-header"><nav class="site-nav shell" aria-label={lang === 'zh' ? '主导航' : 'Main navigation'}>
   <a class="brand" href={lang === 'zh' ? '/' : '/en/'} aria-label="ZeroWall Science"><img src="/assets/v2/zerowall-icon.png" width="32" height="32" alt="" /><span>ZeroWall<span class="brand-light"> Science</span></span></a>
-  <div class="nav-links" id="site-menu">{ids.map((id, i) => <a href={`#${id}`} data-story-link={i}>{t.nav[i]}</a>)}<a href="https://zerowallscience.org/docs/" target="_blank" rel="noreferrer">{t.docs}<Icon name="external" size={12} /></a></div>
+  <div class="nav-links" id="site-menu">{ids.map((id, i) => <a href={`#${id}`} data-story-link={i}>{t.nav[i]}</a>)}<a href="https://zerowallscience.org/docs/" target="_blank" rel="noopener noreferrer">{t.docs}<Icon name="external" size={12} /></a><a href="https://rmcp.chengxunkeji.cn/" target="_blank" rel="noopener noreferrer">{lang === 'zh' ? '科研平台' : 'Research Platform'}<Icon name="external" size={12} /></a></div>
   <div class="nav-actions"><a class="language-link" href={lang === 'zh' ? '/en/' : '/'} lang={lang === 'zh' ? 'en' : 'zh-CN'}>{lang === 'zh' ? 'EN' : '中文'}</a><DownloadLink label={lang === 'zh' ? '下载' : 'Download'} class="button nav-download" /><button class="menu-toggle icon-button" aria-label={t.menu} aria-controls="site-menu" aria-expanded="false"><Icon name="menu" /></button></div>
 </nav></header>
