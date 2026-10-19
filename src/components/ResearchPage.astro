@@ -1,52 +1,39 @@
 ---
 import Base from '../layouts/Base.astro';
 import Nav from './Nav.astro';
-import WorkflowRail from './WorkflowRail.astro';
-import ProductShowcase from './ProductShowcase.astro';
-import ArchitectureGallery from './ArchitectureGallery.astro';
-import TrustStrip from './TrustStrip.astro';
-import CopySnippet from './CopySnippet.astro';
-import ArchitectureDetail from './ArchitectureDetail.astro';
-import releases from '../data/releases.json';
-
-interface Props { t: any; lang: 'en' | 'zh'; }
+import Icon from './Icon.astro';
+import DownloadLink from './DownloadLink.astro';
+import FeatureVisual from './FeatureVisual.astro';
+import Community from './Community.astro';
+import { release, releaseSize } from '../lib/release';
+import type { SiteCopy } from '../content/site';
+interface Props { t: SiteCopy; lang: 'en' | 'zh'; }
 const { t, lang } = Astro.props;
-const latestWindowsUrl = releases[0]?.assets.find((asset: any) => asset.name.toLowerCase().endsWith('.exe'))?.url;
-const latestVersion = releases[0]?.tag;
-if (!latestWindowsUrl || !latestVersion) throw new Error('Stable release metadata is missing.');
-const shots = t.showcase.shots;
-const architectureCards = t.architectureGallery.cards;
-const architectureDetail = lang === 'zh' ? {
-  title: '推理与特权执行保持分离', lead: 'DSH 负责会话和能力编排；Electron、Host 与领域服务拥有路径、凭据、执行和科研状态的最终控制权。',
-  items: [{ name: '模型提出行动', desc: '模型输出只是候选操作，不直接成为系统权限。' }, { name: '类型化边界校验', desc: 'RPC 请求经过 codec、项目所有权和路径边界验证。' }, { name: '科研事实持久化', desc: 'Research Store 独立保存对象、运行、证据、决策和交付状态。' }],
-} : {
-  title: 'Reasoning remains separate from privileged execution', lead: 'DSH orchestrates sessions and capabilities. Electron, the Host, and domain services retain authority over paths, credentials, execution, and research state.',
-  items: [{ name: 'Models propose actions', desc: 'Model output remains a candidate operation, never direct system authority.' }, { name: 'Typed boundaries validate', desc: 'RPC requests pass codecs, project ownership, and path containment checks.' }, { name: 'Research facts persist', desc: 'Research Store independently retains objects, runs, evidence, decisions, and delivery state.' }],
-};
-const snippet = lang === 'zh' ? { label: '科研工作流示例', code: '研究问题\n  → Agent 计划\n  → 受审批的 Local / WSL / SSH Run\n  → Artifact + Evidence + AuditEvent\n  → Publication / Presentation', copy: '复制', copied: '已复制' } : { label: 'Research workflow', code: 'Research question\n  → Agent plan\n  → Approved Local / WSL / SSH Run\n  → Artifact + Evidence + AuditEvent\n  → Publication / Presentation', copy: 'Copy', copied: 'Copied' };
 ---
 <Base title={t.meta.title} description={t.meta.description} lang={lang}>
-  <Nav lang={lang} nav={t.nav} />
-  <main>
-    <section class="hero-section" id="hero">
-      <div class="hero-visual" aria-hidden="true"><img src="/assets/architecture/hero-research-orbit.png" alt="" width="1536" height="1024" /><div class="hero-orbit orbit-a"></div><div class="hero-orbit orbit-b"></div></div>
-      <div class="page-shell hero-grid">
-        <div class="hero-copy"><div class="eyebrow">{t.hero.eyebrow}</div><h1>{t.hero.title}</h1><p class="hero-sub">{t.hero.sub}</p><div class="hero-actions"><a class="button button-primary" href="#download">{t.hero.cta}</a><a class="button button-ghost" href="https://github.com/ccfwwm/zerowallscience" target="_blank" rel="noreferrer">{t.hero.github}</a></div><div class="hero-proof"><span><b>{latestVersion}</b>{t.hero.versionLabel}</span><span><b>Local-first</b>{t.hero.localLabel}</span><span><b>AGPL-3.0</b>{t.hero.licenseLabel}</span></div></div>
-        <div class="hero-product"><div class="window-chrome"><span></span><span></span><span></span><small>ZeroWall Science / Research session</small></div><img src="/assets/showcase-workspace.png" alt={t.hero.productAlt} width="2049" height="1327" /><div class="hero-status"><span class="status-dot"></span>{t.hero.status}</div></div>
+  <Nav lang={lang} t={t} />
+  <main id="main">
+    <section class="hero" id="top">
+      <div class="hero-grid" aria-hidden="true"></div><div class="hero-halo" aria-hidden="true"></div>
+      <div class="hero-copy shell"><p class="eyebrow hero-eyebrow"><span class="status-dot"></span>{t.hero.eyebrow}</p><h1>{t.hero.line1}<br /><span>{t.hero.line2}</span></h1><p class="hero-sub">{t.hero.sub}</p><div class="hero-actions"><DownloadLink label={t.download} /><a class="button button-secondary" href="#agent" data-story-link="0">{t.hero.secondary}<Icon name="arrow" size={18} /></a></div><p class="hero-release"><span data-release-version>v{release.version}</span><span>{t.hero.platform}</span></p></div>
+      <div class="hero-device" data-hero-device aria-hidden="true"><picture class="hero-poster"><source media="(max-width: 600px)" srcset="/assets/v2/hero-mobile.webp" /><img src="/assets/v2/hero-poster.webp" width="1200" height="640" alt="" fetchpriority="high" /></picture><canvas data-brand-canvas></canvas><span class="device-coordinate coordinate-left">RESEARCH<br />WITHOUT WALLS</span><span class="device-coordinate coordinate-right">ZEROWALL<br />SCIENCE / 2026</span><div class="orbit-label orbit-label-a"><span>✳</span> Research Agent</div><div class="orbit-label orbit-label-b"><span>⌘</span> Editable PPTX</div><div class="orbit-label orbit-label-c"><span>⌁</span> Virtual knockout</div></div>
+      <div class="hero-bottom shell"><span>{t.hero.scroll}<Icon name="down" size={14} /></span><div><i></i> LOCAL FIRST <span>·</span> OPEN SOURCE <span>·</span> MODEL AGNOSTIC</div><span>01 — 05</span></div>
+    </section>
+    <section class="research-intro shell" aria-labelledby="research-heading"><p class="eyebrow">RESEARCH, WITHOUT WALLS</p><h2 id="research-heading">{lang === 'zh' ? '一个科研工作台，' : 'One research workspace.'}<br class="mobile-break" />{lang === 'zh' ? '五种核心能力。' : ' Five core capabilities.'}</h2><p>{t.storyLabel}</p></section>
+    <section class="research-story" aria-label={t.storyLabel} data-story>
+      <div class="story-stage"><div class="story-stage-heading shell"><span class="eyebrow">THE RESEARCH WORKSPACE</span><span>{t.storyLabel}</span></div>
+        <div class="story-panels shell">{t.features.map((feature, i) => <article class:list={['story-panel', `story-${feature.id}`]} id={feature.id} data-story-panel={i} aria-labelledby={`${feature.id}-title`}>
+          <div class="feature-copy"><p class="feature-kicker"><span>{feature.kicker.slice(0, 2)}</span><span>{feature.kicker.slice(5)}</span></p><h2 id={`${feature.id}-title`}>{feature.title.split('\n').map(line => <span>{line}</span>)}</h2><p class="feature-description">{feature.desc}</p><ul class="feature-points">{feature.points.map(point => <li>{point}</li>)}</ul><p class="feature-output">{feature.output}</p><a class="text-link" href="https://zerowallscience.org/docs/" target="_blank" rel="noreferrer">{feature.link}<Icon name="arrow" size={17} /></a>{feature.id === 'knockout' && <details class="compute-details"><summary>{t.knockout.details}</summary><p>{t.knockout.detailText}</p></details>}</div>
+          <FeatureVisual id={feature.id} t={t} lang={lang} />
+        </article>)}</div>
+        <div class="story-progress shell" aria-label={lang === 'zh' ? '科研能力章节' : 'Research chapters'}>{t.nav.map((label, i) => <a href={`#${t.features[i].id}`} data-story-link={i}><span>0{i + 1}</span><b>{label}</b><i></i></a>)}</div>
       </div>
     </section>
-
-    <section class="section section-intro" id="workflow"><div class="page-shell intro-grid"><div><div class="eyebrow">{t.workflow.eyebrow}</div><h2>{t.workflow.title}</h2></div><p>{t.workflow.sub}</p></div><div class="page-shell"><WorkflowRail steps={t.workflow.steps} /></div></section>
-
-    <section class="section section-showcase" id="features"><div class="page-shell"><div class="section-heading"><div><div class="eyebrow">{t.showcase.eyebrow}</div><h2>{t.showcase.title}</h2></div><p>{t.showcase.sub}</p></div><ProductShowcase shots={shots} /></div></section>
-
-    <section class="section section-architecture" id="architecture"><div class="page-shell"><div class="section-heading"><div><div class="eyebrow">{t.architectureGallery.eyebrow}</div><h2>{t.architectureGallery.title}</h2></div><p>{t.architectureGallery.sub}</p></div><ArchitectureGallery cards={architectureCards} /><ArchitectureDetail title={architectureDetail.title} lead={architectureDetail.lead} items={architectureDetail.items} /></div></section>
-
-    <section class="section section-trust"><div class="page-shell"><div class="section-heading"><div><div class="eyebrow">{t.trust.eyebrow}</div><h2>{t.trust.title}</h2></div><p>{t.trust.sub}</p></div><TrustStrip items={t.trust.items} /></div></section>
-
-    <section class="section section-capabilities" id="capabilities"><div class="page-shell"><div class="section-heading"><div><div class="eyebrow">{t.capabilities.eyebrow}</div><h2>{t.capabilities.title}</h2></div><p>{t.capabilities.sub}</p></div><div class="capability-grid">{t.capabilities.items.map((item: any, index: number) => <article class="capability-card"><span class="capability-index">0{index + 1}</span><h3>{item.title}</h3><p>{item.desc}</p></article>)}</div><CopySnippet label={snippet.label} code={snippet.code} copyLabel={snippet.copy} copiedLabel={snippet.copied} /></div></section>
-
-    <section class="section section-download" id="download"><div class="page-shell download-panel"><div><div class="eyebrow">{t.download.eyebrow}</div><h2>{t.download.title}</h2><p>{t.download.sub}</p></div><div class="download-actions"><a class="button button-primary" href={latestWindowsUrl} data-latest-windows-download data-release-metadata-url="https://zerowall.chengxunkeji.cn/stable/releases/latest.json">{t.download.cta}</a><a class="button button-ghost" href="https://github.com/ccfwwm/zerowallscience" target="_blank" rel="noreferrer">{t.download.source}</a></div><div class="platform-row">{t.download.platforms.map((platform: any) => <span><b>{platform.name}</b>{platform.note}</span>)}</div></div></section>
+    <section class="workflow-section section-pad" id="workflow"><div class="shell"><div class="section-heading" data-reveal><p class="eyebrow">{t.workflow.kicker}</p><h2>{t.workflow.title}</h2><p>{t.workflow.sub}</p></div><div class="workflow-path">{t.workflow.steps.map((step, i) => <article data-reveal><span class="workflow-number">0{i + 1}</span><div class="workflow-marker"><i></i></div><h3>{step.title}</h3><p>{step.desc}</p></article>)}</div><div class="workspace-capture" data-reveal><div class="capture-caption"><span class="status-dot"></span>{t.realUI}<a href="/assets/v2/app-workspace.webp" data-zoom data-zoom-label={t.realUI} aria-label={t.preview}><Icon name="plus" /></a></div><a href="/assets/v2/app-workspace.webp" data-zoom data-zoom-label={t.realUI}><img src="/assets/v2/app-workspace.webp" alt={lang === 'zh' ? '重新采集的 ZeroWall Science 8.4.0 科研工作台' : 'New capture of the ZeroWall Science 8.4.0 research workspace'} width="1440" height="900" loading="lazy" /></a></div></div></section>
+    <section class="creative-section section-pad" id="creative"><div class="shell"><div class="section-heading" data-reveal><p class="eyebrow">{t.creative.kicker}</p><h2>{t.creative.title}</h2><p>{t.creative.sub}</p></div><div class="creative-grid"><article class="creative-card" data-reveal><div class="creative-image"><img src="/assets/v2/creative.webp" width="1536" height="1024" alt={t.creative.imageDesc} loading="lazy" /><span>{t.creative.illustration}</span></div><div class="creative-card-copy"><span>01 / IMAGE STUDIO</span><h3>{t.creative.image}</h3><p>{t.creative.imageDesc}</p></div></article><article class="creative-card media-card" data-reveal><div class="media-demo"><div class="media-filmstrip">{['cells', 'medicine', 'research'].map((name, i) => <div><img src={`/assets/v2/${name}.webp`} width="1536" height="1024" alt={`${t.creative.illustration} · 0${i + 1}`} loading="lazy" /><span>SHOT 0{i + 1}</span></div>)}</div><div class="media-timeline"><span class="timeline-head"></span><div class="timeline-shots"><i></i><i></i><i></i></div><div class="timeline-captions"></div><div class="timeline-wave" aria-hidden="true">{Array.from({length: 54}, (_, i) => <i style={`height:${8 + (Math.sin(i * 1.8) + 1) * 10}px`}></i>)}</div></div><div class="media-step-labels">{t.creative.mediaSteps.map((step, i) => <span>0{i + 1} / {step}</span>)}</div><span class="media-disclosure">{t.demo}</span></div><div class="creative-card-copy"><span>02 / MOTION & SOUND</span><h3>{t.creative.video}</h3><p>{t.creative.videoDesc}</p></div></article></div><p class="creative-note">{t.creative.note}</p></div></section>
+    <section class="download-section section-pad" id="download"><div class="download-glow" aria-hidden="true"></div><div class="shell"><img class="download-mark" src="/assets/v2/zerowall-icon.png" width="56" height="56" alt="" /><p class="eyebrow">{t.downloadSection.kicker}</p><h2>{t.downloadSection.title.split('\n').map(line => <span>{line}</span>)}</h2><p class="download-sub">{t.downloadSection.sub}</p><div class="hero-actions"><DownloadLink label={t.download} /><a class="button button-secondary" href="https://github.com/ccfwwm/zerowallscience" target="_blank" rel="noreferrer">{t.downloadSection.source}<Icon name="external" size={16} /></a></div><p class="download-meta"><span data-release-version>v{release.version}</span><span>{t.hero.platform}</span><span data-release-size>{releaseSize}</span></p><a class="text-link" href="https://zerowallscience.org/docs/" target="_blank" rel="noreferrer">{t.downloadSection.docs}<Icon name="arrow" size={16} /></a></div></section>
+    <Community t={t} />
   </main>
-  <footer class="site-footer"><div class="page-shell footer-inner"><a href={lang === 'zh' ? '/zh' : '/'} class="footer-brand"><img src="/assets/app-icon.png" alt="" width="24" height="24" />ZeroWall Science</a><div class="footer-links"><a href="https://github.com/ccfwwm/zerowallscience" target="_blank" rel="noreferrer">{t.footer.github}</a><a href="https://github.com/ccfwwm/zerowallscience/blob/main/LICENSE" target="_blank" rel="noreferrer">{t.footer.license}</a></div><span>{t.footer.copyright} · {t.footer.tagline}</span></div></footer>
+  <footer class="site-footer shell"><div><a class="brand" href="#top"><img src="/assets/v2/zerowall-icon.png" width="28" height="28" alt="" /><span>ZeroWall<span class="brand-light"> Science</span></span></a><p>{t.footer}</p></div><div class="footer-right"><div><a href="#community">{t.community.footer}</a><a href="https://zerowallscience.org/docs/" target="_blank" rel="noreferrer">{t.docs}</a><a href="https://github.com/ccfwwm/zerowallscience" target="_blank" rel="noreferrer">GitHub</a><a href="https://github.com/ccfwwm/zerowallscience/blob/main/LICENSE" target="_blank" rel="noreferrer">AGPL-3.0</a><a href="#top" aria-label={t.back}>↑</a></div><small>© {new Date().getFullYear()} ZeroWall Science</small></div></footer>
+  <dialog class="image-dialog" aria-label={t.preview}><div><p data-image-caption></p><button class="icon-button" data-dialog-close aria-label={t.close}><Icon name="close" /></button></div><img data-dialog-image alt="" /></dialog>
 </Base>

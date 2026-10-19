@@ -1,9 +1,13 @@
 ---
-interface Props { lang: 'en' | 'zh'; nav: { workflow: string; features: string; architecture: string; capabilities: string; download: string; github: string }; }
-const { lang, nav } = Astro.props;
+import type { SiteCopy } from '../content/site';
+import DownloadLink from './DownloadLink.astro';
+import Icon from './Icon.astro';
+interface Props { lang: 'en' | 'zh'; t: SiteCopy; }
+const { lang, t } = Astro.props;
+const ids = ['agent', 'knockout', 'medical', 'reproduce', 'presentation'];
 ---
-<nav class="site-nav"><div class="page-shell nav-inner"><a href={lang === 'en' ? '/' : '/zh'} class="nav-brand"><img src="/assets/app-icon.png" alt="" width="30" height="30" />ZeroWall Science</a><div class="nav-links"><a href="#workflow">{nav.workflow}</a><a href="#features">{nav.features}</a><a href="#architecture">{nav.architecture}</a><a href="#capabilities">{nav.capabilities}</a></div><div class="nav-actions"><a class="nav-github" href="https://github.com/ccfwwm/zerowallscience" target="_blank" rel="noreferrer">{nav.github}</a><a class="icon-button" title="Switch language" href={lang === 'en' ? '/zh' : '/'}>{lang === 'en' ? '中' : 'EN'}</a><button class="icon-button" id="theme-toggle" title="Toggle theme" aria-label="Toggle theme">◐</button><a class="nav-download" href="#download">{nav.download}</a></div></div></nav>
-<script is:inline>
-  const toggle = document.getElementById('theme-toggle');
-  toggle?.addEventListener('click', () => { const root = document.documentElement; const next = root.dataset.theme === 'dark' ? 'light' : 'dark'; root.dataset.theme = next; localStorage.setItem('zw-theme', next); });
-</script>
+<header class="site-header"><nav class="site-nav shell" aria-label={lang === 'zh' ? '主导航' : 'Main navigation'}>
+  <a class="brand" href={lang === 'zh' ? '/' : '/en/'} aria-label="ZeroWall Science"><img src="/assets/v2/zerowall-icon.png" width="32" height="32" alt="" /><span>ZeroWall<span class="brand-light"> Science</span></span></a>
+  <div class="nav-links" id="site-menu">{ids.map((id, i) => <a href={`#${id}`} data-story-link={i}>{t.nav[i]}</a>)}<a href="https://zerowallscience.org/docs/" target="_blank" rel="noreferrer">{t.docs}<Icon name="external" size={12} /></a></div>
+  <div class="nav-actions"><a class="language-link" href={lang === 'zh' ? '/en/' : '/'} lang={lang === 'zh' ? 'en' : 'zh-CN'}>{lang === 'zh' ? 'EN' : '中文'}</a><DownloadLink label={lang === 'zh' ? '下载' : 'Download'} class="button nav-download" /><button class="menu-toggle icon-button" aria-label={t.menu} aria-controls="site-menu" aria-expanded="false"><Icon name="menu" /></button></div>
+</nav></header>

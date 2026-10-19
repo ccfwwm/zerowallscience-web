@@ -1,0 +1,50 @@
+---
+import type { SiteCopy } from '../content/site';
+import Icon from './Icon.astro';
+interface Props { id: string; t: SiteCopy; lang: 'en' | 'zh'; }
+const { id, t, lang } = Astro.props;
+const zh = lang === 'zh';
+const nodes = Array.from({ length: 19 }, (_, i) => { const a = i * 2.39996; const r = 25 + Math.sqrt(i) * 21; return { x: 155 + Math.cos(a) * r, y: 135 + Math.sin(a) * r * .78 }; });
+---
+<div class:list={['feature-visual', `visual-${id}`]}>
+  <div class="window-bar"><img class="window-brand" src="/assets/v2/zerowall-icon.png" width="22" height="22" alt="" /><span>ZeroWall <span class="window-context">· {t.nav[['agent', 'knockout', 'medical', 'reproduce', 'presentation'].indexOf(id)]}</span></span><span class="window-type">{t.demo}</span><span class="window-controls" aria-hidden="true"><i></i><i></i><i></i></span></div>
+  {id === 'agent' && <div class="agent-visual-body">
+    <div class="agent-art"><img src="/assets/v2/research.webp" alt={zh ? '青色玻璃轨道与生物标本的科研概念插画' : 'Glass orbital sculpture and biological specimen, a research illustration'} width="1536" height="1024" loading="lazy" /><div class="agent-art-title"><span>YOUR RESEARCH, CONNECTED</span><strong>{zh ? '从问题，到下一步。' : 'A question. A way forward.'}</strong></div></div>
+    <div class="agent-question"><span class="mini-avatar">Q</span><p>{zh ? '围绕这个研究问题，整理资料并制定分析计划。' : 'Organise the materials and build an analysis plan for this question.'}</p></div>
+    <div class="agent-plan"><span class="agent-spark">✳</span><div><b>{zh ? '把研究分解为清晰的步骤' : 'Make the next steps clear'}</b><ol>{[zh ? '整理文献与数据' : 'Organise papers and data', zh ? '设计分析与调用工具' : 'Plan analyses and connect tools', zh ? '检查结果与交付文件' : 'Inspect results and deliver files'].map((text, i) => <li><span>0{i + 1}</span>{text}<Icon name="check" size={14} /></li>)}</ol></div></div>
+    <div class="artifact-row">{['analysis.R', 'figures/', 'report.md'].map(file => <span><Icon name="file" size={14} />{file}</span>)}</div>
+    <a class="capture-link" href="/assets/v2/app-workspace.webp" data-zoom data-zoom-label={t.realUI}>{t.realUI}<Icon name="external" size={13} /></a>
+  </div>}
+  {id === 'knockout' && <div class="knockout-body">
+    <img class="knockout-art" src="/assets/v2/cells.webp" alt="" width="1536" height="1024" loading="lazy" />
+    <div class="knockout-title"><span class="micro-label">IN SILICO / SINGLE CELL</span><h3>{t.knockout.label}</h3><div class="gene-input"><span>{t.knockout.target}</span><b>GENE</b><span class="gene-tag">scTenifoldKnk</span></div></div>
+    <div class="network-comparison">{t.knockout.compare.map((label, column) => <div class="network-pane"><span>{label}</span><svg viewBox="0 0 310 270" role="img" aria-label={`${label} · ${t.knockout.note}`}><g class:list={['network-links', column === 1 && 'is-perturbed']}>{nodes.map((node, i) => <line x1={node.x} y1={node.y} x2={nodes[(i + 5) % nodes.length].x} y2={nodes[(i + 5) % nodes.length].y} />)}{nodes.filter((_, i) => i % 2 === 0).map(node => <line x1="155" y1="135" x2={node.x} y2={node.y} />)}</g>{nodes.map((node, i) => <circle cx={node.x} cy={node.y} r={i % 4 === 0 ? 5.5 : 3.5} class:list={['network-node', column === 1 && i % 4 === 0 && 'changed-node']} />)}<circle cx="155" cy="135" r="13" class={column === 0 ? 'target-node' : 'knocked-node'} /><circle cx="155" cy="135" r="24" fill="none" stroke="currentColor" opacity=".2" stroke-dasharray="3 6" /></svg></div>)}</div>
+    <div class="knockout-steps">{t.knockout.steps.map((step, i) => <span><small>0{i + 1}</small>{step}</span>)}</div><p class="visual-note">{t.knockout.note}</p>
+  </div>}
+  {id === 'medical' && <div class="medical-body" data-medical>
+    <div class="visual-tabs" role="tablist" aria-label={zh ? '医学研究场景' : 'Medical research scenarios'}>{t.medical.tabs.map((tab, i) => <button id={`medical-tab-${i}`} role="tab" aria-selected={i === 0 ? 'true' : 'false'} aria-controls={`medical-panel-${i}`} data-medical-tab={i}>{tab}</button>)}</div>
+    {t.medical.titles.map((title, i) => <div class="medical-panel" role="tabpanel" id={`medical-panel-${i}`} aria-labelledby={`medical-tab-${i}`} data-medical-panel={i}>
+      <div class:list={['medical-art-wrap', i === 2 && 'medical-interface']}><img src={`/assets/v2/${i === 0 ? 'cells' : i === 1 ? 'medicine' : 'imaging'}.webp`} width="1536" height="1024" alt={i === 2 ? (zh ? 'ImageJ 真实文件选择界面，尚未加载科研数据' : 'Actual ImageJ file selection interface, before loading data') : (zh ? '医学研究概念插画' : 'Medical research conceptual illustration')} loading="lazy" /><div class="medical-title"><span>0{i + 1} / {t.medical.tabs[i]}</span><h3>{title}</h3><p>{t.medical.subs[i]}</p></div><span class="art-disclosure">{i === 2 ? (zh ? '真实界面 · 文件选择' : 'Actual UI · File selection') : t.creative.illustration}</span></div>
+      {i < 2 && <div class="medical-study-sheet" aria-label={zh ? '研究方案示意' : 'Study plan illustration'}><div><span>{i === 0 ? 'GEO / SINGLE CELL' : 'NHANES / SURVEY'}</span><b>{i === 0 ? (zh ? '数据集与细胞群' : 'Datasets & cell groups') : (zh ? '研究变量与调查设计' : 'Variables & survey design')}</b></div><ul>{(i === 0 ? (zh ? ['原始计数', '质控与分组', '差异与通路'] : ['Raw counts', 'QC & groups', 'DE & pathways']) : (zh ? ['暴露与结局', '协变量', '分层 / 聚类 / 权重'] : ['Exposure & outcome', 'Covariates', 'Strata / clusters / weights'])).map(label => <li><Icon name="check" size={12} />{label}</li>)}</ul></div>}
+      <div class="medical-path">{t.medical.steps[i].map((step, n) => <div><span>0{n + 1}</span><b>{step}</b></div>)}</div>
+    </div>)}
+  </div>}
+  {id === 'reproduce' && <div class="reproduction-body">
+    <div class="paper-header"><span class="micro-label">PAPER → WORKSPACE</span><span class="paper-file"><Icon name="file" size={14} /> research-paper.pdf</span></div>
+    <div class="reproduction-grid">{t.reproduction.columns.map((title, i) => <div class={`reproduction-column column-${i}`}><div class="reproduction-number">0{i + 1}</div><h3>{title}</h3>{i === 0 ? <div class="paper-glyph" aria-hidden="true"><span></span><i></i><i></i><i></i><div></div><i></i><i></i></div> : i === 1 ? <div class="code-glyph" aria-hidden="true"><span>01 <b>load</b> data</span><span>02 <b>set</b> parameters</span><span>03 <b>run</b> analysis</span><span>04 <b>save</b> outputs</span></div> : <div class="result-glyph" aria-hidden="true">{[36, 64, 48, 85, 60, 94, 72].map(height => <i style={`--bar:${height}%`}></i>)}</div>}<ul>{t.reproduction.rows[i].map(text => <li>{text}</li>)}</ul></div>)}</div>
+    <div class="reproduction-status"><span class="status-dot"></span>{t.reproduction.state}</div><div class="reproduction-path">{t.reproduction.steps.map((step, i) => <span><b>0{i + 1}</b>{step}</span>)}</div>
+  </div>}
+  {id === 'presentation' && <div class="ppt-body" data-ppt>
+    <div class="ppt-toolbar"><div class="visual-tabs" role="group" aria-label={t.ppt.tag}><button data-ppt-mode="slide" aria-pressed="true">{t.ppt.view}</button><button data-ppt-mode="objects" aria-pressed="false">{t.ppt.objects}</button></div><span>.PPTX</span></div>
+    <div class="ppt-editor"><div class="ppt-thumbnails" role="tablist" aria-label={zh ? '演示页面' : 'Presentation slides'}>{t.ppt.pages.map((page, i) => <button id={`ppt-tab-${i}`} data-ppt-page={i} role="tab" aria-controls={`ppt-panel-${i}`} aria-selected={i === 0 ? 'true' : 'false'}><div><span>0{i + 1}</span><i></i><i></i></div><small>{page}</small></button>)}</div>
+      <div class="ppt-canvas">{t.ppt.pages.map((_, i) => <div class={`slide-preview slide-${i}`} id={`ppt-panel-${i}`} role="tabpanel" aria-labelledby={`ppt-tab-${i}`} data-ppt-panel={i}>
+        <span class="slide-eyebrow">ZEROWALL / RESEARCH</span>
+        <div class="editable-object slide-title" data-object="text" tabindex="0" role="button" aria-label={t.ppt.labels[0]}><h3>{i === 0 ? t.ppt.title : i === 1 ? t.ppt.question : t.ppt.results}</h3></div>
+        {i === 0 && <><p class="slide-description editable-object" data-object="text">{t.ppt.body}</p><div class="slide-art editable-object" data-object="image" tabindex="0" role="button" aria-label={t.ppt.labels[3]}><img src="/assets/v2/medicine.webp" width="1536" height="1024" alt={t.creative.illustration} loading="lazy" /></div><span class="slide-line editable-object" data-object="shape"></span></>}
+        {i === 1 && <div class="slide-methods">{t.ppt.methods.map((method, n) => <div class="editable-object" data-object="shape" tabindex="0" role="button" aria-label={t.ppt.labels[1]}><b>0{n + 1}</b><span>{method}</span></div>)}</div>}
+        {i === 2 && <><div class="slide-chart editable-object" data-object="chart" tabindex="0" role="button" aria-label={t.ppt.labels[2]}>{[44, 75, 58, 90].map((height, n) => <div><i style={`height:${height}%`}></i><span>{String.fromCharCode(65 + n)}</span></div>)}</div><table class="slide-table editable-object" data-object="table" tabindex="0" aria-label={t.ppt.labels[2]}><thead><tr><th>{zh ? '内容' : 'Item'}</th><th>{zh ? '状态' : 'Status'}</th></tr></thead><tbody><tr><td>{zh ? '研究图表' : 'Figures'}</td><td>{zh ? '可编辑' : 'Editable'}</td></tr><tr><td>{zh ? '数据表格' : 'Tables'}</td><td>{zh ? '可编辑' : 'Editable'}</td></tr></tbody></table><small class="slide-sample">{t.ppt.sample}</small></>}
+        <span class="slide-page">0{i + 1} / 03</span>
+      </div>)}</div>
+    </div><div class="ppt-object-legend">{t.ppt.labels.map((label, i) => <span><i style={`--object-color:${['#00d4ff', '#6ee7ba', '#c4a0ff', '#ffa68c'][i]}`}></i>{label}</span>)}</div><p class="visual-note" data-object-description data-default-description={t.ppt.tag}>{t.ppt.tag}</p><a class="ppt-sample-link" href="/samples/zerowall-editable-research.pptx" download>{zh ? '下载可编辑示例（PPTX）' : 'Download editable sample (PPTX)'}<Icon name="download" size={13} /></a>
+  </div>}
+</div>

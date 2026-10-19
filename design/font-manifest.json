@@ -1,0 +1,11 @@
+{
+  "family": "Montserrat",
+  "weights": "400-800",
+  "file": "/fonts/montserrat-latin-variable.woff2",
+  "source": "https://fonts.gstatic.com/s/montserrat/v31/JTUSjIg1_i6t8kCHKm459Wlhyw.woff2",
+  "license": "SIL Open Font License 1.1",
+  "licenseFile": "/fonts/Montserrat-OFL.txt",
+  "bytes": 37956,
+  "sha256": "06b16db7a969135d48d38c49183be7fb88d4452e2a3011957c7851941f4e4879",
+  "chineseStack": "PingFang SC, Microsoft YaHei, Noto Sans SC, Source Han Sans SC, system-ui, sans-serif"
+}

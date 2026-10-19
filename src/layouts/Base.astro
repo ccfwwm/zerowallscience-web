@@ -1,73 +1,17 @@
 ---
-// Base layout — shared across EN and ZH pages
 import '../styles/global.css';
-
-interface Props {
-  title: string;
-  description: string;
-  lang: 'en' | 'zh';
-}
+import '../styles/visual-details.css';
+interface Props { title: string; description: string; lang: 'en' | 'zh'; }
 const { title, description, lang } = Astro.props;
+const canonical = `https://zerowallscience.org${lang === 'en' ? '/en/' : '/'}`;
 ---
-<!DOCTYPE html>
-<html lang={lang === 'zh' ? 'zh-CN' : 'en'} data-theme="dark">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>{title}</title>
-  <meta name="description" content={description} />
-  <link rel="icon" type="image/png" href="/assets/app-icon.png" />
-  <link rel="canonical" href={lang === 'zh' ? 'https://zerowallscience.org/zh' : 'https://zerowallscience.org'} />
-  <link rel="alternate" hreflang="en" href="https://zerowallscience.org" />
-  <link rel="alternate" hreflang="zh" href="https://zerowallscience.org/zh" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Source+Serif+4:wght@400;600&display=swap" rel="stylesheet" />
-</head>
-<body>
-  <slot />
-  <script is:inline>
-    // Theme init (runs before paint)
-    (function() {
-      const saved = localStorage.getItem('zw-theme');
-      const theme = saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-      document.documentElement.setAttribute('data-theme', theme);
-    })();
-  </script>
-  <script>
-    const links = document.querySelectorAll<HTMLAnchorElement>('[data-latest-windows-download]');
-
-    async function updateLatestWindowsDownload(link: HTMLAnchorElement): Promise<string> {
-      const metadataUrl = link.dataset.releaseMetadataUrl;
-      if (!metadataUrl) return link.href;
-      try {
-        const response = await fetch(metadataUrl, { cache: 'no-store', credentials: 'omit' });
-        if (!response.ok) throw new Error(`Release metadata returned HTTP ${response.status}.`);
-        const metadata = await response.json() as { assetUrl?: unknown; url?: unknown; version?: unknown };
-        const candidate = typeof metadata.assetUrl === 'string' ? metadata.assetUrl : metadata.url;
-        if (typeof candidate !== 'string') throw new Error('Release metadata does not contain an asset URL.');
-        const asset = new URL(candidate);
-        const authority = new URL(metadataUrl);
-        if (asset.protocol !== 'https:' || asset.origin !== authority.origin || !asset.pathname.toLowerCase().endsWith('.exe')) {
-          throw new Error('Release metadata contains an untrusted asset URL.');
-        }
-        link.href = asset.href;
-        link.dataset.latestResolved = 'true';
-        if (typeof metadata.version === 'string') link.dataset.releaseVersion = metadata.version;
-      } catch (error) {
-        console.warn('Using the build-time ZeroWall Science download URL.', error);
-      }
-      return link.href;
-    }
-
-    for (const link of links) {
-      void updateLatestWindowsDownload(link);
-      link.addEventListener('click', async (event) => {
-        if (link.dataset.latestResolved === 'true') return;
-        event.preventDefault();
-        window.location.assign(await updateLatestWindowsDownload(link));
-      });
-    }
-  </script>
-</body>
-</html>
+<!DOCTYPE html><html lang={lang === 'zh' ? 'zh-CN' : 'en'}><head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="theme-color" content="#090d14" />
+  <title>{title}</title><meta name="description" content={description} />
+  <link rel="preload" href="/fonts/montserrat-latin-variable.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="icon" type="image/png" sizes="512x512" href="/assets/v2/zerowall-icon.png" /><link rel="icon" type="image/png" sizes="32x32" href="/assets/v2/favicon-zerowall-32.png" /><link rel="apple-touch-icon" href="/assets/v2/apple-touch-zerowall.png" />
+  <link rel="canonical" href={canonical} /><link rel="alternate" hreflang="zh-CN" href="https://zerowallscience.org/" /><link rel="alternate" hreflang="en" href="https://zerowallscience.org/en/" /><link rel="alternate" hreflang="x-default" href="https://zerowallscience.org/" />
+  <meta property="og:type" content="website" /><meta property="og:site_name" content="ZeroWall Science" /><meta property="og:title" content={title} /><meta property="og:description" content={description} /><meta property="og:url" content={canonical} /><meta property="og:locale" content={lang === 'zh' ? 'zh_CN' : 'en_US'} /><meta property="og:image" content={`https://zerowallscience.org/assets/v2/share-${lang}.png`} /><meta property="og:image:width" content="1200" /><meta property="og:image:height" content="630" /><meta name="twitter:card" content="summary_large_image" />
+</head><body><a class="skip-link" href="#main">{lang === 'zh' ? '跳到主要内容' : 'Skip to content'}</a><slot />
+  <script>import { refreshDownloadLinks } from '../lib/latest-release.mjs'; import { initSite } from '../scripts/site'; void refreshDownloadLinks(); initSite();</script>
+</body></html>

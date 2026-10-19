@@ -1,0 +1,123 @@
+{
+  "slides": [
+    {
+      "index": 1,
+      "objects": [
+        {
+          "kind": "shape",
+          "text": "ZEROWALL SCIENCE / RESEARCH"
+        },
+        {
+          "kind": "shape",
+          "text": "医学研究背景与问题"
+        },
+        {
+          "kind": "shape",
+          "text": "官网演示材料 · 不代表研究结论                                           1 / 03"
+        },
+        {
+          "kind": "shape",
+          "text": "如何把一个研究问题，\n转化为可检查的分析与证据？"
+        },
+        {
+          "kind": "shape",
+          "text": "组织公开数据、分析方法和研究限制，\n保留每一步的输入、参数与输出。"
+        },
+        {
+          "kind": "picture",
+          "text": ""
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "objects": [
+        {
+          "kind": "shape",
+          "text": "ZEROWALL SCIENCE / RESEARCH"
+        },
+        {
+          "kind": "shape",
+          "text": "研究设计与分析流程"
+        },
+        {
+          "kind": "shape",
+          "text": "官网演示材料 · 不代表研究结论                                           2 / 03"
+        },
+        {
+          "kind": "shape",
+          "text": ""
+        },
+        {
+          "kind": "shape",
+          "text": "01"
+        },
+        {
+          "kind": "shape",
+          "text": "公开数据"
+        },
+        {
+          "kind": "shape",
+          "text": ""
+        },
+        {
+          "kind": "shape",
+          "text": "02"
+        },
+        {
+          "kind": "shape",
+          "text": "质量控制"
+        },
+        {
+          "kind": "shape",
+          "text": ""
+        },
+        {
+          "kind": "shape",
+          "text": "03"
+        },
+        {
+          "kind": "shape",
+          "text": "分析与核查"
+        },
+        {
+          "kind": "shape",
+          "text": "明确样本范围、变量定义和参数，再进入结果解释。"
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "objects": [
+        {
+          "kind": "shape",
+          "text": "ZEROWALL SCIENCE / RESEARCH"
+        },
+        {
+          "kind": "shape",
+          "text": "结果组织与研究限制"
+        },
+        {
+          "kind": "shape",
+          "text": "官网演示材料 · 不代表研究结论                                           3 / 03"
+        },
+        {
+          "kind": "graphicFrame",
+          "text": ""
+        },
+        {
+          "kind": "graphicFrame",
+          "text": ""
+        },
+        {
+          "kind": "shape",
+          "text": "A–D 为演示数据，无科学推断含义。"
+        }
+      ]
+    }
+  ],
+  "size": {
+    "width": 12192000,
+    "height": 6858000
+  }
+}

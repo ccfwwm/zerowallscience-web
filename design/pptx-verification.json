@@ -1,0 +1,69 @@
+{
+  "sha256": "99ded29f2b2164121f27c7c5832274167b38d3e972d06753c1c5170f0867da94",
+  "slides": [
+    {
+      "page": 1,
+      "shapes": 5,
+      "images": 1,
+      "tables": 0,
+      "charts": 0,
+      "text": [
+        "ZEROWALL SCIENCE / RESEARCH",
+        "医学研究背景与问题",
+        "官网演示材料 · 不代表研究结论                                           1 / 03",
+        "如何把一个研究问题，",
+        "转化为可检查的分析与证据？",
+        "组织公开数据、分析方法和研究限制，",
+        "保留每一步的输入、参数与输出。"
+      ]
+    },
+    {
+      "page": 2,
+      "shapes": 13,
+      "images": 0,
+      "tables": 0,
+      "charts": 0,
+      "text": [
+        "ZEROWALL SCIENCE / RESEARCH",
+        "研究设计与分析流程",
+        "官网演示材料 · 不代表研究结论                                           2 / 03",
+        "01",
+        "公开数据",
+        "02",
+        "质量控制",
+        "03",
+        "分析与核查",
+        "明确样本范围、变量定义和参数，再进入结果解释。"
+      ]
+    },
+    {
+      "page": 3,
+      "shapes": 4,
+      "images": 0,
+      "tables": 1,
+      "charts": 1,
+      "text": [
+        "ZEROWALL SCIENCE / RESEARCH",
+        "结果组织与研究限制",
+        "官网演示材料 · 不代表研究结论                                           3 / 03",
+        "内容",
+        "状态",
+        "研究图表",
+        "可编辑",
+        "数据表格",
+        "可编辑",
+        "A–D 为演示数据，无科学推断含义。"
+      ]
+    }
+  ],
+  "nativeChartValues": [
+    "44",
+    "75",
+    "58",
+    "90"
+  ],
+  "wholeSlideRasterization": false,
+  "renderedWith": "LibreOffice Impress to PDF and MuPDF PNG",
+  "readback": "OOXML native objects and text",
+  "verified": true
+}

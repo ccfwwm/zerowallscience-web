@@ -1,0 +1,545 @@
+{
+  "generatedAt": "2026-10-19T14:20:30.971Z",
+  "assets": [
+    {
+      "name": "research",
+      "state": "generated",
+      "prompt": "Premium editorial art for a medical research software website. Deep midnight navy #090d14 background, luminous cyan and restrained mint highlights, physically convincing glass, sophisticated cinematic lighting, generous negative space. No text, no letters, no logos, no watermark, no UI, no numeric scientific results. Landscape 3:2 composition. A sculptural translucent glass orbital loop surrounding a tiny illuminated biological specimen, suspended above a dark reflective surface. A calm research instrument aesthetic, not a robot or a laboratory stock photograph. Central composition, delicate floating cyan particles, crisp and exceptionally refined.",
+      "model": "gpt-image-2.5-sunburst",
+      "quality": "high",
+      "size": "1536x1024",
+      "sha256": "3ae1db1da9f4084caa704174ba8f65ced9545b46dc33c3bc72205759af81331f",
+      "sourceSha256": "39354629c150782c1745d04efd178a4282a0c646934b7770f589b4d98868c58b",
+      "path": "/assets/v2/research.webp",
+      "purpose": "research conceptual illustration",
+      "language": "neutral",
+      "source": "gpt-image-generator skill",
+      "disclosure": "AI illustration, not a scientific result",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 97382,
+      "alt": "research conceptual illustration",
+      "usages": [
+        {
+          "path": "/assets/v2/research.webp",
+          "alt": "青色玻璃轨道与生物标本的科研概念插画",
+          "language": "zh-CN",
+          "page": "/"
+        },
+        {
+          "path": "/assets/v2/research.webp",
+          "alt": "AI 创作示意 · 03",
+          "language": "zh-CN",
+          "page": "/"
+        },
+        {
+          "path": "/assets/v2/research.webp",
+          "alt": "Glass orbital sculpture and biological specimen, a research illustration",
+          "language": "en",
+          "page": "/en/"
+        },
+        {
+          "path": "/assets/v2/research.webp",
+          "alt": "AI illustration · 03",
+          "language": "en",
+          "page": "/en/"
+        }
+      ]
+    },
+    {
+      "name": "cells",
+      "state": "generated",
+      "prompt": "Premium editorial art for a medical research software website. Deep midnight navy #090d14 background, luminous cyan and restrained mint highlights, physically convincing glass, sophisticated cinematic lighting, generous negative space. No text, no letters, no logos, no watermark, no UI, no numeric scientific results. Landscape 3:2 composition. An intimate macro composition of three translucent organic cells and a short elegant DNA strand. One cell glows cyan and another mint, with extremely fine membrane and nucleus detail. Scientific conceptual illustration, not a microscopy result. Arrange subjects toward the right two thirds, beautifully dark negative space at left.",
+      "model": "gpt-image-2.5-sunburst",
+      "quality": "high",
+      "size": "1536x1024",
+      "sha256": "607f1e040498a34396ec6de938b56e0153b37c049e30cb26046f7b58ddf911c2",
+      "sourceSha256": "c97ccf95fd0cf9c659910ddd41f279f3965074447070c8534ef9268c7c841710",
+      "path": "/assets/v2/cells.webp",
+      "purpose": "cells conceptual illustration",
+      "language": "neutral",
+      "source": "gpt-image-generator skill",
+      "disclosure": "AI illustration, not a scientific result",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 177390,
+      "alt": "cells conceptual illustration",
+      "usages": [
+        {
+          "path": "/assets/v2/cells.webp",
+          "alt": "",
+          "language": "zh-CN",
+          "page": "/"
+        },
+        {
+          "path": "/assets/v2/cells.webp",
+          "alt": "医学研究概念插画",
+          "language": "zh-CN",
+          "page": "/"
+        },
+        {
+          "path": "/assets/v2/cells.webp",
+          "alt": "AI 创作示意 · 01",
+          "language": "zh-CN",
+          "page": "/"
+        },
+        {
+          "path": "/assets/v2/cells.webp",
+          "alt": "",
+          "language": "en",
+          "page": "/en/"
+        },
+        {
+          "path": "/assets/v2/cells.webp",
+          "alt": "Medical research conceptual illustration",
+          "language": "en",
+          "page": "/en/"
+        },
+        {
+          "path": "/assets/v2/cells.webp",
+          "alt": "AI illustration · 01",
+          "language": "en",
+          "page": "/en/"
+        }
+      ]
+    },
+    {
+      "name": "medicine",
+      "state": "generated",
+      "prompt": "Premium editorial art for a medical research software website. Deep midnight navy #090d14 background, luminous cyan and restrained mint highlights, physically convincing glass, sophisticated cinematic lighting, generous negative space. No text, no letters, no logos, no watermark, no UI, no numeric scientific results. Landscape 3:2 composition. An elegant abstract anatomical heart made of translucent blue glass with a subtle branching vascular structure, floating in a dark space, delicate mint points of light and soft cyan caustics. Biomedical conceptual illustration, not a clinical scan. Object on the right side, dark negative space on the left. Absolutely no text.",
+      "model": "gpt-image-2.5-sunburst",
+      "quality": "high",
+      "size": "1536x1024",
+      "sha256": "a1befdf157708e1534033f61bf0f20819f906e8a4f3d387e2ea78d2d7890a090",
+      "sourceSha256": "5c8f30edfb41dc7ec3462c9e26d429121c2c5cf1aed0c6b3a20fde029e95e86d",
+      "path": "/assets/v2/medicine.webp",
+      "purpose": "medicine conceptual illustration",
+      "language": "neutral",
+      "source": "gpt-image-generator skill",
+      "disclosure": "AI illustration, not a scientific result",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 130384,
+      "alt": "medicine conceptual illustration",
+      "usages": [
+        {
+          "path": "/assets/v2/medicine.webp",
+          "alt": "医学研究概念插画",
+          "language": "zh-CN",
+          "page": "/"
+        },
+        {
+          "path": "/assets/v2/medicine.webp",
+          "alt": "AI 创作示意",
+          "language": "zh-CN",
+          "page": "/"
+        },
+        {
+          "path": "/assets/v2/medicine.webp",
+          "alt": "AI 创作示意 · 02",
+          "language": "zh-CN",
+          "page": "/"
+        },
+        {
+          "path": "/assets/v2/medicine.webp",
+          "alt": "Medical research conceptual illustration",
+          "language": "en",
+          "page": "/en/"
+        },
+        {
+          "path": "/assets/v2/medicine.webp",
+          "alt": "AI illustration",
+          "language": "en",
+          "page": "/en/"
+        },
+        {
+          "path": "/assets/v2/medicine.webp",
+          "alt": "AI illustration · 02",
+          "language": "en",
+          "page": "/en/"
+        }
+      ]
+    },
+    {
+      "name": "creative",
+      "state": "generated",
+      "prompt": "Premium editorial art for a medical research software website. Deep midnight navy #090d14 background, luminous cyan and restrained mint highlights, physically convincing glass, sophisticated cinematic lighting, generous negative space. No text, no letters, no logos, no watermark, no UI, no numeric scientific results. Landscape 3:2 composition. A single spectacular translucent cyan flower emerging from a polished liquid silver ribbon, a fusion of botanical science and visual art, editorial still life. Black-blue studio background, gentle mint reflection, a little fine grain, beautifully art directed, dramatic macro composition with no text.",
+      "model": "gpt-image-2.5-sunburst",
+      "quality": "high",
+      "size": "1536x1024",
+      "sha256": "667157d14c7b7bec914489936509e9e72e7ca2f0226410cab8114460cdc46da3",
+      "sourceSha256": "d116f18d06c9a1a6f6978f90866e217bafe11f65f27b6c48f25adfa954bdbb89",
+      "path": "/assets/v2/creative.webp",
+      "purpose": "creative conceptual illustration",
+      "language": "neutral",
+      "source": "gpt-image-generator skill",
+      "disclosure": "AI illustration, not a scientific result",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 149314,
+      "alt": "creative conceptual illustration",
+      "usages": [
+        {
+          "path": "/assets/v2/creative.webp",
+          "alt": "科研配图、封面与创意视觉",
+          "language": "zh-CN",
+          "page": "/"
+        },
+        {
+          "path": "/assets/v2/creative.webp",
+          "alt": "Scientific illustrations, covers and creative visuals",
+          "language": "en",
+          "page": "/en/"
+        }
+      ]
+    },
+    {
+      "path": "/assets/v2/app-workspace.webp",
+      "purpose": "Actual research workbench interface",
+      "language": "zh",
+      "source": "ZeroWall Science 8.4.0 shipped Host and offline plugins, isolated empty profile",
+      "receipt": "design/generated/capture-receipt.json",
+      "width": 1440,
+      "height": 900,
+      "bytes": 271678,
+      "sha256": "b4115a1fea9fc209c4b4564eabc93c50e1d69b61448454e371d5e8a30d803ac3",
+      "alt": "Actual research workbench interface",
+      "usages": [
+        {
+          "path": "/assets/v2/app-workspace.webp",
+          "alt": "重新采集的 ZeroWall Science 8.4.0 科研工作台",
+          "language": "zh-CN",
+          "page": "/"
+        },
+        {
+          "path": "/assets/v2/app-workspace.webp",
+          "alt": "New capture of the ZeroWall Science 8.4.0 research workspace",
+          "language": "en",
+          "page": "/en/"
+        }
+      ]
+    },
+    {
+      "path": "/assets/v2/imaging.webp",
+      "purpose": "ImageJ file selection interface, no scientific data loaded",
+      "language": "zh",
+      "source": "ZeroWall Science 8.4.0 shipped Host and offline plugins, isolated empty profile",
+      "receipt": "design/generated/capture-receipt.json",
+      "width": 1440,
+      "height": 900,
+      "bytes": 62770,
+      "sha256": "5a01ee3bcb5168b137f8149f54a25089de4d5a503e9fb7d3755a8a2332e7bcf9",
+      "alt": "ImageJ file selection interface, no scientific data loaded",
+      "usages": [
+        {
+          "path": "/assets/v2/imaging.webp",
+          "alt": "ImageJ 真实文件选择界面，尚未加载科研数据",
+          "language": "zh-CN",
+          "page": "/"
+        },
+        {
+          "path": "/assets/v2/imaging.webp",
+          "alt": "Actual ImageJ file selection interface, before loading data",
+          "language": "en",
+          "page": "/en/"
+        }
+      ]
+    },
+    {
+      "path": "/assets/v2/share-zh.png",
+      "purpose": "Social sharing cover",
+      "language": "zh",
+      "source": "Original brand composition",
+      "width": 1200,
+      "height": 630,
+      "bytes": 143608,
+      "sha256": "b1d6a819d5523696ddee78d062b1acdb795e4f49534cec2ceec9c5444dd1d44a",
+      "alt": "Social sharing cover",
+      "usages": []
+    },
+    {
+      "path": "/assets/v2/share-en.png",
+      "purpose": "Social sharing cover",
+      "language": "en",
+      "source": "Original brand composition",
+      "width": 1200,
+      "height": 630,
+      "bytes": 142798,
+      "sha256": "2504d7375a4b3e5fbd4224a9861fbe5defb608f0df80e5b5af932b06853cab8f",
+      "alt": "Social sharing cover",
+      "usages": []
+    },
+    {
+      "path": "/assets/v2/zerowall-icon.png",
+      "source": "User supplied original ZeroWall icon, design/branding/zerowall-icon.png",
+      "sourceSha256": "06b996189656a876dc973ba8f738b166ae228e38f73de899cee8d92fdcc3cc11",
+      "transformation": "None: original bytes preserved",
+      "language": "neutral",
+      "purpose": "Original ZeroWall brand icon",
+      "width": 512,
+      "height": 512,
+      "bytes": 124956,
+      "sha256": "06b996189656a876dc973ba8f738b166ae228e38f73de899cee8d92fdcc3cc11",
+      "alt": "Original ZeroWall brand icon",
+      "usages": [
+        {
+          "path": "/assets/v2/zerowall-icon.png",
+          "alt": "",
+          "language": "zh-CN",
+          "page": "/"
+        },
+        {
+          "path": "/assets/v2/zerowall-icon.png",
+          "alt": "",
+          "language": "zh-CN",
+          "page": "/"
+        },
+        {
+          "path": "/assets/v2/zerowall-icon.png",
+          "alt": "",
+          "language": "zh-CN",
+          "page": "/"
+        },
+        {
+          "path": "/assets/v2/zerowall-icon.png",
+          "alt": "",
+          "language": "zh-CN",
+          "page": "/"
+        },
+        {
+          "path": "/assets/v2/zerowall-icon.png",
+          "alt": "",
+          "language": "zh-CN",
+          "page": "/"
+        },
+        {
+          "path": "/assets/v2/zerowall-icon.png",
+          "alt": "",
+          "language": "zh-CN",
+          "page": "/"
+        },
+        {
+          "path": "/assets/v2/zerowall-icon.png",
+          "alt": "",
+          "language": "zh-CN",
+          "page": "/"
+        },
+        {
+          "path": "/assets/v2/zerowall-icon.png",
+          "alt": "",
+          "language": "zh-CN",
+          "page": "/"
+        },
+        {
+          "path": "/assets/v2/zerowall-icon.png",
+          "alt": "",
+          "language": "en",
+          "page": "/en/"
+        },
+        {
+          "path": "/assets/v2/zerowall-icon.png",
+          "alt": "",
+          "language": "en",
+          "page": "/en/"
+        },
+        {
+          "path": "/assets/v2/zerowall-icon.png",
+          "alt": "",
+          "language": "en",
+          "page": "/en/"
+        },
+        {
+          "path": "/assets/v2/zerowall-icon.png",
+          "alt": "",
+          "language": "en",
+          "page": "/en/"
+        },
+        {
+          "path": "/assets/v2/zerowall-icon.png",
+          "alt": "",
+          "language": "en",
+          "page": "/en/"
+        },
+        {
+          "path": "/assets/v2/zerowall-icon.png",
+          "alt": "",
+          "language": "en",
+          "page": "/en/"
+        },
+        {
+          "path": "/assets/v2/zerowall-icon.png",
+          "alt": "",
+          "language": "en",
+          "page": "/en/"
+        },
+        {
+          "path": "/assets/v2/zerowall-icon.png",
+          "alt": "",
+          "language": "en",
+          "page": "/en/"
+        }
+      ]
+    },
+    {
+      "path": "/assets/v2/favicon-zerowall-32.png",
+      "source": "User supplied original ZeroWall icon, design/branding/zerowall-icon.png",
+      "sourceSha256": "06b996189656a876dc973ba8f738b166ae228e38f73de899cee8d92fdcc3cc11",
+      "transformation": "Size derivative only",
+      "language": "neutral",
+      "purpose": "Original ZeroWall brand icon",
+      "width": 32,
+      "height": 32,
+      "bytes": 1940,
+      "sha256": "c5ba72da8fc4926573b98fadf4070cad56410c89108d04ae12d4d34495db9a46",
+      "alt": "Original ZeroWall brand icon",
+      "usages": []
+    },
+    {
+      "path": "/assets/v2/apple-touch-zerowall.png",
+      "source": "User supplied original ZeroWall icon, design/branding/zerowall-icon.png",
+      "sourceSha256": "06b996189656a876dc973ba8f738b166ae228e38f73de899cee8d92fdcc3cc11",
+      "transformation": "Size derivative only",
+      "language": "neutral",
+      "purpose": "Original ZeroWall brand icon",
+      "width": 180,
+      "height": 180,
+      "bytes": 29001,
+      "sha256": "a74c750c5ac920c58e85152d0f65230f8cc2d35967ff200e432fce12ff5bae75",
+      "alt": "Original ZeroWall brand icon",
+      "usages": []
+    },
+    {
+      "path": "/assets/v2/hero-zerowall.png",
+      "source": "User supplied original ZeroWall icon, design/branding/zerowall-icon.png",
+      "sourceSha256": "06b996189656a876dc973ba8f738b166ae228e38f73de899cee8d92fdcc3cc11",
+      "transformation": "Original colour pixels and white Z retained; pale tile removed for hero only, cyan and violet orbital composition",
+      "language": "neutral",
+      "purpose": "Original icon artwork with orbital accents; static animation fallback",
+      "width": 512,
+      "height": 512,
+      "bytes": 159009,
+      "sha256": "978833d4d345cedf0f07617eeddcbe3d2d49bd0ccc45afd6c4b5756c4df8c8ca",
+      "alt": "Original icon artwork with orbital accents; static animation fallback",
+      "usages": []
+    },
+    {
+      "path": "/assets/v2/hero-poster.svg",
+      "source": "User supplied original ZeroWall icon, design/branding/zerowall-icon.png",
+      "sourceSha256": "06b996189656a876dc973ba8f738b166ae228e38f73de899cee8d92fdcc3cc11",
+      "transformation": "Original colour pixels and white Z retained; pale tile removed for hero only, cyan and violet orbital composition",
+      "language": "neutral",
+      "purpose": "Original icon artwork with orbital accents; static animation fallback",
+      "width": 1200,
+      "height": 640,
+      "bytes": 213393,
+      "sha256": "a5e92093d99b2719fcc9174c72445c948aea9960cd50c6dfd4c7c27ce16fe81e",
+      "alt": "Original icon artwork with orbital accents; static animation fallback",
+      "usages": []
+    },
+    {
+      "path": "/assets/v2/hero-poster.webp",
+      "source": "User supplied original ZeroWall icon, design/branding/zerowall-icon.png",
+      "sourceSha256": "06b996189656a876dc973ba8f738b166ae228e38f73de899cee8d92fdcc3cc11",
+      "transformation": "Original colour pixels and white Z retained; pale tile removed for hero only, cyan and violet orbital composition",
+      "language": "neutral",
+      "purpose": "Original icon artwork with orbital accents; static animation fallback",
+      "width": 1200,
+      "height": 640,
+      "bytes": 119170,
+      "sha256": "9fab3072473873db1022fd409032c4e8005d9dacc31ef3cc475d100a330bba62",
+      "alt": "Original icon artwork with orbital accents; static animation fallback",
+      "usages": [
+        {
+          "path": "/assets/v2/hero-poster.webp",
+          "alt": "",
+          "language": "zh-CN",
+          "page": "/"
+        },
+        {
+          "path": "/assets/v2/hero-poster.webp",
+          "alt": "",
+          "language": "en",
+          "page": "/en/"
+        }
+      ]
+    },
+    {
+      "path": "/assets/v2/hero-mobile.webp",
+      "source": "User supplied original ZeroWall icon, design/branding/zerowall-icon.png",
+      "sourceSha256": "06b996189656a876dc973ba8f738b166ae228e38f73de899cee8d92fdcc3cc11",
+      "transformation": "Original colour pixels and white Z retained; pale tile removed for hero only, cyan and violet orbital composition",
+      "language": "neutral",
+      "purpose": "Original icon artwork with orbital accents; static animation fallback",
+      "width": 750,
+      "height": 440,
+      "bytes": 64434,
+      "sha256": "f65af764e1065b71e3b8019af1190003a0f9dbd1509619f17e86f643d3560cbd",
+      "alt": "Original icon artwork with orbital accents; static animation fallback",
+      "usages": []
+    },
+    {
+      "path": "/assets/v2/wechat-group-2.png",
+      "purpose": "Original WeChat group 2 invitation card for enlargement and saving",
+      "source": "User supplied WeChat invitation, design/community/wechat-group-2-original.png",
+      "sourceSha256": "068a5ac10b8b723c91807b88ac001acb57bfb9db248a41522519ece7de1773c1",
+      "transformation": "None: original bytes preserved",
+      "validBefore": "2026-10-26",
+      "language": "zh",
+      "width": 540,
+      "height": 849,
+      "bytes": 90493,
+      "sha256": "068a5ac10b8b723c91807b88ac001acb57bfb9db248a41522519ece7de1773c1",
+      "alt": "Original WeChat group 2 invitation card for enlargement and saving",
+      "usages": []
+    },
+    {
+      "path": "/assets/v2/wechat-group-2-code.png",
+      "purpose": "Scannable WeChat group 2 QR code",
+      "source": "User supplied WeChat invitation, design/community/wechat-group-2-original.png",
+      "sourceSha256": "068a5ac10b8b723c91807b88ac001acb57bfb9db248a41522519ece7de1773c1",
+      "transformation": "Lossless crop x=70, y=300, width=400, height=400; no QR regeneration or pixel edits",
+      "validBefore": "2026-10-26",
+      "language": "zh",
+      "width": 400,
+      "height": 400,
+      "bytes": 36926,
+      "sha256": "7aaa0270b561ed756c7c9a7babb16254dbefe0dc24792f1a2394c0fd45e53589",
+      "alt": "Scannable WeChat group 2 QR code",
+      "usages": [
+        {
+          "path": "/assets/v2/wechat-group-2-code.png",
+          "alt": "ZeroWallScience 交流群（2群）微信二维码，2026 年 10 月 26 日前有效",
+          "language": "zh-CN",
+          "page": "/"
+        },
+        {
+          "path": "/assets/v2/wechat-group-2-code.png",
+          "alt": "WeChat QR code for ZeroWallScience user group 2, valid before 26 October 2026",
+          "language": "en",
+          "page": "/en/"
+        }
+      ]
+    }
+  ],
+  "inlineVisuals": [
+    {
+      "purpose": "Knockout network comparison",
+      "format": "SVG",
+      "source": "Original illustrative topology, no scientific data",
+      "language": "zh/en"
+    },
+    {
+      "purpose": "Research steps, medical study inputs, paper reproduction, PPTX objects and media timeline",
+      "format": "HTML/CSS",
+      "source": "Original bilingual workflow demonstrations",
+      "language": "zh/en"
+    },
+    {
+      "purpose": "Brand scene",
+      "format": "WebGL",
+      "source": "User supplied original ZeroWall icon texture, cyan and violet orbital accents; static original-icon composition fallback",
+      "sourceSha256": "06b996189656a876dc973ba8f738b166ae228e38f73de899cee8d92fdcc3cc11",
+      "language": "neutral"
+    }
+  ]
+}

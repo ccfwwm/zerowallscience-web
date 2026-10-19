@@ -1,0 +1,7 @@
+---
+import { release } from '../lib/release';
+import Icon from './Icon.astro';
+interface Props { label: string; class?: string; }
+const { label, class: className = 'button button-primary' } = Astro.props;
+---
+<a class={className} href={release.assetUrl} data-latest-windows-download download={release.assetName}><Icon name="download" size={18} /><span>{label}</span></a>
