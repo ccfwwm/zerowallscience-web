@@ -65,7 +65,6 @@ export function initSite() {
   document.querySelectorAll<HTMLElement>('[data-promo-player]').forEach(player => {
     const video = player.querySelector<HTMLVideoElement>('[data-promo-video]');
     const launch = player.querySelector<HTMLButtonElement>('[data-video-play]');
-    const label = player.querySelector<HTMLElement>('[data-video-play-label]');
     const error = player.parentElement?.querySelector<HTMLElement>('[data-video-error]');
     if (!video || !launch) return;
     video.controls = false;
@@ -73,7 +72,7 @@ export function initSite() {
     let keyboardLaunch = false;
     let attempt = 0, loadingTimer: number | undefined;
     const clearLoadingTimer = () => { clearTimeout(loadingTimer); loadingTimer = undefined; };
-    const resetLaunch = () => { launch.disabled = false; launch.removeAttribute('aria-busy'); if (label) label.textContent = player.dataset.playLabel ?? ''; };
+    const resetLaunch = () => { launch.disabled = false; launch.removeAttribute('aria-busy'); launch.setAttribute('aria-label', player.dataset.playLabel ?? ''); };
     const showFailure = () => {
       clearLoadingTimer(); keyboardLaunch = false; video.pause(); video.controls = false;
       launch.hidden = false; resetLaunch(); if (error) error.hidden = false;
@@ -82,7 +81,7 @@ export function initSite() {
       const currentAttempt = ++attempt;
       keyboardLaunch = event.detail === 0;
       launch.disabled = true; launch.setAttribute('aria-busy', 'true');
-      if (label) label.textContent = player.dataset.loadingLabel ?? '';
+      launch.setAttribute('aria-label', player.dataset.loadingLabel ?? '');
       if (error) error.hidden = true;
       if (video.error || video.networkState === HTMLMediaElement.NETWORK_NO_SOURCE) video.load();
       video.controls = true;

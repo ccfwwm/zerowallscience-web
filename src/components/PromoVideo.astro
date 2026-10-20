@@ -8,16 +8,14 @@ const source = 'https://zerowall.chengxunkeji.cn/webfiles/zerowallsciencevideo.m
 ---
 <section class="film-section" id="film" aria-labelledby="film-heading">
   <div class="shell">
-    <div class="film-heading"><div><p class="eyebrow">ZEROWALL IN MOTION</p><h2 id="film-heading">{copy.title}</h2></div><p>{copy.description}</p></div>
-    <div class="film-player" data-promo-player data-error-label={copy.error} data-loading-label={copy.loading} data-play-label={copy.play}>
+    <div class="film-heading"><div><p class="eyebrow">{copy.eyebrow}</p><h2 id="film-heading">{copy.title}</h2></div><p>{copy.description}</p></div>
+    <div class="film-player" data-promo-player data-loading-label={copy.loading} data-play-label={copy.play}>
       <video class="film-video" data-promo-video controls playsinline preload="none" poster="/assets/v2/promo-poster.webp" width="2560" height="1440" aria-label={copy.label} tabindex="0">
         <source src={source} type="video/mp4" />
         <p><a href={source}>{copy.fallback}</a></p>
       </video>
-      <button class="film-launch" data-video-play hidden aria-label={copy.play}>
-        <span class="film-badge"><span class="status-dot"></span>ZeroWall Science<span>00:15</span></span>
-        <span class="film-play"><span class="film-play-icon"><Icon name="play" size={27} /></span><span data-video-play-label>{copy.play}</span></span>
-        <span class="film-poster-copy"><strong>{copy.posterTitle}</strong><span>{copy.posterSub}</span></span>
+      <button type="button" class="film-launch" data-video-play hidden aria-label={copy.play}>
+        <span class="film-play-icon"><Icon name="play" size={27} /></span>
       </button>
     </div>
     <p class="film-error" data-video-error hidden role="status">{copy.error} <a class="text-link" href={source} target="_blank" rel="noreferrer">{copy.fallback}<Icon name="external" size={15} /></a></p>
@@ -32,18 +30,12 @@ const source = 'https://zerowall.chengxunkeji.cn/webfiles/zerowallsciencevideo.m
   .film-heading > p { max-width: 350px; font-size: 16px; color: var(--muted); line-height: 1.8; }
   .film-player { position: relative; aspect-ratio: 16 / 9; border: 1px solid #92dafc30; border-radius: 20px; background: #0d1320; overflow: hidden; box-shadow: 0 24px 70px #0005, 0 0 60px #00d4ff06; isolation: isolate; }
   .film-video { width: 100%; height: 100%; display: block; object-fit: contain; }
-  .film-launch { position: absolute; inset: 0; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: space-between; align-items: flex-start; text-align: left; padding: 32px 40px; color: #fff; background: linear-gradient(180deg, #061322b3 0%, #06132238 40%, #061322d9 100%); transition: background .2s; }
-  .film-launch:hover { background: linear-gradient(180deg, #061322a0 0%, #06132222 40%, #061322ca 100%); }
+  .film-launch { position: absolute; inset: 0; width: 100%; height: 100%; display: grid; place-items: center; padding: 0; color: #fff; background: transparent; }
   .film-launch:focus-visible { outline-offset: -7px; border-radius: inherit; }
-  .film-badge { display: flex; align-items: center; gap: 12px; font-family: var(--font-brand); font-size: 14px; font-weight: 600; letter-spacing: .02em; }
-  .film-badge > span:last-child { margin-left: 5px; padding-left: 15px; border-left: 1px solid #ffffff40; font-weight: 400; color: #d1e3ed; }
-  .film-play { position: absolute; left: 50%; top: 48%; transform: translate(-50%, -50%); display: flex; align-items: center; flex-direction: column; gap: 15px; font-size: 16px; font-weight: 600; text-shadow: 0 2px 15px #000a; }
-  .film-play-icon { display: grid; place-items: center; width: 76px; height: 76px; border: 1px solid #bdefff90; border-radius: 50%; background: #071624b3; color: #a9f1ff; box-shadow: 0 0 35px #00d4ff26; transition: transform .2s, background .2s; }
-  .film-play-icon svg { margin-left: 4px; }
-  .film-launch:hover .film-play-icon { transform: scale(1.07); background: #0b394ccc; }
-  .film-poster-copy { display: flex; flex-direction: column; gap: 7px; }
-  .film-poster-copy strong { font-size: clamp(22px, 2.3vw, 32px); line-height: 1.4; letter-spacing: -.01em; }
-  .film-poster-copy > span { font-size: 16px; color: #cadce6; }
+  .film-play-icon { display: grid; place-items: center; width: 76px; height: 76px; border: 1px solid #efffff90; border-radius: 50%; background: #07162426; backdrop-filter: blur(4px); color: #fff; box-shadow: 0 4px 24px #06132214; transition: transform .2s, background .2s, opacity .2s; }
+  .film-play-icon svg { margin-left: 4px; filter: drop-shadow(0 1px 3px #06132280); }
+  .film-launch:hover .film-play-icon { transform: scale(1.06); background: #07162440; }
+  .film-launch[aria-busy="true"] .film-play-icon { opacity: .6; }
   .film-error { margin-top: 16px; font-size: 15px; line-height: 1.8; color: var(--muted); }
   .film-error a { margin-left: 8px; font-size: 15px; }
   @media (max-width: 767px) {
@@ -53,14 +45,7 @@ const source = 'https://zerowall.chengxunkeji.cn/webfiles/zerowallsciencevideo.m
     .film-heading h2 { font-size: 29px; }
     .film-heading > p { font-size: 16px; }
     .film-player { border-radius: 12px; }
-    .film-launch { padding: 14px 16px; }
-    .film-badge { font-size: 11px; gap: 7px; }
-    .film-badge > span:last-child { padding-left: 8px; margin-left: 0; }
-    .film-play { top: 51%; gap: 8px; font-size: 13px; }
     .film-play-icon { width: 48px; height: 48px; }
     .film-play-icon svg { width: 21px; height: 21px; }
-    .film-poster-copy { gap: 0; }
-    .film-poster-copy strong { font-size: 16px; }
-    .film-poster-copy > span { display: none; }
   }
 </style>
