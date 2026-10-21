@@ -1,15 +1,15 @@
 [
   {
-    "tag": "v8.4.2",
-    "name": "ZeroWall Science 8.4.2",
-    "published": "2026-10-19T12:38:48Z",
-    "url": "https://zerowall.chengxunkeji.cn/stable/releases/8.4.2/zerowall-science-8.4.2-win-x64.exe",
+    "tag": "v8.4.5",
+    "name": "ZeroWall Science 8.4.5",
+    "published": "2026-10-21T06:05:21Z",
+    "url": "https://zerowall.chengxunkeji.cn/stable/releases/8.4.5/zerowall-science-8.4.5-win-x64.exe",
     "assets": [
       {
-        "name": "zerowall-science-8.4.2-win-x64.exe",
-        "size": 289201848,
-        "url": "https://zerowall.chengxunkeji.cn/stable/releases/8.4.2/zerowall-science-8.4.2-win-x64.exe",
-        "sha256": "b1d43899ba686756cfba291c9c0265fa46563e9600ab953d7a3cb37711646d5a"
+        "name": "zerowall-science-8.4.5-win-x64.exe",
+        "size": 302069453,
+        "url": "https://zerowall.chengxunkeji.cn/stable/releases/8.4.5/zerowall-science-8.4.5-win-x64.exe",
+        "sha256": "a56fea3fdb972fe35e8af2fcb0c2ac6dd4472e6ad3fb859d3478eaa09f48fb04"
       }
     ]
   }

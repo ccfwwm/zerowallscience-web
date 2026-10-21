@@ -54,18 +54,20 @@ for (const lang of ['zh', 'en']) {
 for (const name of ['zerowall-icon.png', 'favicon-zerowall-32.png', 'apple-touch-zerowall.png', 'hero-zerowall.png', 'hero-poster.svg', 'hero-poster.webp', 'hero-mobile.webp']) manifest.push({ path: `/assets/v2/${name}`, source: 'User supplied original ZeroWall icon, design/branding/zerowall-icon.png', sourceSha256: brandSha256, transformation: name === 'zerowall-icon.png' ? 'None: original bytes preserved' : name.includes('hero') ? 'Original colour pixels and white Z retained; pale tile removed for hero only, cyan and violet orbital composition' : 'Size derivative only', language: 'neutral', purpose: name.includes('hero') ? 'Original icon artwork with orbital accents; static animation fallback' : 'Original ZeroWall brand icon' });
 // Keep the supplied WeChat card unchanged for saving and enlargement. The square
 // website view only crops surrounding text, preserving every QR pixel and its quiet zone.
-const communitySource = 'design/community/wechat-group-2-original.png';
+const communitySource = 'design/community/wechat-group-3-original.png';
 const communityImage = await readFile(join(root, communitySource));
 const communitySha256 = createHash('sha256').update(communityImage).digest('hex');
-await writeFile(join(output, 'wechat-group-2.png'), communityImage);
-await sharp(communityImage).extract({ left: 70, top: 300, width: 400, height: 400 }).png().toFile(join(output, 'wechat-group-2-code.png'));
+await writeFile(join(output, 'wechat-group-3.png'), communityImage);
+await sharp(communityImage).extract({ left: 15, top: 0, width: 600, height: 600 })
+  .extend({ top: 24, bottom: 24, left: 24, right: 24, background: '#fafafa' })
+  .png().toFile(join(output, 'wechat-group-3-code.png'));
 for (const cropped of [false, true]) manifest.push({
-  path: `/assets/v2/wechat-group-2${cropped ? '-code' : ''}.png`,
-  purpose: cropped ? 'Scannable WeChat group 2 QR code' : 'Original WeChat group 2 invitation card for enlargement and saving',
+  path: `/assets/v2/wechat-group-3${cropped ? '-code' : ''}.png`,
+  purpose: cropped ? 'Scannable WeChat group 3 QR code' : 'Original WeChat group 3 invitation card for enlargement and saving',
   source: `User supplied WeChat invitation, ${communitySource}`,
   sourceSha256: communitySha256,
-  transformation: cropped ? 'Lossless crop x=70, y=300, width=400, height=400; no QR regeneration or pixel edits' : 'None: original bytes preserved',
-  validBefore: '2026-10-26', language: 'zh',
+  transformation: cropped ? 'Lossless crop x=15, y=0, width=600, height=600; add 24px quiet border on all sides; no QR regeneration or pixel edits' : 'None: original bytes preserved',
+  validBefore: '2026-10-28', language: 'zh',
 });
 const promoPoster = await readFile(join(root, 'design/video/promo-poster.webp'));
 await writeFile(join(output, 'promo-poster.webp'), promoPoster);

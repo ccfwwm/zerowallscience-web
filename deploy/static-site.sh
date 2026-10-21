@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Publish a verified Astro archive without changing the shared docs service or Nginx.
+# Publish a verified Astro archive without changing the shared docs service or Nginx configuration.
 set -Eeuo pipefail
 umask 022
 revision="${1:-}"
@@ -24,7 +24,8 @@ tar -xzf "$archive" --no-same-owner -C "$target"
 chmod -R a+rX "$target"
 test -s "$target/index.html"
 test -s "$target/en/index.html"
-test -s "$target/assets/v2/wechat-group-2.png"
+test -s "$target/assets/v2/wechat-group-3.png"
+test -s "$target/assets/v2/wechat-group-3-code.png"
 test -s "$target/assets/v2/promo-poster.webp"
 (cd "$target" && sha256sum --check --status SHA256SUMS)
 # Keep content-addressed assets usable for visitors with an already open old page.
@@ -37,6 +38,7 @@ rollback() {
   if [[ "$switched" == 1 ]]; then
     ln -s "$old_release" "$web/current.web-rollback"
     mv -Tf "$web/current.web-rollback" "$web/current"
+    systemctl reload nginx
     echo "Rolled back to $old_release" >&2
   fi
 }
@@ -44,9 +46,11 @@ trap rollback ERR
 ln -s "releases/$release" "$web/current.web-next"
 mv -Tf "$web/current.web-next" "$web/current"
 switched=1
+# Drop cached file descriptors after switching the static directory symlink.
+systemctl reload nginx
 for page in / /en/; do
   body="$(curl -fsS --max-time 20 --resolve zerowallscience.org:443:127.0.0.1 "https://zerowallscience.org$page")"
-  [[ "$body" == *'id="community"'* && "$body" == *'/assets/v2/wechat-group-2-code.png'* ]]
+  [[ "$body" == *'id="community"'* && "$body" == *'/assets/v2/wechat-group-3-code.png'* ]]
   [[ "$body" == *'id="film"'* && "$body" == *'https://zerowall.chengxunkeji.cn/webfiles/zerowallsciencevideo.mp4'* ]]
   [[ "$body" != *'film-caption'* && "$body" != *'ppt-sample-link'* ]]
 done

@@ -4,7 +4,7 @@ import type { SiteCopy } from '../content/site';
 interface Props { t: SiteCopy; }
 const { t } = Astro.props;
 const copy = t.community;
-const original = '/assets/v2/wechat-group-2.png';
+const original = '/assets/v2/wechat-group-3.png';
 ---
 <section class="community-section section-pad" id="community" aria-labelledby="community-heading">
   <div class="community-layout shell">
@@ -15,14 +15,14 @@ const original = '/assets/v2/wechat-group-2.png';
       <ul class="community-topics" aria-label={copy.topicsLabel}>{copy.topics.map(topic => <li>{topic}</li>)}</ul>
       <div class="community-actions">
         <a class="button button-secondary" href={original} data-zoom data-zoom-kind="qr" data-zoom-label={copy.preview} aria-haspopup="dialog">{copy.enlarge}<Icon name="plus" size={18} /></a>
-        <a class="text-link" href={original} download="ZeroWallScience-WeChat-Group-2.png">{copy.save}<Icon name="download" size={18} /></a>
+        <a class="text-link" href={original} download="ZeroWallScience-WeChat-Group-3.png">{copy.save}<Icon name="download" size={18} /></a>
       </div>
       <p class="community-instructions">{copy.instructions}</p>
     </div>
     <figure class="community-qr">
       <div class="community-group"><span class="status-dot" aria-hidden="true"></span><span>{copy.group}</span><span class="community-group-badge">{copy.groupNumber}</span></div>
-      <a class="community-code" href={original} data-zoom data-zoom-kind="qr" data-zoom-label={copy.preview} aria-label={copy.enlarge} aria-haspopup="dialog"><img src="/assets/v2/wechat-group-2-code.png" alt={copy.alt} width="400" height="400" loading="lazy" /></a>
-      <figcaption><strong>{copy.scan}</strong><span>{copy.validUntil}<time datetime="2026-10-26">{copy.date}</time></span></figcaption>
+      <a class="community-code" href={original} data-zoom data-zoom-kind="qr" data-zoom-label={copy.preview} aria-label={copy.enlarge} aria-haspopup="dialog"><img src="/assets/v2/wechat-group-3-code.png" alt={copy.alt} width="648" height="648" loading="lazy" /></a>
+      <figcaption><strong>{copy.scan}</strong><span>{copy.validUntil}<time datetime="2026-10-28">{copy.date}</time></span></figcaption>
     </figure>
   </div>
 </section>

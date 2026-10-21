@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-19T14:20:30.971Z",
+  "generatedAt": "2026-10-21T08:09:55.786Z",
   "assets": [
     {
       "name": "research",
@@ -478,43 +478,43 @@
       "usages": []
     },
     {
-      "path": "/assets/v2/wechat-group-2.png",
-      "purpose": "Original WeChat group 2 invitation card for enlargement and saving",
-      "source": "User supplied WeChat invitation, design/community/wechat-group-2-original.png",
-      "sourceSha256": "068a5ac10b8b723c91807b88ac001acb57bfb9db248a41522519ece7de1773c1",
+      "path": "/assets/v2/wechat-group-3.png",
+      "purpose": "Original WeChat group 3 invitation card for enlargement and saving",
+      "source": "User supplied WeChat invitation, design/community/wechat-group-3-original.png",
+      "sourceSha256": "f8c8b37bd84a6b36491955d1c5e105452112e7eb4e28e5ef9f149359e1d8b926",
       "transformation": "None: original bytes preserved",
-      "validBefore": "2026-10-26",
+      "validBefore": "2026-10-28",
       "language": "zh",
-      "width": 540,
-      "height": 849,
-      "bytes": 90493,
-      "sha256": "068a5ac10b8b723c91807b88ac001acb57bfb9db248a41522519ece7de1773c1",
-      "alt": "Original WeChat group 2 invitation card for enlargement and saving",
+      "width": 663,
+      "height": 677,
+      "bytes": 185287,
+      "sha256": "f8c8b37bd84a6b36491955d1c5e105452112e7eb4e28e5ef9f149359e1d8b926",
+      "alt": "Original WeChat group 3 invitation card for enlargement and saving",
       "usages": []
     },
     {
-      "path": "/assets/v2/wechat-group-2-code.png",
-      "purpose": "Scannable WeChat group 2 QR code",
-      "source": "User supplied WeChat invitation, design/community/wechat-group-2-original.png",
-      "sourceSha256": "068a5ac10b8b723c91807b88ac001acb57bfb9db248a41522519ece7de1773c1",
-      "transformation": "Lossless crop x=70, y=300, width=400, height=400; no QR regeneration or pixel edits",
-      "validBefore": "2026-10-26",
+      "path": "/assets/v2/wechat-group-3-code.png",
+      "purpose": "Scannable WeChat group 3 QR code",
+      "source": "User supplied WeChat invitation, design/community/wechat-group-3-original.png",
+      "sourceSha256": "f8c8b37bd84a6b36491955d1c5e105452112e7eb4e28e5ef9f149359e1d8b926",
+      "transformation": "Lossless crop x=15, y=0, width=600, height=600; add 24px quiet border on all sides; no QR regeneration or pixel edits",
+      "validBefore": "2026-10-28",
       "language": "zh",
-      "width": 400,
-      "height": 400,
-      "bytes": 36926,
-      "sha256": "7aaa0270b561ed756c7c9a7babb16254dbefe0dc24792f1a2394c0fd45e53589",
-      "alt": "Scannable WeChat group 2 QR code",
+      "width": 648,
+      "height": 648,
+      "bytes": 181649,
+      "sha256": "f80f6dd46ee9d4bd7e5c0f96c165e2c0df9e207b0a9e2508cc9e9d84c74d96f7",
+      "alt": "Scannable WeChat group 3 QR code",
       "usages": [
         {
-          "path": "/assets/v2/wechat-group-2-code.png",
-          "alt": "ZeroWallScience 交流群（2群）微信二维码，2026 年 10 月 26 日前有效",
+          "path": "/assets/v2/wechat-group-3-code.png",
+          "alt": "ZeroWallScience 交流群（3群）微信二维码，2026 年 10 月 28 日前有效",
           "language": "zh-CN",
           "page": "/"
         },
         {
-          "path": "/assets/v2/wechat-group-2-code.png",
-          "alt": "WeChat QR code for ZeroWallScience user group 2, valid before 26 October 2026",
+          "path": "/assets/v2/wechat-group-3-code.png",
+          "alt": "WeChat QR code for ZeroWallScience user group 3, valid before 28 October 2026",
           "language": "en",
           "page": "/en/"
         }
