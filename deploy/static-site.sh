@@ -49,7 +49,12 @@ switched=1
 # Drop cached file descriptors after switching the static directory symlink.
 systemctl reload nginx
 for page in / /en/; do
-  body="$(curl -fsS --max-time 20 --resolve zerowallscience.org:443:127.0.0.1 "https://zerowallscience.org$page")"
+  # A graceful reload can briefly serve a request from the preceding worker.
+  for attempt in {1..10}; do
+    body="$(curl -fsS --max-time 20 --resolve zerowallscience.org:443:127.0.0.1 "https://zerowallscience.org$page")"
+    [[ "$body" == *'/assets/v2/wechat-group-3-code.png'* ]] && break
+    sleep 1
+  done
   [[ "$body" == *'id="community"'* && "$body" == *'/assets/v2/wechat-group-3-code.png'* ]]
   [[ "$body" == *'id="film"'* && "$body" == *'https://zerowall.chengxunkeji.cn/webfiles/zerowallsciencevideo.mp4'* ]]
   [[ "$body" != *'film-caption'* && "$body" != *'ppt-sample-link'* ]]
