@@ -6,9 +6,18 @@ const require = createRequire(import.meta.url);
 const { chromium } = require('C:/Users/ccf/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
 const base = process.env.SITE_PREVIEW_URL || 'http://127.0.0.1:4323';
 const out = resolve(process.env.BROWSER_OUTPUT_DIR || resolve(import.meta.dirname, '../artifacts/verification')); await mkdir(out, { recursive: true });
-const browser = await chromium.launch({ channel: 'chrome', headless: true });
+const browser = await chromium.launch({ channel: 'chrome', headless: true, args: ['--use-mock-keychain', '--password-store=basic'] });
 const report = { checkedAt: new Date().toISOString(), base, layouts: [], typography: [], downloads: [], interactions: [], errors: [] };
 const ids = ['agent', 'knockout', 'medical', 'reproduce', 'presentation'];
+// Wait for the visible selected state, so evidence never catches a tab mid-transition.
+const waitForTabIndicator = page => page.waitForFunction(() => {
+  const tabs = document.querySelector('.medical-body .visual-tabs');
+  const plate = tabs?.querySelector('.tab-indicator');
+  const selected = tabs?.querySelector('[aria-selected="true"]');
+  if (!plate || !selected) return true; // Reduced motion and no enhancement use static selection.
+  const a = plate.getBoundingClientRect(), b = selected.getBoundingClientRect();
+  return Math.abs(a.x - b.x) < 1 && Math.abs(a.y - b.y) < 1 && Math.abs(a.width - b.width) < 1;
+});
 try {
   for (const lang of (process.env.BROWSER_INTERACTIONS_ONLY ? [] : ['zh','en'])) for (const width of [1440,1280,768,390]) {
     const height = width === 390 ? 844 : width === 1280 ? 800 : 960;
@@ -24,7 +33,7 @@ try {
     await page.evaluate(() => document.fonts.ready);
     const typography = await page.evaluate(() => {
       const size = selector => parseFloat(getComputedStyle(document.querySelector(selector)).fontSize);
-      return { description: size('.feature-description'), points: size('.feature-points'), title: size('.feature-copy h2'), titleWeight: Number(getComputedStyle(document.querySelector('.feature-copy h2')).fontWeight), heroBody: size('.hero-sub'), demoText: size('.agent-plan li'), fontLoaded: document.fonts.check('600 18px Montserrat'), chineseStack: getComputedStyle(document.body).fontFamily };
+      return { description: size('.feature-description'), points: size('.feature-points'), title: size('.feature-copy h2'), titleWeight: Number(getComputedStyle(document.querySelector('.feature-copy h2')).fontWeight), heroBody: size('.hero-sub'), demoText: size('.agent-plan li'), fontLoaded: ['700 18px "Bricolage Grotesque"', '400 18px Inter', '400 12px "JetBrains Mono"'].every(font => document.fonts.check(font)), chineseStack: getComputedStyle(document.body).fontFamily };
     });
     assert(typography.description >= 16 && typography.points >= 16 && typography.heroBody >= 16, 'Primary text must remain readable');
     assert(typography.title >= 30 && typography.titleWeight >= 700, 'Strong feature headings');
@@ -39,7 +48,7 @@ try {
     const enhanced = await page.locator('[data-story]').evaluate(n => n.classList.contains('story-enhanced'));
     assert.equal(enhanced, false, 'All widths use native document flow');
     for (const id of ids) {
-      if (width <= 1199) await page.locator('.menu-toggle').click();
+      if (await page.locator('.menu-toggle').isVisible()) await page.locator('.menu-toggle').click();
       await page.locator(`.nav-links a[href="#${id}"]`).click();
       if (enhanced) await page.waitForFunction(id => document.querySelector(`[id="${id}"]`).classList.contains('is-current'), id);
       await page.waitForTimeout(1000);
@@ -72,10 +81,12 @@ try {
   await page.waitForTimeout(800);
   await page.locator('[data-medical-tab="1"]').click();
   assert.equal(await page.locator('[data-medical-panel="1"]').isVisible(), true);
+  await waitForTabIndicator(page);
   await page.screenshot({ path: join(out, 'medical-clinical-tab.png') });
   await page.locator('[data-medical-tab="1"]').press('ArrowRight');
   await page.locator('[data-medical-panel="2"]').waitFor({ state: 'visible' });
   assert.equal(await page.locator('[data-medical-tab="2"]').getAttribute('aria-selected'), 'true');
+  await waitForTabIndicator(page);
   await page.screenshot({ path: join(out, 'medical-imaging-tab.png') });
   await page.locator('.nav-links a[href="#presentation"]').click();
   await page.locator('#presentation').waitFor();
@@ -93,6 +104,24 @@ try {
   await page.keyboard.press('Escape');
   assert.equal(await page.locator('.capture-link').evaluate(n => n === document.activeElement), true);
   report.interactions.push('direct hash, history back, medical keyboard tabs, PPTX object selection, dialog Escape and focus return');
+  const appearance = await page.evaluate(() => ({ background: getComputedStyle(document.body).backgroundColor, primary: getComputedStyle(document.querySelector('.hero .button-primary')).backgroundColor, radius: getComputedStyle(document.querySelector('.hero .button-primary')).borderRadius }));
+  assert.deepEqual(appearance, { background: 'rgb(243, 247, 245)', primary: 'rgb(36, 114, 99)', radius: '12px' });
+  for (const lang of ['zh', 'en']) {
+    const zoom = await browser.newPage({ viewport: { width: 1440, height: 960 } });
+    await zoom.goto(base + (lang === 'en' ? '/en/' : '/'));
+    const cdp = await zoom.context().newCDPSession(zoom);
+    await cdp.send('Emulation.setDeviceMetricsOverride', { width: 720, height: 480, deviceScaleFactor: 2, mobile: false, scale: 1 });
+    await zoom.evaluate(() => document.fonts.ready);
+    assert.equal(await zoom.evaluate(() => document.documentElement.scrollWidth > innerWidth), false, lang + ' 200% reflow');
+    await zoom.locator('.hero .button-primary').scrollIntoViewIfNeeded();
+    assert.equal(await zoom.locator('.hero .button-primary').isVisible(), true);
+    await zoom.screenshot({ path: join(out, lang + '-200-percent.png') });
+    await zoom.locator('#presentation').scrollIntoViewIfNeeded();
+    await zoom.locator('[data-ppt-mode="objects"]').click();
+    assert.equal(await zoom.evaluate(() => document.documentElement.scrollWidth > innerWidth), false, lang + ' 200% PPT controls');
+    report.interactions.push(lang + ' 200% effective viewport reflow');
+    await cdp.detach(); await zoom.close();
+  }
   // All three real native CTAs must start downloads without changing the website URL.
   // Use separate contexts so Chromium's repeated-download guard is not triggered
   // by cancelling the preceding verification download.
@@ -116,7 +145,7 @@ try {
     await page.goto(`${base}/`); await page.waitForTimeout(mode === 'no-js' ? 100 : 2200);
     assert((await page.locator('[data-latest-windows-download]').first().getAttribute('href')).endsWith('.exe'));
     if (['no-js','reduced-motion','low-performance'].includes(mode)) assert.equal(await page.locator('[data-story]').evaluate(n => n.classList.contains('story-enhanced')), false);
-    if (['no-webgl','reduced-motion','low-performance'].includes(mode)) assert.equal(await page.locator('.hero-device').evaluate(n => n.classList.contains('is-live')), false);
+    assert.equal(await page.locator('.hero-device canvas').count(), 0, 'Product hero needs no WebGL');
     if (mode === 'no-js') { const before = page.url(); const [download] = await Promise.all([page.waitForEvent('download', { timeout: 60000 }), page.locator('[data-latest-windows-download]').first().click({ noWaitAfter: true })]); assert.equal(page.url(), before); await download.cancel(); }
     report.interactions.push(mode); await context.close();
   }
@@ -125,6 +154,7 @@ try {
   assert.equal(await mobile.locator('.menu-toggle').getAttribute('aria-expanded'), 'true');
   await mobile.keyboard.press('Escape'); assert.equal(await mobile.locator('.menu-toggle').getAttribute('aria-expanded'), 'false');
   await mobile.goto(`${base}/#medical`); await mobile.locator('[data-medical-tab="1"]').click(); assert.equal(await mobile.locator('[data-medical-panel="1"]').isVisible(), true);
+  await waitForTabIndicator(mobile);
   await mobile.locator('.visual-medical').scrollIntoViewIfNeeded(); await mobile.screenshot({ path: join(out, 'mobile-medical-clinical.png') });
   await mobile.goto(`${base}/#presentation`); await mobile.locator('[data-ppt-page="2"]').click(); await mobile.locator('[data-ppt-mode="objects"]').click();
   await mobile.locator('.visual-presentation').scrollIntoViewIfNeeded(); await mobile.screenshot({ path: join(out, 'mobile-editable-objects.png') });

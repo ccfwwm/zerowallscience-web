@@ -6,9 +6,10 @@ const { title, description, lang } = Astro.props;
 const canonical = `https://zerowallscience.org${lang === 'en' ? '/en/' : '/'}`;
 ---
 <!DOCTYPE html><html lang={lang === 'zh' ? 'zh-CN' : 'en'}><head>
-  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="theme-color" content="#090d14" />
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="theme-color" content="#f3f7f5" />
   <title>{title}</title><meta name="description" content={description} />
-  <link rel="preload" href="/fonts/montserrat-latin-variable.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/fonts/bricolage-grotesque-latin-variable.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/fonts/inter-latin-variable.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="icon" type="image/png" sizes="512x512" href="/assets/v2/zerowall-icon.png" /><link rel="icon" type="image/png" sizes="32x32" href="/assets/v2/favicon-zerowall-32.png" /><link rel="apple-touch-icon" href="/assets/v2/apple-touch-zerowall.png" />
   <link rel="canonical" href={canonical} /><link rel="alternate" hreflang="zh-CN" href="https://zerowallscience.org/" /><link rel="alternate" hreflang="en" href="https://zerowallscience.org/en/" /><link rel="alternate" hreflang="x-default" href="https://zerowallscience.org/" />
   <meta property="og:type" content="website" /><meta property="og:site_name" content="ZeroWall Science" /><meta property="og:title" content={title} /><meta property="og:description" content={description} /><meta property="og:url" content={canonical} /><meta property="og:locale" content={lang === 'zh' ? 'zh_CN' : 'en_US'} /><meta property="og:image" content={`https://zerowallscience.org/assets/v2/share-${lang}.png`} /><meta property="og:image:width" content="1200" /><meta property="og:image:height" content="630" /><meta name="twitter:card" content="summary_large_image" />

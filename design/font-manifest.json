@@ -1,11 +1,41 @@
 {
-  "family": "Montserrat",
-  "weights": "400-800",
-  "file": "/fonts/montserrat-latin-variable.woff2",
-  "source": "https://fonts.gstatic.com/s/montserrat/v31/JTUSjIg1_i6t8kCHKm459Wlhyw.woff2",
-  "license": "SIL Open Font License 1.1",
-  "licenseFile": "/fonts/Montserrat-OFL.txt",
-  "bytes": 37956,
-  "sha256": "06b16db7a969135d48d38c49183be7fb88d4452e2a3011957c7851941f4e4879",
+  "fonts": [
+    {
+      "family": "Bricolage Grotesque",
+      "slug": "bricolage-grotesque",
+      "dir": "bricolagegrotesque",
+      "weights": "500 800",
+      "file": "/fonts/bricolage-grotesque-latin-variable.woff2",
+      "source": "https://fonts.gstatic.com/s/bricolagegrotesque/v9/3y9K6as8bTXq_nANBjzKo3IeZx8z6up5BeSl9D4dj_x9PpZBMlGIInE.woff2",
+      "license": "SIL Open Font License 1.1",
+      "licenseFile": "/fonts/bricolage-grotesque-OFL.txt",
+      "bytes": 76888,
+      "sha256": "a79fdb52d4a5c76552452f69202add96e287401fff03d3e8c0e38b4dcb5a99cd"
+    },
+    {
+      "family": "Inter",
+      "slug": "inter",
+      "dir": "inter",
+      "weights": "400 700",
+      "file": "/fonts/inter-latin-variable.woff2",
+      "source": "https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2",
+      "license": "SIL Open Font License 1.1",
+      "licenseFile": "/fonts/inter-OFL.txt",
+      "bytes": 48256,
+      "sha256": "3100e775e8616cd2611beecfa23a4263d7037586789b43f035236a2e6fbd4c62"
+    },
+    {
+      "family": "JetBrains Mono",
+      "slug": "jetbrains-mono",
+      "dir": "jetbrainsmono",
+      "weights": "400 500",
+      "file": "/fonts/jetbrains-mono-latin-variable.woff2",
+      "source": "https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwg.woff2",
+      "license": "SIL Open Font License 1.1",
+      "licenseFile": "/fonts/jetbrains-mono-OFL.txt",
+      "bytes": 31432,
+      "sha256": "83c005d49d8a6a50474c73a5a36ac0468076e9c4a29da7bdb14995d80560a5be"
+    }
+  ],
   "chineseStack": "PingFang SC, Microsoft YaHei, Noto Sans SC, Source Han Sans SC, system-ui, sans-serif"
 }

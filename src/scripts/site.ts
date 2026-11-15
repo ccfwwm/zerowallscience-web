@@ -107,16 +107,7 @@ export function initSite() {
     addEventListener('pagehide', pause);
   });
 
-  if (!reduced.matches && 'IntersectionObserver' in window) {
-    const reveal = new IntersectionObserver(entries => { entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('is-revealed'); reveal.unobserve(entry.target); } }); }, { threshold: .08 });
-    document.querySelectorAll('[data-reveal]').forEach(node => reveal.observe(node)); document.documentElement.classList.add('has-reveals');
-  }
-  const hero = document.querySelector<HTMLElement>('[data-hero-device]');
-  if (hero && !reduced.matches && !constrained && matchMedia('(min-width:1024px)').matches) {
-    const start = () => {
-      if (hero.getBoundingClientRect().bottom < 0 || reduced.matches || document.hidden) return;
-      void import('./brand-scene').then(module => module.startBrandScene(hero)).catch(() => { /* The static brand poster is the complete fallback. */ });
-    };
-    if ('requestIdleCallback' in window) window.requestIdleCallback(start, { timeout: 1800 }); else setTimeout(start, 600);
+  if (!reduced.matches && !constrained) {
+    void import('./motion').then(module => module.initMotion()).catch(() => { /* Content stays visible if enhancement is unavailable. */ });
   }
 }

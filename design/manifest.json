@@ -207,13 +207,25 @@
       "usages": [
         {
           "path": "/assets/v2/app-workspace.webp",
-          "alt": "重新采集的 ZeroWall Science 8.4.0 科研工作台",
+          "alt": "ZeroWall Science 8.4.0 科研工具界面，包含显微图像、病理切片和分子结构查看入口",
           "language": "zh-CN",
           "page": "/"
         },
         {
           "path": "/assets/v2/app-workspace.webp",
-          "alt": "New capture of the ZeroWall Science 8.4.0 research workspace",
+          "alt": "",
+          "language": "zh-CN",
+          "page": "/"
+        },
+        {
+          "path": "/assets/v2/app-workspace.webp",
+          "alt": "ZeroWall Science 8.4.0 research tools: microscopy, histology and molecular viewers",
+          "language": "en",
+          "page": "/en/"
+        },
+        {
+          "path": "/assets/v2/app-workspace.webp",
+          "alt": "",
           "language": "en",
           "page": "/en/"
         }
@@ -448,20 +460,7 @@
       "bytes": 119170,
       "sha256": "9fab3072473873db1022fd409032c4e8005d9dacc31ef3cc475d100a330bba62",
       "alt": "Original icon artwork with orbital accents; static animation fallback",
-      "usages": [
-        {
-          "path": "/assets/v2/hero-poster.webp",
-          "alt": "",
-          "language": "zh-CN",
-          "page": "/"
-        },
-        {
-          "path": "/assets/v2/hero-poster.webp",
-          "alt": "",
-          "language": "en",
-          "page": "/en/"
-        }
-      ]
+      "usages": []
     },
     {
       "path": "/assets/v2/hero-mobile.webp",
@@ -479,46 +478,48 @@
     },
     {
       "path": "/assets/v2/wechat-group-3.png",
-      "purpose": "Original WeChat group 3 invitation card for enlargement and saving",
-      "source": "User supplied WeChat invitation, design/community/wechat-group-3-original.png",
-      "sourceSha256": "f8c8b37bd84a6b36491955d1c5e105452112e7eb4e28e5ef9f149359e1d8b926",
-      "transformation": "None: original bytes preserved",
-      "validBefore": "2026-10-28",
+      "purpose": "User supplied WeChat group 3 invitation card",
+      "source": "User supplied chat attachment, received 2026-11-15",
+      "sourceSha256": "25f0e4782a8c552ba29f2c7c359705dca22c61cccbae5901e1a043f3c5fdc434",
+      "transformation": "None: original attachment bytes preserved",
+      "validBefore": "2026-11-22",
       "language": "zh",
-      "width": 663,
-      "height": 677,
-      "bytes": 185287,
-      "sha256": "f8c8b37bd84a6b36491955d1c5e105452112e7eb4e28e5ef9f149359e1d8b926",
-      "alt": "Original WeChat group 3 invitation card for enlargement and saving",
-      "usages": []
+      "width": 360,
+      "height": 566,
+      "bytes": 75209,
+      "sha256": "25f0e4782a8c552ba29f2c7c359705dca22c61cccbae5901e1a043f3c5fdc434",
+      "alt": "Original ZeroWallScience group 3 WeChat invitation, valid before 22 November 2026",
+      "usages": [],
+      "currentStatus": "active"
     },
     {
       "path": "/assets/v2/wechat-group-3-code.png",
       "purpose": "Scannable WeChat group 3 QR code",
-      "source": "User supplied WeChat invitation, design/community/wechat-group-3-original.png",
-      "sourceSha256": "f8c8b37bd84a6b36491955d1c5e105452112e7eb4e28e5ef9f149359e1d8b926",
-      "transformation": "Lossless crop x=15, y=0, width=600, height=600; add 24px quiet border on all sides; no QR regeneration or pixel edits",
-      "validBefore": "2026-10-28",
+      "source": "User supplied chat attachment, received 2026-11-15",
+      "sourceSha256": "25f0e4782a8c552ba29f2c7c359705dca22c61cccbae5901e1a043f3c5fdc434",
+      "transformation": "Lossless crop x=44, y=200, width=272, height=272; add 24px white quiet border on all sides; no QR regeneration or pixel edits",
+      "validBefore": "2026-11-22",
       "language": "zh",
-      "width": 648,
-      "height": 648,
-      "bytes": 181649,
-      "sha256": "f80f6dd46ee9d4bd7e5c0f96c165e2c0df9e207b0a9e2508cc9e9d84c74d96f7",
-      "alt": "Scannable WeChat group 3 QR code",
+      "width": 320,
+      "height": 320,
+      "bytes": 32016,
+      "sha256": "cc8b62aea7ad58fd9e66cf114ae8058854d765d6f3446fd69c48fc0ed32ba6e5",
+      "alt": "Scannable ZeroWallScience group 3 WeChat QR code, valid before 22 November 2026",
       "usages": [
         {
           "path": "/assets/v2/wechat-group-3-code.png",
-          "alt": "ZeroWallScience 交流群（3群）微信二维码，2026 年 10 月 28 日前有效",
+          "alt": "ZeroWallScience 交流群（3群）微信二维码，2026 年 11 月 22 日前有效",
           "language": "zh-CN",
           "page": "/"
         },
         {
           "path": "/assets/v2/wechat-group-3-code.png",
-          "alt": "WeChat QR code for ZeroWallScience user group 3, valid before 28 October 2026",
+          "alt": "WeChat QR code for ZeroWallScience user group 3, valid before 22 November 2026",
           "language": "en",
           "page": "/en/"
         }
-      ]
+      ],
+      "currentStatus": "active"
     },
     {
       "path": "/assets/v2/promo-poster.webp",
@@ -549,11 +550,17 @@
       "language": "zh/en"
     },
     {
-      "purpose": "Brand scene",
-      "format": "WebGL",
-      "source": "User supplied original ZeroWall icon texture, cyan and violet orbital accents; static original-icon composition fallback",
-      "sourceSha256": "06b996189656a876dc973ba8f738b166ae228e38f73de899cee8d92fdcc3cc11",
-      "language": "neutral"
+      "purpose": "Workflow progress and controls",
+      "format": "HTML/CSS and Motion JS",
+      "source": "Original pine green interface, native scrolling and reduced-motion fallback",
+      "language": "zh/en"
     }
-  ]
+  ],
+  "currentDirection": {
+    "name": "松柏青 / Pine green",
+    "updatedAt": "2026-11-15",
+    "report": "design/PINE-REDESIGN.md",
+    "evidence": "artifacts/pine-redesign/",
+    "note": "Existing asset provenance and generation dates are historical; this redesign generated no new imagery."
+  }
 }

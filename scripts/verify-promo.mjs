@@ -7,7 +7,7 @@ const { chromium } = require('C:/Users/ccf/.cache/codex-runtimes/codex-primary-r
 const base = process.env.SITE_PREVIEW_URL || 'http://127.0.0.1:4323';
 const out = resolve(process.env.BROWSER_OUTPUT_DIR || 'artifacts/video-scroll');
 await mkdir(out, { recursive: true });
-const browser = await chromium.launch({ channel: 'chrome', headless: true });
+const browser = await chromium.launch({ channel: 'chrome', headless: true, args: ['--use-mock-keychain', '--password-store=basic'] });
 const report = { checkedAt: new Date().toISOString(), base, layouts: [], playback: [], errors: [] };
 try {
   for (const lang of ['zh', 'en']) for (const width of [1440, 1280, 768, 390]) {

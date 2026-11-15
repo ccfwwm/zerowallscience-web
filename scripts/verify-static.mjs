@@ -10,9 +10,11 @@ const builtBrand = await readFile(join(root, 'dist/assets/v2/zerowall-icon.png')
 assert(originalBrand.equals(publicBrand) && originalBrand.equals(builtBrand), 'Supplied icon must be preserved byte for byte');
 const originalBrandSha256 = createHash('sha256').update(originalBrand).digest('hex');
 const fontManifest = JSON.parse(await readFile(join(root, 'design/font-manifest.json'), 'utf8'));
-const fontBytes = await readFile(join(root, 'dist', fontManifest.file));
-assert.equal(createHash('sha256').update(fontBytes).digest('hex'), fontManifest.sha256, 'Local Montserrat font hash');
-await access(join(root, 'dist', fontManifest.licenseFile));
+for (const font of fontManifest.fonts) {
+  const bytes = await readFile(join(root, 'dist', font.file));
+  assert.equal(createHash('sha256').update(bytes).digest('hex'), font.sha256, font.family + ' local font hash');
+  await access(join(root, 'dist', font.licenseFile));
+}
 const pages = [];
 for (const [language, file, canonical] of [['zh-CN','index.html','https://zerowallscience.org/'],['en','en/index.html','https://zerowallscience.org/en/']]) {
   const html = await readFile(join(root, 'dist', file), 'utf8');
@@ -49,7 +51,7 @@ const redirect = await readFile(join(root, 'dist/zh/index.html'), 'utf8'); asser
 manifest.inlineVisuals = [
   { purpose: 'Knockout network comparison', format: 'SVG', source: 'Original illustrative topology, no scientific data', language: 'zh/en' },
   { purpose: 'Research steps, medical study inputs, paper reproduction, PPTX objects and media timeline', format: 'HTML/CSS', source: 'Original bilingual workflow demonstrations', language: 'zh/en' },
-  { purpose: 'Brand scene', format: 'WebGL', source: 'User supplied original ZeroWall icon texture, cyan and violet orbital accents; static original-icon composition fallback', sourceSha256: originalBrandSha256, language: 'neutral' }
+  { purpose: 'Workflow progress and controls', format: 'HTML/CSS and Motion JS', source: 'Original pine green interface, native scrolling and reduced-motion fallback', language: 'zh/en' }
 ];
 await writeFile(join(root, 'design/manifest.json'), JSON.stringify(manifest, null, 2));
 await mkdir(join(root, 'artifacts/verification'), { recursive: true });

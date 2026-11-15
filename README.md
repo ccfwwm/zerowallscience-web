@@ -25,18 +25,20 @@ pnpm preview --host 127.0.0.1 --port 4323
 - `src/components/PromoVideo.astro`：用户宣传片、原视频封面与移动端内联播放。
 - `src/components/FeatureVisual.astro`：双语流程示意与交互展示。
 - `src/scripts/site.ts`：滚动章节、键盘页签、菜单及图片预览。
-- `src/scripts/brand-scene.ts`：延迟加载的品牌三维动画。
+- `src/scripts/motion.ts`：轻量区块出场、页签指示与原生滚动流程线。
 - `src/lib/latest-release.mjs`：全页共享最新版本请求，3 秒超时并保留构建地址。
-- `public/assets/v2/`：原始 ZeroWall 图标、基于原图标制作的首屏视觉、插画、产品截图及分享封面。
+- `public/assets/v2/`：原始 ZeroWall 图标、现有插画、真实产品截图及分享封面。
 - `design/branding/zerowall-icon.png`：用户指定的原始图标，网站标志和完整尺寸 favicon 保持文件字节一致。
 - `design/manifest.json`：图片用途、来源、生成参数、尺寸、双语替代文本及 SHA-256。
-- `design/TYPOGRAPHY-REVIEW.md`：参考站字体与版式测量、字号对照及可读性验收规则。
-- `public/fonts/`：本地 Montserrat 可变字体及开放字体授权文件。
+- `design/PINE-REDESIGN.md`：当前松柏青设计、关键状态、独立评审与验收证据。
+- `public/fonts/`：本地 Bricolage Grotesque、Inter、JetBrains Mono 及各自 OFL 授权文件。
 - `public/samples/zerowall-editable-research.pptx`：由软件实际导出引擎生成的三页可编辑示例。
 
-首屏采用标题与品牌图形并排布局，宣传片在其后页内播放。五项能力在所有尺寸下自然连续展开，桌面左右交错，手机纵向排列；正文至少 16px、标题字重 700。原生锚点和历史导航不接管滚轮。视频点击后才请求 MP4，滚出视野或切换后台时暂停；无脚本保留原生视频控件。首屏品牌动画上限 30 fps，离屏暂停；WebGL 不可用时显示静态海报。页面内容和 EXE 下载链接直接存在于 HTML。
+首屏采用标题与真实科研工具界面并排布局，手机按文字、下载、产品画面排列，宣传片在其后页内播放。全站为灰白与白色内容面、深松绿标题和青绿操作控件，保留原始彩色标志。五项能力在所有尺寸下自然连续展开，桌面左右交错，手机纵向排列。原生锚点和历史导航不接管滚轮。视频点击后才请求 MP4，离屏或切换后台时暂停；无脚本保留原生控件。按钮、页签、区块与流程线采用轻量反馈，减少动态效果或增强加载失败时内容完整可见。页面内容和 EXE 下载链接直接存在于 HTML。
 
 ## 验证
+
+日常视觉检查使用开发服务器、类型检查和相关浏览器脚本即可；静态验证读取 dist，须在明确需要生产构建时运行，避免检查旧产物。
 
 ```powershell
 pnpm test
@@ -51,11 +53,11 @@ node scripts/verify-download.mjs
 
 浏览器验证与素材整理脚本默认使用当前 Windows 环境的 Codex 内置 Playwright 和 Sharp。`SITE_PREVIEW_URL` 可指定其他预览地址。网站运行和生产构建不依赖这些本地工具。完整下载校验会保存安装包到被 Git 忽略的 `artifacts/download-verification/`。
 
-`design/review.html` 提供桌面、手机与交互截图总览；检查记录位于 `artifacts/verification/`。
+本次改版的浏览器、视频与独立评审记录位于 `artifacts/pine-redesign/`，详见 `design/PINE-REDESIGN.md`。`design/review.html` 和 `artifacts/verification/` 为历史记录。
 
 ## 素材与事实边界
 
-辅助插画按指定的 `gpt-image-2.5-sunburst`、`quality=high` 生成。科研网络和图表演示均标明示意性质。真实截图来自 8.4.0 发布 Host 与离线插件的独立空白配置，影像截图展示文件选择界面。PPTX 含明确标识的演示数据，并完成原生对象检查、软件回读和逐页渲染检查。
+本次复用既有素材，没有生成或购买新图片。历史辅助插画按指定的 `gpt-image-2.5-sunburst`、`quality=high` 生成。科研网络和图表演示均标明示意性质。真实截图来自 8.4.0 发布 Host 与离线插件的独立空白配置，影像截图展示文件选择界面。当前页面截图标注 8.4.0，不作为 9.0 的界面截图。PPTX 的历史导出验证含原生对象检查、软件回读和逐页渲染检查；网页保留明确标识的对象演示。社群二维码已替换为用户于 2026-11-15 提供的新邀请，网页标注有效至 2026-11-22。
 
 ## 生产发布
 
